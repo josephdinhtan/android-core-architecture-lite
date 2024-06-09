@@ -11,6 +11,7 @@ fun SettingsRoute(
 ) {
     SettingsScreen(
         modifier = modifier,
+        onThemeChange = { /* call to settingsViewModel.changeTheme() */ },
         onBack = onBack,
     )
 }

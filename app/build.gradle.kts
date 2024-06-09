@@ -52,13 +52,17 @@ android {
 }
 
 dependencies {
+    // ui module
+    implementation(project(":designsystem"))
+    implementation(libs.androidx.material.icon)
+
     // protobuf
     implementation("com.google.protobuf:protobuf-javalite:3.19.4")
     // room
     implementation("androidx.room:room-runtime:2.3.0")
     implementation("androidx.room:room-ktx:2.3.0")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation(libs.androidx.navigation)
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
     kapt("androidx.room:room-compiler:2.3.0")

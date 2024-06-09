@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "android-core-architecture-lite"
 include(":app")
- 
+include(":designsystem")
