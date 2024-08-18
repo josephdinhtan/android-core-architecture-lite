@@ -8,9 +8,11 @@ fun HomeRoute(
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel,
     navigateToSettings: () -> Unit,
+    navigateToStateMachineDemo: () -> Unit,
 ) {
     HomeScreen(
         modifier = modifier,
         navigateToSettings = navigateToSettings,
+        navigateToStateMachineDemo = navigateToStateMachineDemo,
     )
 }

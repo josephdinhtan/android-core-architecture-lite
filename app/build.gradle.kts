@@ -67,6 +67,7 @@ dependencies {
 
     kapt("androidx.room:room-compiler:2.3.0")
 
+    implementation(libs.timber)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

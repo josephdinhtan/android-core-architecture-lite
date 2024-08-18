@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.jddev.designsystem.component.CoreArchScrollBehavior
-import com.jddev.designsystem.component.CoreArchTopAppBar
+import com.jddev.designsystem.component.CoreArchLargeTopAppBar
 import com.jddev.designsystem.settingsui.SettingsGroup
 import com.jddev.designsystem.settingsui.SettingsNavigateItem
 
@@ -30,7 +30,7 @@ fun SettingsScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            CoreArchTopAppBar(
+            CoreArchLargeTopAppBar(
                 modifier = modifier,
                 scrollBehavior = scrollBehavior,
                 onBack = onBack,

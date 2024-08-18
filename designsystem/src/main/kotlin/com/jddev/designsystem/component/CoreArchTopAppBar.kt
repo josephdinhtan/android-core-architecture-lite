@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
@@ -16,7 +16,7 @@ import com.jddev.designsystem.icon.CoreArchIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CoreArchLargeTopAppBar(
+fun CoreArchTopAppBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = TopAppBarDefaults.pinnedScrollBehavior(
         rememberTopAppBarState(),
@@ -25,7 +25,7 @@ fun CoreArchLargeTopAppBar(
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,
 ) {
-    LargeTopAppBar(
+    TopAppBar(
         modifier = modifier,
         scrollBehavior = scrollBehavior,
         colors = TopAppBarDefaults.largeTopAppBarColors(

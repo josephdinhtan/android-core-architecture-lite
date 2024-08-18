@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -14,18 +15,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.jddev.designsystem.component.CoreArchTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.jddev.designsystem.component.CoreArchLargeTopAppBar
+import com.jddev.designsystem.theme.CoreArchTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier,
     navigateToSettings: () -> Unit,
+    navigateToStateMachineDemo: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
         topBar = {
-            CoreArchTopAppBar(
+            CoreArchLargeTopAppBar(
                 modifier = modifier,
                 title = "Home",
                 actions = {
@@ -37,13 +41,29 @@ fun HomeScreen(
         },
     ) { innerPadding ->
         Column(
-            modifier = modifier.fillMaxSize().padding(innerPadding),
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Home Screen",
-            )
+            ElevatedButton(onClick = navigateToStateMachineDemo) {
+                Text(
+                    text = "State Machine Demo",
+                )
+            }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    CoreArchTheme {
+        HomeScreen(
+            modifier = Modifier,
+            navigateToSettings = {},
+            navigateToStateMachineDemo = {},
+        )
     }
 }
