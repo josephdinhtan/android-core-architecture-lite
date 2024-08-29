@@ -1,8 +1,14 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
 
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -23,14 +29,54 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("debug") {
+            //applicationIdSuffix = ".debug"
+            versionNameSuffix = "_debug"
             isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
+        }
+
+        getByName("release") {
+            isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
+
+        applicationVariants.all {
+            outputs.all {
+                (this as? BaseVariantOutputImpl)?.outputFileName =
+                    "CoreArch_${versionName}_${
+                        SimpleDateFormat("yyMMdd", Locale.US).format(
+                            Date()
+                        )
+                    }.apk"
+            }
+        }
     }
+
+    flavorDimensions += "app_type"
+    val dev = "dev"
+    val prd = "prd"
+    productFlavors {
+        create(dev) {
+            dimension = "app_type"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            buildConfigField("String", "DEV_MODE", "\"dev\"")
+            resValue("string", "app_name", "Icu Cam Dev")
+        }
+        create(prd) {
+            dimension = "app_type"
+            versionNameSuffix = "-prd"
+            buildConfigField("String", "DEV_MODE", "\"prd\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,6 +85,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -56,16 +103,18 @@ dependencies {
     implementation(project(":designsystem"))
     implementation(libs.androidx.material.icon)
 
-    // protobuf
-    implementation("com.google.protobuf:protobuf-javalite:3.19.4")
-    // room
-    implementation("androidx.room:room-runtime:2.3.0")
-    implementation("androidx.room:room-ktx:2.3.0")
     // navigation
     implementation(libs.androidx.navigation)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    kapt("androidx.room:room-compiler:2.3.0")
+    // hilt
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.dagger.hilt.android.compiler)
+    // room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
     implementation(libs.timber)
     implementation(libs.androidx.core.ktx)
@@ -76,6 +125,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

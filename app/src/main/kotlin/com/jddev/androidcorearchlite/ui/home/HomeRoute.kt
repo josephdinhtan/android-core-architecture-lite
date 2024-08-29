@@ -1,17 +1,15 @@
 package com.jddev.androidcorearchlite.ui.home
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun HomeRoute(
-    modifier: Modifier = Modifier,
-    homeViewModel: HomeViewModel,
+    homeViewModel: HomeViewModel = hiltViewModel(),
     navigateToSettings: () -> Unit,
     navigateToStateMachineDemo: () -> Unit,
 ) {
     HomeScreen(
-        modifier = modifier,
         navigateToSettings = navigateToSettings,
         navigateToStateMachineDemo = navigateToStateMachineDemo,
     )

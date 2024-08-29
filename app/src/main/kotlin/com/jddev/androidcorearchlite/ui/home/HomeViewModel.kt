@@ -1,17 +1,10 @@
 package com.jddev.androidcorearchlite.ui.home
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel() : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor() : ViewModel() {
 
-
-    companion object {
-        const val TAG = "HomeViewmodel"
-
-        fun provideFactory() = object : androidx.lifecycle.ViewModelProvider.Factory {
-            override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
-                return HomeViewModel() as T
-            }
-        }
-    }
 }

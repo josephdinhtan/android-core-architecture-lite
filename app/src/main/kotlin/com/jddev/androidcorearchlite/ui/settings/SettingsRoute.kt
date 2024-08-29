@@ -1,16 +1,14 @@
 package com.jddev.androidcorearchlite.ui.settings
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun SettingsRoute(
-    modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel,
+    settingsViewModel: SettingsViewModel = hiltViewModel(),
     onBack: () -> Unit,
 ) {
     SettingsScreen(
-        modifier = modifier,
         onThemeChange = { /* call to settingsViewModel.changeTheme() */ },
         onBack = onBack,
     )

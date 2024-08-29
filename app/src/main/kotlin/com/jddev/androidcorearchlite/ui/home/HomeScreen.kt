@@ -22,7 +22,7 @@ import com.jddev.designsystem.theme.CoreArchTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     navigateToSettings: () -> Unit,
     navigateToStateMachineDemo: () -> Unit,
 ) {

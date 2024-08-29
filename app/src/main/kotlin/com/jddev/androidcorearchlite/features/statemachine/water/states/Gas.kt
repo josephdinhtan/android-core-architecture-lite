@@ -5,7 +5,7 @@ import com.jddev.androidcorearchlite.features.statemachine.water.events.WaterEve
 import com.jddev.androidcorearchlite.features.statemachine.water.tools.ToolProvider
 import timber.log.Timber
 
-class Gas(private val toolProvider: ToolProvider) : BaseWaterState() {
+class Gas(private val toolProvider: ToolProvider) : BaseWaterState {
     override fun handleEvent(event: BaseEvent): BaseWaterState {
         Timber.d("Handling event: ${event.javaClass.simpleName}")
         return when (event) {

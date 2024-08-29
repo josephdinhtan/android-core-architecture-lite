@@ -6,11 +6,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.jddev.androidcorearchlite.app.AppContainer
+import com.jddev.androidcorearchlite.AppContainer
 import com.jddev.androidcorearchlite.ui.home.HomeRoute
-import com.jddev.androidcorearchlite.ui.home.HomeViewModel
 import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
-import com.jddev.androidcorearchlite.ui.settings.SettingsViewModel
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineRoute
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineViewModel
 import com.jddev.designsystem.component.DoubleBackPressToExit
@@ -33,11 +31,7 @@ fun CoreArchNavGraph(
         composableSlideTransition(
             route = CoreArchDestinations.HOME_ROUTE,
         ) {
-            val homeViewModel = viewModel<HomeViewModel>(
-                factory = HomeViewModel.provideFactory()
-            )
             HomeRoute(
-                homeViewModel = homeViewModel,
                 navigateToSettings = navigationActions.navigateToSettings,
                 navigateToStateMachineDemo = navigationActions.navigateToStateMachineDemo,
             )
@@ -45,11 +39,7 @@ fun CoreArchNavGraph(
         composableSlideTransition(
             route = CoreArchDestinations.SETTINGS_ROUTE,
         ) {
-            val settingsViewModel = viewModel<SettingsViewModel>(
-                factory = SettingsViewModel.provideFactory()
-            )
             SettingsRoute(
-                settingsViewModel = settingsViewModel,
                 onBack = { navController.popBackStack() },
             )
         }

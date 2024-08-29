@@ -3,7 +3,7 @@ package com.jddev.androidcorearchlite.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.rememberNavController
-import com.jddev.androidcorearchlite.app.AppContainer
+import com.jddev.androidcorearchlite.AppContainer
 import com.jddev.designsystem.theme.CoreArchTheme
 
 @Composable

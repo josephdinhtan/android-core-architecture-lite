@@ -22,7 +22,7 @@ import com.jddev.designsystem.settingsui.SettingsNavigateItem
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onThemeChange: () -> Unit,
     onBack: () -> Unit,
 ) {

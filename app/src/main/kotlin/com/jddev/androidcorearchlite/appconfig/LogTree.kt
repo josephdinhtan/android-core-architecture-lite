@@ -1,4 +1,4 @@
-package com.jddev.androidcorearchlite.app
+package com.jddev.androidcorearchlite.appconfig
 
 import timber.log.Timber
 
