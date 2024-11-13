@@ -35,7 +35,7 @@ class CoreArchForegroundService : Service() {
     private fun createNotificationChannel() {
         val serviceChannel = NotificationChannel(
             CHANNEL_ID,
-            "Icu Camera Service Channel",
+            "Camera Service Channel",
             NotificationManager.IMPORTANCE_DEFAULT
         )
         val manager = getSystemService(NotificationManager::class.java)
@@ -48,7 +48,7 @@ class CoreArchForegroundService : Service() {
             PendingIntent.FLAG_IMMUTABLE)
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Icu Camera Service")
+            .setContentTitle("Camera Service")
             .setContentText("Service is running in the foreground")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentIntent(pendingIntent)
@@ -56,6 +56,6 @@ class CoreArchForegroundService : Service() {
     }
 
     companion object {
-        private const val CHANNEL_ID = "IcuCameraDevServiceChannel"
+        private const val CHANNEL_ID = "CameraDevServiceChannel"
     }
 }

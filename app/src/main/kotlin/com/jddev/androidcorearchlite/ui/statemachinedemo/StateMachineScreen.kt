@@ -18,9 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jddev.designsystem.component.CoreArchScrollBehavior
-import com.jddev.designsystem.component.CoreArchTopAppBar
-import com.jddev.designsystem.theme.CoreArchTheme
+import com.simpletouch.ui.component.StUiScrollBehavior
+import com.simpletouch.ui.component.StUiTopAppBar
+import com.simpletouch.ui.theme.StUiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,11 +33,11 @@ fun StateMachineScreen(
     makeCool: () -> Unit,
     onBack: () -> Unit,
 ) {
-    val scrollBehavior = CoreArchScrollBehavior()
+    val scrollBehavior = StUiScrollBehavior()
     Scaffold(
         modifier = modifier,
         topBar = {
-            CoreArchTopAppBar(
+            StUiTopAppBar(
                 modifier = modifier,
                 scrollBehavior = scrollBehavior,
                 onBack = onBack,
@@ -85,7 +85,7 @@ fun StateMachineScreen(
 @Composable
 @Preview
 private fun Preview() {
-    CoreArchTheme {
+    StUiTheme {
         StateMachineScreen(
             currentState = "NewState",
             oldState = "Ice",

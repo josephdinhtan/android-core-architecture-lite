@@ -1,14 +1,16 @@
 package com.jddev.androidcorearchlite.ui.statemachinedemo
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.jddev.androidcorearchlite.features.statemachine.water.WaterManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StateMachineViewModel(
+@HiltViewModel
+class StateMachineViewModel @Inject constructor (
     private val waterManager: WaterManager
 ) : ViewModel() {
 
@@ -41,14 +43,6 @@ class StateMachineViewModel(
             waterManager.currentState.collect { waterState ->
                 _oldState.value = _currentState.value
                 _currentState.value = waterState::class.simpleName ?: ""
-            }
-        }
-    }
-
-    companion object {
-        fun provideFactory(waterManager: WaterManager) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return StateMachineViewModel(waterManager) as T
             }
         }
     }

@@ -1,18 +1,19 @@
 package com.jddev.androidcorearchlite
 
 import android.app.Application
-import com.jddev.androidcorearchlite.appconfig.AppTree
+import com.simpletouch.utils.logging.AppTree
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
+import javax.inject.Inject
 
 @HiltAndroidApp
 class CoreArchApplication : Application() {
+    @Inject
+    lateinit var appTree: AppTree
 
+    @Inject
     lateinit var container: AppContainer
 
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(AppTree())
-        container = AppContainerImpl(this.applicationContext)
     }
 }

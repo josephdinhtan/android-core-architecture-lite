@@ -2,27 +2,27 @@ package com.jddev.androidcorearchlite.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.jddev.androidcorearchlite.AppContainer
 import com.jddev.androidcorearchlite.ui.home.HomeRoute
 import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineRoute
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineViewModel
-import com.jddev.designsystem.component.DoubleBackPressToExit
-import com.jddev.designsystem.component.transition.composableSlideTransition
+import com.simpletouch.ui.component.StDoubleBackPressToExit
+import com.simpletouch.ui.component.transition.composableSlideTransition
 
 @Composable
 fun CoreArchNavGraph(
     modifier: Modifier = Modifier,
-    appContainer: AppContainer,
+    appContainer: com.jddev.androidcorearchlite.AppContainer,
     navController: NavHostController = rememberNavController(),
     navigationActions: CoreArchNavigationActions,
     startDestination: String = CoreArchDestinations.HOME_ROUTE,
 ) {
-    DoubleBackPressToExit()
+    StDoubleBackPressToExit()
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -45,10 +45,8 @@ fun CoreArchNavGraph(
         }
         composableSlideTransition(
             route = CoreArchDestinations.STATE_MACHINE_DEMO_ROUTE,
-        ) {
-            val stateMachineViewModel = viewModel<StateMachineViewModel>(
-                factory = StateMachineViewModel.provideFactory(appContainer.waterManager)
-            )
+        ) { backStackEntry ->
+            val stateMachineViewModel = hiltViewModel<StateMachineViewModel>(backStackEntry)
             StateMachineRoute(
                 stateMachineViewModel = stateMachineViewModel,
                 onBack = { navController.popBackStack() },

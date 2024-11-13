@@ -3,12 +3,11 @@ package com.jddev.androidcorearchlite.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.rememberNavController
-import com.jddev.androidcorearchlite.AppContainer
-import com.jddev.designsystem.theme.CoreArchTheme
+import com.simpletouch.ui.theme.StUiTheme
 
 @Composable
-fun CoreArchApp(appContainer: AppContainer) {
-    CoreArchTheme {
+fun CoreArchApp(appContainer: com.jddev.androidcorearchlite.AppContainer) {
+    StUiTheme {
         val navController = rememberNavController()
         val navigationActions = remember(navController) { CoreArchNavigationActions(navController) }
         CoreArchNavGraph(

@@ -16,8 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.jddev.designsystem.component.CoreArchLargeTopAppBar
-import com.jddev.designsystem.theme.CoreArchTheme
+import com.simpletouch.ui.component.StUiLargeTopAppBar
+import com.simpletouch.ui.theme.StUiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,7 +29,7 @@ fun HomeScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            CoreArchLargeTopAppBar(
+            StUiLargeTopAppBar(
                 modifier = modifier,
                 title = "Home",
                 actions = {
@@ -59,7 +59,7 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    CoreArchTheme {
+    StUiTheme {
         HomeScreen(
             modifier = Modifier,
             navigateToSettings = {},

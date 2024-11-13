@@ -1,21 +1,13 @@
 package com.jddev.androidcorearchlite
 
 import android.content.Context
-import com.jddev.androidcorearchlite.features.statemachine.water.WaterManager
+import com.jddev.androidcorearchlite.ui.debug.DevUtility
+import com.jddev.androidcorearchlite.appconfig.AppConfig
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-interface AppContainer {
-    val waterManager: WaterManager
-}
-
-class AppContainerImpl(
-    private val applicationContext: Context,
-) : AppContainer {
-
-    override val waterManager: WaterManager by lazy {
-        WaterManager()
-    }
-
-    init {
-        waterManager
-    }
-}
+class AppContainer @Inject constructor (
+    @ApplicationContext val applicationContext: Context,
+    val appConfig: AppConfig,
+    val devUtility: DevUtility,
+)

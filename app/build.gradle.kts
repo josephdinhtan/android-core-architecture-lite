@@ -13,12 +13,12 @@ plugins {
 
 android {
     namespace = "com.jddev.androidcorearchlite"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.jddev.androidcorearchlite"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -68,7 +68,7 @@ android {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
             buildConfigField("String", "DEV_MODE", "\"dev\"")
-            resValue("string", "app_name", "Icu Cam Dev")
+            resValue("string", "app_name", "Core Arch Dev")
         }
         create(prd) {
             dimension = "app_type"
@@ -99,20 +99,20 @@ android {
 }
 
 dependencies {
+    implementation(project(":simpletouch-ui"))
     // ui module
-    implementation(project(":designsystem"))
     implementation(libs.androidx.material.icon)
 
     // navigation
     implementation(libs.androidx.navigation)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // hilt
-    implementation(libs.dagger.hilt.android)
+    implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.dagger.hilt.android.compiler)
+    implementation(project(":simpletouch-utils"))
+    kapt(libs.hilt.android.compiler)
     // room
-    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Flag
@@ -14,10 +15,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.jddev.designsystem.component.CoreArchScrollBehavior
-import com.jddev.designsystem.component.CoreArchLargeTopAppBar
-import com.jddev.designsystem.settingsui.SettingsGroup
-import com.jddev.designsystem.settingsui.SettingsNavigateItem
+import com.simpletouch.ui.component.StUiLargeTopAppBar
+import com.simpletouch.ui.component.StUiScrollBehavior
+import com.simpletouch.ui.settingsui.SettingsGroup
+import com.simpletouch.ui.settingsui.SettingsNavigateItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,11 +27,11 @@ fun SettingsScreen(
     onThemeChange: () -> Unit,
     onBack: () -> Unit,
 ) {
-    val scrollBehavior = CoreArchScrollBehavior()
+    val scrollBehavior = StUiScrollBehavior()
     Scaffold(
         modifier = modifier,
         topBar = {
-            CoreArchLargeTopAppBar(
+            StUiLargeTopAppBar(
                 modifier = modifier,
                 scrollBehavior = scrollBehavior,
                 onBack = onBack,
@@ -69,7 +70,7 @@ fun SettingsScreen(
                     )
                     SettingsNavigateItem(
                         title = "Chat with us",
-                        leadingIcon = Icons.Filled.Chat,
+                        leadingIcon = Icons.AutoMirrored.Filled.Chat,
                         onClick = onThemeChange,
                     )
                     SettingsNavigateItem(

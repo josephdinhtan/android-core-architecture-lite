@@ -12,8 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class WaterManager {
+class WaterManager @Inject constructor() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private val fridgeEventFlow = MutableSharedFlow<FridgeEvent>()
     private val kettleEventFlow = MutableSharedFlow<KettleEvent>()
@@ -44,7 +45,9 @@ class WaterManager {
             fridgeEventFlow.collect { event ->
                 when (event) {
                     is FridgeEvent.CoolingFinished -> waterStateMachine.sendEvent(WaterEvent.FinishedCooling)
-                    is FridgeEvent.StartCooling -> { Timber.d("Fridge cooling started") }
+                    is FridgeEvent.StartCooling -> {
+                        Timber.d("Fridge cooling started")
+                    }
                 }
             }
         }
@@ -53,7 +56,9 @@ class WaterManager {
             kettleEventFlow.collect { event ->
                 when (event) {
                     is KettleEvent.HeatingFinished -> waterStateMachine.sendEvent(WaterEvent.FinishedHeating)
-                    is KettleEvent.StartHeating -> { Timber.d("Kettle heating started") }
+                    is KettleEvent.StartHeating -> {
+                        Timber.d("Kettle heating started")
+                    }
                 }
             }
         }
