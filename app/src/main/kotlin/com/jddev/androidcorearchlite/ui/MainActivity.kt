@@ -6,10 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
-import com.jddev.androidcorearchlite.AppContainer
 import com.jddev.androidcorearchlite.CoreArchApplication
 import com.jddev.androidcorearchlite.ui.debug.DevControlPanelContent
-import com.simpletouch.utils.debugui.DevUtilityUi
+import com.jddev.simpletouch.utils.debugui.DevUtilityUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -3,7 +3,6 @@ package com.jddev.androidcorearchlite.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -11,8 +10,8 @@ import com.jddev.androidcorearchlite.ui.home.HomeRoute
 import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineRoute
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineViewModel
-import com.simpletouch.ui.component.StDoubleBackPressToExit
-import com.simpletouch.ui.component.transition.composableSlideTransition
+import com.jddev.simpletouch.ui.component.StDoubleBackPressToExit
+import com.jddev.simpletouch.ui.component.transition.composableSlideTransition
 
 @Composable
 fun CoreArchNavGraph(

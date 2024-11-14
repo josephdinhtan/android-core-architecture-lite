@@ -2,10 +2,8 @@ package com.jddev.androidcorearchlite.ui.settings
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
-import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Info
@@ -15,10 +13,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.simpletouch.ui.component.StUiLargeTopAppBar
-import com.simpletouch.ui.component.StUiScrollBehavior
-import com.simpletouch.ui.settingsui.SettingsGroup
-import com.simpletouch.ui.settingsui.SettingsNavigateItem
+import com.jddev.simpletouch.ui.component.StUiLargeTopAppBar
+import com.jddev.simpletouch.ui.component.StUiScrollBehavior
+import com.jddev.simpletouch.ui.settingsui.SettingsGroup
+import com.jddev.simpletouch.ui.settingsui.SettingsNavigateItem
+import com.jddev.simpletouch.ui.settingsui.SettingsSwitchItem
+import com.jddev.simpletouch.ui.settingsui.SettingsUi
+import com.jddev.simpletouch.ui.settingsui.UiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,11 +40,12 @@ fun SettingsScreen(
             )
         },
     ) { innerPadding ->
-        LazyColumn(
+        SettingsUi(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
+            uiStyle = UiStyle.Cupertino,
         ) {
             item {
                 SettingsGroup(title = "General") {
@@ -56,6 +58,34 @@ fun SettingsScreen(
                     SettingsNavigateItem(
                         title = "Language",
                         subTitle = "English",
+                        leadingIcon = Icons.Default.Language,
+                        onClick = onThemeChange,
+                    )
+                    SettingsSwitchItem(
+                        title = "Switch test",
+                        subTitle = "Switch test sub title",
+                        leadingIcon = Icons.Default.Language,
+                        onClick = onThemeChange,
+                    )
+                }
+            }
+            item {
+                SettingsGroup(title = "Other") {
+                    SettingsNavigateItem(
+                        title = "Theme",
+                        subTitle = "Dark mode",
+                        leadingIcon = Icons.Default.DarkMode,
+                        onClick = onThemeChange,
+                    )
+                    SettingsNavigateItem(
+                        title = "Language",
+                        subTitle = "English",
+                        leadingIcon = Icons.Default.Language,
+                        onClick = onThemeChange,
+                    )
+                    SettingsSwitchItem(
+                        title = "Switch test",
+                        subTitle = "Switch test sub title",
                         leadingIcon = Icons.Default.Language,
                         onClick = onThemeChange,
                     )
@@ -76,6 +106,12 @@ fun SettingsScreen(
                     SettingsNavigateItem(
                         title = "About us",
                         leadingIcon = Icons.Default.Info,
+                        onClick = onThemeChange,
+                    )
+                    SettingsSwitchItem(
+                        title = "Switch test",
+                        subTitle = "Switch test sub title",
+                        leadingIcon = Icons.Default.Language,
                         onClick = onThemeChange,
                     )
                 }

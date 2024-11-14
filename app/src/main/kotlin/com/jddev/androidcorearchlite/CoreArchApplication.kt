@@ -1,7 +1,7 @@
 package com.jddev.androidcorearchlite
 
 import android.app.Application
-import com.simpletouch.utils.logging.AppTree
+import com.jddev.simpletouch.utils.logging.AppTree
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

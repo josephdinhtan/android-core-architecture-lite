@@ -3,10 +3,11 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("maven-publish")
 }
 
 android {
-    namespace = "com.simpletouch.utils"
+    namespace = "com.jddev.simpletouch.utils"
     compileSdk = 35
 
     defaultConfig {
@@ -37,6 +38,20 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.jddev.simpletouch"
+            artifactId = "simpletouch-utils"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
     }
 }
 

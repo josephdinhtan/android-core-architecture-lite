@@ -18,9 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.simpletouch.ui.component.StUiScrollBehavior
-import com.simpletouch.ui.component.StUiTopAppBar
-import com.simpletouch.ui.theme.StUiTheme
+import com.jddev.simpletouch.ui.component.StUiScrollBehavior
+import com.jddev.simpletouch.ui.component.StUiTopAppBar
+import com.jddev.simpletouch.ui.theme.StUiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

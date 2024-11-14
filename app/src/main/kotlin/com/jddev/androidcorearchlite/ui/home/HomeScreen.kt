@@ -16,8 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.simpletouch.ui.component.StUiLargeTopAppBar
-import com.simpletouch.ui.theme.StUiTheme
+import com.jddev.simpletouch.ui.component.StUiLargeTopAppBar
+import com.jddev.simpletouch.ui.theme.StUiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
