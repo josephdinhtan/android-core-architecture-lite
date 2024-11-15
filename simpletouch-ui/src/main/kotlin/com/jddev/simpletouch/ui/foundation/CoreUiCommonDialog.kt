@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.component
+package com.jddev.simpletouch.ui.foundation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info

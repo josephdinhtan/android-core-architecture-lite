@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.jddev.simpletouch.ui.component.StUiCameraCommonDialog
+import com.jddev.simpletouch.ui.foundation.StUiCameraCommonDialog
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable

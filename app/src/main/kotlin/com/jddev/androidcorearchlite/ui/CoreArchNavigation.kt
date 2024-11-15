@@ -2,28 +2,38 @@ package com.jddev.androidcorearchlite.ui
 
 import androidx.navigation.NavHostController
 
-object CoreArchDestinations {
-    const val HOME_ROUTE = "home"
-    const val SETTINGS_ROUTE = "settings"
+sealed class ScreenNavigation(val route: String) {
 
-    const val STATE_MACHINE_DEMO_ROUTE = "state_machine_demo"
+    data object Home : ScreenNavigation("home")
+    data object UiCatalog : ScreenNavigation("ui_catalog_nav")
+    data object Settings : ScreenNavigation("settings")
+    data object StateMachine : ScreenNavigation("state_machine_demo")
+    data object Details : ScreenNavigation("details/{itemId}") {
+        fun createRoute(itemId: String) = "details/$itemId"
+    }
 }
 
 class CoreArchNavigationActions(navController: NavHostController) {
     val navigateToHome: () -> Unit = {
-        navController.navigate(CoreArchDestinations.HOME_ROUTE) {
+        navController.navigate(ScreenNavigation.Home.route) {
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+    val navigateToUiCatalog: () -> Unit = {
+        navController.navigate(ScreenNavigation.UiCatalog.route) {
             launchSingleTop = true
             restoreState = true
         }
     }
     val navigateToSettings: () -> Unit = {
-        navController.navigate(CoreArchDestinations.SETTINGS_ROUTE) {
+        navController.navigate(ScreenNavigation.Settings.route) {
             launchSingleTop = true
             restoreState = true
         }
     }
     val navigateToStateMachineDemo: () -> Unit = {
-        navController.navigate(CoreArchDestinations.STATE_MACHINE_DEMO_ROUTE) {
+        navController.navigate(ScreenNavigation.StateMachine.route) {
             launchSingleTop = true
             restoreState = true
         }

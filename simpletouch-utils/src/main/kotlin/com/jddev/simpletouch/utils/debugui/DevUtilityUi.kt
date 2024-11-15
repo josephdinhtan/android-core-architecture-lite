@@ -23,7 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.component.StUiDragBox
+import com.jddev.simpletouch.ui.foundation.StUiDragBox
 import com.jddev.simpletouch.utils.debugui.logging.LogcatBottomSheet
 import com.jddev.simpletouch.utils.logging.LogManager
 

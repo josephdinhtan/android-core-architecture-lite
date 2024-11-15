@@ -13,8 +13,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.jddev.simpletouch.ui.component.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.component.StUiScrollBehavior
+import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
+import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
 import com.jddev.simpletouch.ui.settingsui.SettingsGroup
 import com.jddev.simpletouch.ui.settingsui.SettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.SettingsSwitchItem

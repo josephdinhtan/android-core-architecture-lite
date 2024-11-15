@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import timber.log.Timber
 
 @Composable
 fun SettingsSwitchItem(
@@ -29,7 +28,6 @@ fun SettingsSwitchItem(
 ) {
     val disableAlpha = SETTINGS_UI_DISABLE_ALPHA
     val localUiStyle = LocalUiStyle.current
-    Timber.e("SettingsSwitchItem: $localUiStyle")
     SettingsItem(
         modifier = modifier,
         headlineContent = {

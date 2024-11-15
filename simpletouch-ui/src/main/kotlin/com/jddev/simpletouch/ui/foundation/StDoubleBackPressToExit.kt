@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.component
+package com.jddev.simpletouch.ui.foundation
 
 import android.widget.Toast
 import androidx.activity.compose.BackHandler

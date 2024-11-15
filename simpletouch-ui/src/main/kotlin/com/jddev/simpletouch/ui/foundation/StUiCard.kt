@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.component
+package com.jddev.simpletouch.ui.foundation
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable

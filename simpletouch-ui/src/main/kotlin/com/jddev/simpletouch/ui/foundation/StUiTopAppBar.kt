@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.component
+package com.jddev.simpletouch.ui.foundation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api

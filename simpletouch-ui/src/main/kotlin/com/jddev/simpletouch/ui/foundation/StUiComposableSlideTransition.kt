@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.component.transition
+package com.jddev.simpletouch.ui.foundation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -8,7 +8,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
-fun NavGraphBuilder.composableSlideTransition(
+fun NavGraphBuilder.stUiComposableSlideTransition(
     route: String,
     content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
 ) {

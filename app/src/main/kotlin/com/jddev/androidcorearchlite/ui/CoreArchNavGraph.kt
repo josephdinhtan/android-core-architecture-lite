@@ -4,46 +4,56 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.jddev.androidcorearchlite.AppContainer
+import com.jddev.androidcorearchlite.ui.catalog.CatalogNavGraph
 import com.jddev.androidcorearchlite.ui.home.HomeRoute
 import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineRoute
 import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineViewModel
-import com.jddev.simpletouch.ui.component.StDoubleBackPressToExit
-import com.jddev.simpletouch.ui.component.transition.composableSlideTransition
+import com.jddev.simpletouch.ui.foundation.StDoubleBackPressToExit
+import com.jddev.simpletouch.ui.foundation.StUiNavHost
 
 @Composable
 fun CoreArchNavGraph(
     modifier: Modifier = Modifier,
-    appContainer: com.jddev.androidcorearchlite.AppContainer,
+    appContainer: AppContainer,
     navController: NavHostController = rememberNavController(),
     navigationActions: CoreArchNavigationActions,
-    startDestination: String = CoreArchDestinations.HOME_ROUTE,
+    startDestination: String = ScreenNavigation.Home.route,
 ) {
     StDoubleBackPressToExit()
-    NavHost(
+    StUiNavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        composableSlideTransition(
-            route = CoreArchDestinations.HOME_ROUTE,
+        composable(
+            route = ScreenNavigation.Home.route,
         ) {
             HomeRoute(
                 navigateToSettings = navigationActions.navigateToSettings,
                 navigateToStateMachineDemo = navigationActions.navigateToStateMachineDemo,
+                navigateToUiCatalog = navigationActions.navigateToUiCatalog,
             )
         }
-        composableSlideTransition(
-            route = CoreArchDestinations.SETTINGS_ROUTE,
+        composable(
+            route = ScreenNavigation.UiCatalog.route,
+        ) {
+            CatalogNavGraph(
+                onBack = { navController.popBackStack() },
+            )
+        }
+        composable(
+            route = ScreenNavigation.Settings.route,
         ) {
             SettingsRoute(
                 onBack = { navController.popBackStack() },
             )
         }
-        composableSlideTransition(
-            route = CoreArchDestinations.STATE_MACHINE_DEMO_ROUTE,
+        composable(
+            route = ScreenNavigation.StateMachine.route,
         ) { backStackEntry ->
             val stateMachineViewModel = hiltViewModel<StateMachineViewModel>(backStackEntry)
             StateMachineRoute(

@@ -6,11 +6,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun HomeRoute(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    navigateToUiCatalog: () -> Unit,
     navigateToSettings: () -> Unit,
     navigateToStateMachineDemo: () -> Unit,
 ) {
     HomeScreen(
         navigateToSettings = navigateToSettings,
+        navigateToUiCatalog = navigateToUiCatalog,
         navigateToStateMachineDemo = navigateToStateMachineDemo,
     )
 }

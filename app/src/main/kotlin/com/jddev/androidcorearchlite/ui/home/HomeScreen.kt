@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.jddev.simpletouch.ui.component.StUiLargeTopAppBar
+import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.theme.StUiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,6 +24,7 @@ import com.jddev.simpletouch.ui.theme.StUiTheme
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToSettings: () -> Unit,
+    navigateToUiCatalog: () -> Unit,
     navigateToStateMachineDemo: () -> Unit,
 ) {
     Scaffold(
@@ -52,6 +53,11 @@ fun HomeScreen(
                     text = "State Machine Demo",
                 )
             }
+            ElevatedButton(onClick = navigateToUiCatalog) {
+                Text(
+                    text = "Ui Catalog",
+                )
+            }
         }
     }
 }
@@ -62,8 +68,9 @@ private fun Preview() {
     StUiTheme {
         HomeScreen(
             modifier = Modifier,
-            navigateToSettings = {},
-            navigateToStateMachineDemo = {},
+            {},
+            {},
+            {},
         )
     }
 }
