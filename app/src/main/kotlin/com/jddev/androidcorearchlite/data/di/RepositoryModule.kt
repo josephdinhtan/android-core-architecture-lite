@@ -1,20 +1,29 @@
 package com.jddev.androidcorearchlite.data.di
 
-import com.jddev.androidcorearchlite.data.SettingsRepositoryImpl
+import android.content.Context
+import com.jddev.androidcorearchlite.data.repository.NotificationRepositoryImpl
+import com.jddev.androidcorearchlite.data.repository.SettingsRepositoryImpl
+import com.jddev.androidcorearchlite.domain.repository.NotificationRepository
 import com.jddev.androidcorearchlite.domain.repository.SettingsRepository
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+object RepositoryModule {
 
-    @Binds
     @Singleton
-    abstract fun bindSettingsRepository(
-        impl: SettingsRepositoryImpl
-    ): SettingsRepository
+    @Provides
+    fun bindSettingsRepository(
+    ): SettingsRepository = SettingsRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun bindNotificationRepository(
+        @ApplicationContext context: Context,
+    ): NotificationRepository = NotificationRepositoryImpl(context)
 }

@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun StUiCameraCommonDialog(
+fun StUiCommonDialog(
     title: String? = null,
     message: String? = null,
     iconData: ImageVector = Icons.Default.Info,

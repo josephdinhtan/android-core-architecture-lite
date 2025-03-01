@@ -12,14 +12,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
-import com.jddev.simpletouch.ui.settingsui.SettingsGroup
-import com.jddev.simpletouch.ui.settingsui.SettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.SettingsSwitchItem
-import com.jddev.simpletouch.ui.settingsui.SettingsUi
-import com.jddev.simpletouch.ui.settingsui.UiStyle
+import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,81 +39,75 @@ fun SettingsScreen(
             )
         },
     ) { innerPadding ->
-        SettingsUi(
+        StSettingsUi(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
-            uiStyle = UiStyle.Cupertino,
+                .padding(innerPadding),
+            scrollBehavior = scrollBehavior,
+            uiStyle = StSettingsUiStyle.Material,
         ) {
-            item {
-                SettingsGroup(title = "General") {
-                    SettingsNavigateItem(
-                        title = "Theme",
-                        subTitle = "Dark mode",
-                        leadingIcon = Icons.Default.DarkMode,
-                        onClick = onThemeChange,
-                    )
-                    SettingsNavigateItem(
-                        title = "Language",
-                        subTitle = "English",
-                        leadingIcon = Icons.Default.Language,
-                        onClick = onThemeChange,
-                    )
-                    SettingsSwitchItem(
-                        title = "Switch test",
-                        subTitle = "Switch test sub title",
-                        leadingIcon = Icons.Default.Language,
-                        onClick = onThemeChange,
-                    )
-                }
+            StSettingsGroup(title = "General") {
+                StSettingsNavigateItem(
+                    title = "Theme",
+                    subTitle = "Dark mode",
+                    leadingIcon = Icons.Default.DarkMode,
+                    onClick = onThemeChange,
+                )
+                StSettingsNavigateItem(
+                    title = "Language",
+                    subTitle = "English",
+                    leadingIcon = Icons.Default.Language,
+                    onClick = onThemeChange,
+                )
+                SettingsSwitchItem(
+                    title = "Switch test",
+                    subTitle = "Switch test sub title",
+                    leadingIcon = Icons.Default.Language,
+                    onCheckedChange = {},
+                )
             }
-            item {
-                SettingsGroup(title = "Other") {
-                    SettingsNavigateItem(
-                        title = "Theme",
-                        subTitle = "Dark mode",
-                        leadingIcon = Icons.Default.DarkMode,
-                        onClick = onThemeChange,
-                    )
-                    SettingsNavigateItem(
-                        title = "Language",
-                        subTitle = "English",
-                        leadingIcon = Icons.Default.Language,
-                        onClick = onThemeChange,
-                    )
-                    SettingsSwitchItem(
-                        title = "Switch test",
-                        subTitle = "Switch test sub title",
-                        leadingIcon = Icons.Default.Language,
-                        onClick = onThemeChange,
-                    )
-                }
+            StSettingsGroup(title = "Other") {
+                StSettingsNavigateItem(
+                    title = "Theme",
+                    subTitle = "Dark mode",
+                    leadingIcon = Icons.Default.DarkMode,
+                    onClick = onThemeChange,
+                )
+                StSettingsNavigateItem(
+                    title = "Language",
+                    subTitle = "English",
+                    leadingIcon = Icons.Default.Language,
+                    onClick = onThemeChange,
+                )
+                SettingsSwitchItem(
+                    title = "Switch test",
+                    subTitle = "Switch test sub title",
+                    leadingIcon = Icons.Default.Language,
+                    onCheckedChange = {},
+                )
             }
-            item {
-                SettingsGroup(title = "Support & Feedback") {
-                    SettingsNavigateItem(
-                        title = "Report an issue",
-                        leadingIcon = Icons.Default.Flag,
-                        onClick = onThemeChange,
-                    )
-                    SettingsNavigateItem(
-                        title = "Chat with us",
-                        leadingIcon = Icons.AutoMirrored.Filled.Chat,
-                        onClick = onThemeChange,
-                    )
-                    SettingsNavigateItem(
-                        title = "About us",
-                        leadingIcon = Icons.Default.Info,
-                        onClick = onThemeChange,
-                    )
-                    SettingsSwitchItem(
-                        title = "Switch test",
-                        subTitle = "Switch test sub title",
-                        leadingIcon = Icons.Default.Language,
-                        onClick = onThemeChange,
-                    )
-                }
+            StSettingsGroup(title = "Support & Feedback") {
+                StSettingsNavigateItem(
+                    title = "Report an issue",
+                    leadingIcon = Icons.Default.Flag,
+                    onClick = onThemeChange,
+                )
+                StSettingsNavigateItem(
+                    title = "Chat with us",
+                    leadingIcon = Icons.AutoMirrored.Filled.Chat,
+                    onClick = onThemeChange,
+                )
+                StSettingsNavigateItem(
+                    title = "About us",
+                    leadingIcon = Icons.Default.Info,
+                    onClick = onThemeChange,
+                )
+                SettingsSwitchItem(
+                    title = "Switch test",
+                    subTitle = "Switch test sub title",
+                    leadingIcon = Icons.Default.Language,
+                    onCheckedChange = {},
+                )
             }
         }
     }

@@ -2,30 +2,39 @@ package com.jddev.simpletouch.utils.permission
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.jddev.simpletouch.ui.foundation.StUiCameraCommonDialog
+import com.jddev.simpletouch.ui.foundation.StUiCommonDialog
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun CheckAndShowPermissionRequestDialog(
-    androidVersion: Int = android.os.Build.VERSION.SDK_INT,
+fun StUiCheckAndShowPermissionRequest(
+    requiredPermissions: List<String>,
+    needShowDialog: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     val multiplePermissionsState = rememberMultiplePermissionsState(
-        getPermissionRequired(androidVersion)
+        requiredPermissions
+        //getPermissionRequired(androidVersion)
     )
     Box {
         content()
         // If all permissions are granted, then show screen with the feature enabled
         if (!multiplePermissionsState.allPermissionsGranted) {
-            StUiCameraCommonDialog(
-                title = "Need Permissions",
-                message = getTextToShowGivenPermissions(),
-                onConfirmRequest = {
+            if(needShowDialog) {
+                StUiCommonDialog(
+                    title = "Need Permissions",
+                    message = getTextToShowGivenPermissions(),
+                    onConfirmRequest = {
+                        multiplePermissionsState.launchMultiplePermissionRequest()
+                    },
+                )
+            } else {
+                LaunchedEffect(Unit) {
                     multiplePermissionsState.launchMultiplePermissionRequest()
-                },
-            )
+                }
+            }
         }
     }
 }

@@ -7,12 +7,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jddev.androidcorearchlite.AppContainer
-import com.jddev.androidcorearchlite.ui.catalog.CatalogNavGraph
+import com.jddev.androidcorearchlite.ui.archcatalog.statemachinedemo.StateMachineRoute
+import com.jddev.androidcorearchlite.ui.archcatalog.statemachinedemo.StateMachineViewModel
 import com.jddev.androidcorearchlite.ui.home.HomeRoute
 import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
-import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineRoute
-import com.jddev.androidcorearchlite.ui.statemachinedemo.StateMachineViewModel
-import com.jddev.simpletouch.ui.foundation.StDoubleBackPressToExit
+import com.jddev.androidcorearchlite.ui.uicatalog.CatalogNavGraph
+import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
 import com.jddev.simpletouch.ui.foundation.StUiNavHost
 
 @Composable
@@ -23,7 +23,9 @@ fun CoreArchNavGraph(
     navigationActions: CoreArchNavigationActions,
     startDestination: String = ScreenNavigation.Home.route,
 ) {
-    StDoubleBackPressToExit()
+    StUiDoubleBackHandler(
+        toastMessage = "Press again to exit the app",
+    )
     StUiNavHost(
         navController = navController,
         startDestination = startDestination,
