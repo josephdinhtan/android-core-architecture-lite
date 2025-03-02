@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.sp
 import com.jddev.simpletouch.ui.R
 
 private val Montserrat = FontFamily(
-    Font(R.font.montserrat_regular),
-    Font(R.font.montserrat_medium, FontWeight.W500)
+    Font(R.font.sf_pro_display_regular),
+    Font(R.font.sf_pro_display_regular, FontWeight.W500)
 )
 
 val defaultTextStyle = TextStyle(

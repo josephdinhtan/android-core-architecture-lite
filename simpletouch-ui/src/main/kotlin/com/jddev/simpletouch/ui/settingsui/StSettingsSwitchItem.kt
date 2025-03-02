@@ -1,25 +1,19 @@
 package com.jddev.simpletouch.ui.settingsui
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItem
-import com.jddev.simpletouch.ui.settingsui.internal.headlineTextStyle
-import com.jddev.simpletouch.ui.settingsui.internal.supportingTextStyle
 
 @Composable
 fun SettingsSwitchItem(
@@ -43,17 +37,17 @@ fun SettingsSwitchItem(
 @Composable
 fun SettingsSwitchItem(
     modifier: Modifier = Modifier,
-    leadingIcon: ImageVector? = null,
     title: String,
     subTitle: String? = null,
+    leadingIcon: ImageVector? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) = SettingsSwitchItem(
     modifier = modifier,
-    leadingIconImageVector = leadingIcon,
     title = title,
     subTitle = subTitle,
+    leadingIconImageVector = leadingIcon,
     checked = checked,
     enabled = enabled,
     onCheckedChange = onCheckedChange,
@@ -62,17 +56,17 @@ fun SettingsSwitchItem(
 @Composable
 fun SettingsSwitchItem(
     modifier: Modifier = Modifier,
-    leadingIcon: Painter? = null,
     title: String,
     subTitle: String? = null,
+    leadingIcon: Painter? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) = SettingsSwitchItem(
     modifier = modifier,
-    leadingIconPainter = leadingIcon,
     title = title,
     subTitle = subTitle,
+    leadingIconPainter = leadingIcon,
     checked = checked,
     enabled = enabled,
     onCheckedChange = onCheckedChange,
@@ -81,60 +75,26 @@ fun SettingsSwitchItem(
 @Composable
 private fun SettingsSwitchItem(
     modifier: Modifier = Modifier,
-    leadingIconPainter: Painter? = null,
-    leadingIconImageVector: ImageVector? = null,
     title: String,
     subTitle: String? = null,
+    leadingIconPainter: Painter? = null,
+    leadingIconImageVector: ImageVector? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) {
-    val disableAlpha = SETTINGS_UI_DISABLE_ALPHA
     StSettingsItem(
         modifier = modifier,
-        headlineContent = {
-            Text(
-                title,
-                style = headlineTextStyle,
-                modifier = Modifier.alpha(if (enabled) 1f else disableAlpha),
-            )
-        },
-        supportingContent = {
-            subTitle?.let {
-                Text(
-                    it,
-                    style = supportingTextStyle,
-                    modifier = Modifier.alpha(if (enabled) 1f else disableAlpha),
-                )
-            }
-        },
+        title = title,
+        subTitle = subTitle,
+        leadingIconImageVector = leadingIconImageVector,
+        leadingIconPainter = leadingIconPainter,
         trailingContent = {
             Switch(
                 checked = checked,
                 onCheckedChange = { switchChecked -> onCheckedChange?.invoke(switchChecked) },
                 enabled = enabled,
             )
-        },
-        leadingContent = leadingIconImageVector?.let {
-            {
-                Icon(
-                    it,
-                    "leading",
-                    modifier = Modifier
-                        .padding(start = ADDITIONAL_LEADING_ICON_PADDING)
-                        .alpha(if (enabled) 1f else disableAlpha),
-                )
-            }
-        } ?: leadingIconPainter?.let {
-            {
-                Icon(
-                    it,
-                    "leading",
-                    modifier = Modifier
-                        .padding(start = ADDITIONAL_LEADING_ICON_PADDING)
-                        .alpha(if (enabled) 1f else disableAlpha),
-                )
-            }
         },
         onClick = if (enabled && onCheckedChange != null) {
             { onCheckedChange(!checked) }
