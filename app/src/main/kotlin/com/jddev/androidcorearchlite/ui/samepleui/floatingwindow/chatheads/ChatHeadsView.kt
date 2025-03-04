@@ -85,27 +85,34 @@ class ChatHeadsView(
                 private var initialTouchY = 0f
 
                 @SuppressLint("ClickableViewAccessibility")
-                override fun onTouch(v: View, event: MotionEvent): Boolean {
-                    when (event.action) {
+                override fun onTouch(v: View, motionEvent: MotionEvent): Boolean {
+                    when (motionEvent.action) {
                         MotionEvent.ACTION_DOWN -> {
                             initialX = layoutParams!!.x
                             initialY = layoutParams!!.y
-                            initialTouchX = event.rawX
-                            initialTouchY = event.rawY
+                            initialTouchX = motionEvent.rawX
+                            initialTouchY = motionEvent.rawY
 
                             animateScale(v, 1.0f, 0.8f)
                             return true
                         }
 
-                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        MotionEvent.ACTION_UP -> {
                             animateScale(v, 0.8f, 1.0f)
                             moveToEdge()
                             return true
                         }
 
+                        MotionEvent.ACTION_CANCEL -> {
+                            animateScale(v, 0.8f, 1.0f)
+                            return true
+                        }
+
                         MotionEvent.ACTION_MOVE -> {
-                            layoutParams!!.x = initialX + (event.rawX - initialTouchX).toInt()
-                            layoutParams!!.y = initialY + (event.rawY - initialTouchY).toInt()
+//                            layoutParams!!.x = (initialX + motionEvent.rawX - initialTouchX).toInt()
+//                            layoutParams!!.y = (initialY + motionEvent.rawY - initialTouchY).toInt()
+                            layoutParams!!.x = (motionEvent.rawX - v.width / 2).toInt()
+                            layoutParams!!.y = (motionEvent.rawY - v.height / 2).toInt()
                             windowManager.updateViewLayout(v, layoutParams)
                             return true
                         }
@@ -118,12 +125,11 @@ class ChatHeadsView(
         }
     }
 
-
     private fun moveToEdge(forceMoveToRight: Boolean = false) {
         val startX = layoutParams?.x ?: 0
-        val endX = layoutParams?.let {
+        val endX = overlayView?.let {
             if (forceMoveToRight) screenWidth.value - it.width
-            else if (it.x > screenWidth.value / 2) screenWidth.value - it.width
+            else if (startX > screenWidth.value / 2) screenWidth.value - it.width
             else 0
         } ?: 0 // Move to the edge of the screen
 
