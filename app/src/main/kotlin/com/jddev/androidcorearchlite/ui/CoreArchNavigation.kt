@@ -6,6 +6,7 @@ sealed class ScreenNavigation(val route: String) {
 
     data object Home : ScreenNavigation("home")
     data object UiCatalog : ScreenNavigation("ui_catalog_nav")
+    data object SampleUi : ScreenNavigation("ui_sampleui_nav")
     data object Settings : ScreenNavigation("settings")
     data object StateMachine : ScreenNavigation("state_machine_demo")
     data object Details : ScreenNavigation("details/{itemId}") {
@@ -22,6 +23,12 @@ class CoreArchNavigationActions(navController: NavHostController) {
     }
     val navigateToUiCatalog: () -> Unit = {
         navController.navigate(ScreenNavigation.UiCatalog.route) {
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+    val navigateToSampleUi: () -> Unit = {
+        navController.navigate(ScreenNavigation.SampleUi.route) {
             launchSingleTop = true
             restoreState = true
         }

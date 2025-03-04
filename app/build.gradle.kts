@@ -111,6 +111,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(project(":simpletouch-utils"))
+    implementation(libs.androidx.lifecycle.service.android)
+    implementation(libs.androidx.dynamicanimation)
     kapt(libs.hilt.android.compiler)
     // room
     implementation(libs.androidx.room.common)

@@ -10,6 +10,7 @@ import com.jddev.androidcorearchlite.AppContainer
 import com.jddev.androidcorearchlite.ui.archcatalog.statemachinedemo.StateMachineRoute
 import com.jddev.androidcorearchlite.ui.archcatalog.statemachinedemo.StateMachineViewModel
 import com.jddev.androidcorearchlite.ui.home.HomeRoute
+import com.jddev.androidcorearchlite.ui.samepleui.SampleUiNavGraph
 import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
 import com.jddev.androidcorearchlite.ui.uicatalog.CatalogNavGraph
 import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
@@ -38,12 +39,20 @@ fun CoreArchNavGraph(
                 navigateToSettings = navigationActions.navigateToSettings,
                 navigateToStateMachineDemo = navigationActions.navigateToStateMachineDemo,
                 navigateToUiCatalog = navigationActions.navigateToUiCatalog,
+                navigateToSampleUi = navigationActions.navigateToSampleUi,
             )
         }
         composable(
             route = ScreenNavigation.UiCatalog.route,
         ) {
             CatalogNavGraph(
+                onBack = { navController.popBackStack() },
+            )
+        }
+        composable(
+            route = ScreenNavigation.SampleUi.route,
+        ) {
+            SampleUiNavGraph(
                 onBack = { navController.popBackStack() },
             )
         }

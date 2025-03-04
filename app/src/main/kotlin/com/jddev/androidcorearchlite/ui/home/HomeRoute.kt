@@ -9,10 +9,12 @@ fun HomeRoute(
     navigateToUiCatalog: () -> Unit,
     navigateToSettings: () -> Unit,
     navigateToStateMachineDemo: () -> Unit,
+    navigateToSampleUi: () -> Unit,
 ) {
     HomeScreen(
         navigateToSettings = navigateToSettings,
         navigateToUiCatalog = navigateToUiCatalog,
+        navigateToSampleUi = navigateToSampleUi,
         navigateToStateMachineDemo = navigateToStateMachineDemo,
     )
 }

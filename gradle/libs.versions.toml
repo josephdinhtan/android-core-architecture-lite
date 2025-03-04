@@ -29,6 +29,9 @@ uiToolingAndroid = "1.7.5"
 uiToolingPreviewAndroid = "1.7.5"
 ui = "1.7.5"
 kotlinxSerializationJson = "1.6.2"
+lifecycleServiceAndroid = "2.5.1"
+dynamicanimationKtx = "1.0.0"
+dynamicanimation = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -75,6 +78,9 @@ camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", versi
 androidx-ui-tooling-android = { group = "androidx.compose.ui", name = "ui-tooling-android", version.ref = "uiToolingAndroid" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+androidx-lifecycle-service-android = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycleServiceAndroid" }
+androidx-dynamicanimation-ktx = { group = "androidx.dynamicanimation", name = "dynamicanimation-ktx", version.ref = "dynamicanimationKtx" }
+androidx-dynamicanimation = { group = "androidx.dynamicanimation", name = "dynamicanimation", version.ref = "dynamicanimation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

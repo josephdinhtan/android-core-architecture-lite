@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
-import com.jddev.simpletouch.ui.settingsui.SettingsSwitchItem
+import com.jddev.simpletouch.ui.settingsui.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
@@ -59,7 +59,7 @@ fun SettingsScreen(
                     leadingIcon = Icons.Default.Language,
                     onClick = onThemeChange,
                 )
-                SettingsSwitchItem(
+                StSettingsSwitchItem(
                     title = "Switch test",
                     subTitle = "Switch test sub title",
                     leadingIcon = Icons.Default.Language,
@@ -79,7 +79,7 @@ fun SettingsScreen(
                     leadingIcon = Icons.Default.Language,
                     onClick = onThemeChange,
                 )
-                SettingsSwitchItem(
+                StSettingsSwitchItem(
                     title = "Switch test",
                     subTitle = "Switch test sub title",
                     leadingIcon = Icons.Default.Language,
@@ -102,7 +102,7 @@ fun SettingsScreen(
                     leadingIcon = Icons.Default.Info,
                     onClick = onThemeChange,
                 )
-                SettingsSwitchItem(
+                StSettingsSwitchItem(
                     title = "Switch test",
                     subTitle = "Switch test sub title",
                     leadingIcon = Icons.Default.Language,

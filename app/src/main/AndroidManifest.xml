@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".CoreArchApplication"
@@ -27,6 +28,11 @@
             android:name=".service.CoreArchService"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name=".ui.samepleui.floatingwindow.FloatingWindowService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
 
         <activity
             android:name=".ui.MainActivity"

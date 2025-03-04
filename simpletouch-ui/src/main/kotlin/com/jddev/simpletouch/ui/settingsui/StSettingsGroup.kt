@@ -83,7 +83,7 @@ private fun Preview() {
                     checked = checkBoxState,
                     onCheckedChange = { checkBoxState = it },
                 )
-                SettingsSwitchItem(
+                StSettingsSwitchItem(
                     leadingIcon = Icons.Default.Hub,
                     title = "Toggle Switch",
                     subTitle = subTitle,
@@ -107,7 +107,7 @@ private fun Preview() {
                     checked = checkBoxState,
                     onCheckedChange = { checkBoxState = it },
                 )
-                SettingsSwitchItem(
+                StSettingsSwitchItem(
                     title = "Toggle Switch",
                     subTitle = subTitle,
                     checked = toggleSwitchState,

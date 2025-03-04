@@ -16,14 +16,14 @@ import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItem
 
 @Composable
-fun SettingsSwitchItem(
+fun StSettingsSwitchItem(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
-) = SettingsSwitchItem(
+) = StSettingsSwitchItem(
     modifier = modifier,
     leadingIconImageVector = null,
     leadingIconPainter = null,
@@ -35,7 +35,7 @@ fun SettingsSwitchItem(
 )
 
 @Composable
-fun SettingsSwitchItem(
+fun StSettingsSwitchItem(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String? = null,
@@ -43,7 +43,7 @@ fun SettingsSwitchItem(
     checked: Boolean = false,
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
-) = SettingsSwitchItem(
+) = StSettingsSwitchItem(
     modifier = modifier,
     title = title,
     subTitle = subTitle,
@@ -54,7 +54,7 @@ fun SettingsSwitchItem(
 )
 
 @Composable
-fun SettingsSwitchItem(
+fun StSettingsSwitchItem(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String? = null,
@@ -62,7 +62,7 @@ fun SettingsSwitchItem(
     checked: Boolean = false,
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
-) = SettingsSwitchItem(
+) = StSettingsSwitchItem(
     modifier = modifier,
     title = title,
     subTitle = subTitle,
@@ -73,7 +73,7 @@ fun SettingsSwitchItem(
 )
 
 @Composable
-private fun SettingsSwitchItem(
+private fun StSettingsSwitchItem(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String? = null,
@@ -109,7 +109,7 @@ private fun SettingsSwitchItem(
 private fun PreviewEnable() {
     var isChecked by remember { mutableStateOf(false) }
     StUiPreviewWrapper {
-        SettingsSwitchItem(
+        StSettingsSwitchItem(
             leadingIcon = Icons.Default.DarkMode,
             title = "Dark mode",
             subTitle = "Enable dark mode",
@@ -117,7 +117,7 @@ private fun PreviewEnable() {
             onCheckedChange = { isChecked = !isChecked },
         )
 
-        SettingsSwitchItem(
+        StSettingsSwitchItem(
             leadingIcon = Icons.Default.DarkMode,
             title = "Title with long text and overflow of view",
             subTitle = "Enable dark mode and long text with overflow of view",
@@ -125,7 +125,7 @@ private fun PreviewEnable() {
             onCheckedChange = { isChecked = !isChecked },
         )
 
-        SettingsSwitchItem(
+        StSettingsSwitchItem(
             title = "Dark mode",
             subTitle = "Enable dark mode",
             checked = isChecked,

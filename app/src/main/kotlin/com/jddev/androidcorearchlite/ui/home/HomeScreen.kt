@@ -27,6 +27,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToSettings: () -> Unit,
     navigateToUiCatalog: () -> Unit,
+    navigateToSampleUi: () -> Unit,
     navigateToStateMachineDemo: () -> Unit,
 ) {
     val scrollBehavior = StUiScrollBehavior()
@@ -71,6 +72,13 @@ fun HomeScreen(
                     subTitle = "Button, Card, Navigation...",
                     onClick = navigateToUiCatalog,
                 )
+
+                StSettingsNavigateItem(
+                    leadingIcon = Icons.Default.Interests,
+                    title = "Sample UI",
+                    subTitle = "Bubble Messenger...",
+                    onClick = navigateToSampleUi,
+                )
             }
         }
     }
@@ -80,11 +88,6 @@ fun HomeScreen(
 @Composable
 private fun Preview() {
     StUiPreviewWrapper {
-        HomeScreen(
-            modifier = Modifier,
-            {},
-            {},
-            {},
-        )
+        HomeScreen(modifier = Modifier, {}, {}, {}, {})
     }
 }

@@ -27,7 +27,7 @@ import com.jddev.androidcorearchlite.R
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
-import com.jddev.simpletouch.ui.settingsui.SettingsSwitchItem
+import com.jddev.simpletouch.ui.settingsui.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
@@ -93,13 +93,13 @@ fun IntelligentChargingScreen(
                     modifier = Modifier.wrapContentHeight(), uiStyle = StSettingsUiStyle.Material
                 ) {
                     StSettingsGroup {
-                        SettingsSwitchItem(
+                        StSettingsSwitchItem(
                             title = "Charge up to the specified capacity",
                             subTitle = "Switch to direct power supply when the battery is about 90% charged",
                             checked = chargeUpToCapacityChecked,
                             onCheckedChange = chargeUpToCapacityChange
                         )
-                        SettingsSwitchItem(
+                        StSettingsSwitchItem(
                             title = "Charge only when screen is off",
                             subTitle = "Charge the battery while the screen is off and switch to direct power supply when the screen is on",
                             checked = chargeOnlyDisplayChecked,
