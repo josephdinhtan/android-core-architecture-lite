@@ -4,19 +4,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.NavigateNext
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.foundation.StUiBaseListItem
 import com.jddev.simpletouch.ui.settingsui.ADDITIONAL_LEADING_ICON_PADDING
 import com.jddev.simpletouch.ui.settingsui.SETTINGS_UI_DISABLE_ALPHA
 
@@ -96,8 +95,7 @@ private fun StBaseSettingsItem(
     Box(
         modifier = boxModifier
     ) {
-        ListItem(
-            colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+        StUiBaseListItem(
             headlineContent = headlineContent,
             leadingContent = leadingContent,
             supportingContent = supportingContent,
@@ -117,7 +115,8 @@ private fun Preview() {
             subTitle = "This is the Subtitle",
             leadingIconPainter = null,
             leadingIconImageVector = Icons.Default.Settings,
-            trailingContent = { Text("Trailing Content") },
+            trailingContent = { Icon(Icons.AutoMirrored.Filled.NavigateNext, "trailing") },
+            onClick = {},
         )
 
         StBaseSettingsItem(

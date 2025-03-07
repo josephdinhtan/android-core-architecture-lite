@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.zxing.core)
 
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.graphics.shapes.android)
     debugImplementation(libs.androidx.ui.tooling)
 
     implementation(libs.accompanist.glide)

@@ -17,7 +17,10 @@ import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.jddev.simpletouch.ui.theme.StUiTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import timber.log.Timber
 
 class ChatHeadsView(
     private val context: Context,
@@ -30,6 +33,9 @@ class ChatHeadsView(
 
     private var layoutParams: WindowManager.LayoutParams? = null
     private var overlayView: View? = null
+
+    private val _isHolding = MutableStateFlow(false)
+    private val isHolding = _isHolding.asStateFlow()
 
     init {
         initializeLayoutParams()
@@ -44,7 +50,10 @@ class ChatHeadsView(
                 StUiTheme(
                     darkTheme = darkTheme.value
                 ) {
-                    ChatHeadsViewContent()
+                    val isPressed = isHolding.collectAsState()
+                    ChatHeadsViewContent(
+                        isPressed = isPressed.value
+                    )
                 }
             }
         }
@@ -88,6 +97,9 @@ class ChatHeadsView(
                 override fun onTouch(v: View, motionEvent: MotionEvent): Boolean {
                     when (motionEvent.action) {
                         MotionEvent.ACTION_DOWN -> {
+                            Timber.d("onTouch ACTION_DOWN")
+                            _isHolding.tryEmit(true)
+                            _isHolding.value = true
                             initialX = layoutParams!!.x
                             initialY = layoutParams!!.y
                             initialTouchX = motionEvent.rawX
@@ -98,13 +110,18 @@ class ChatHeadsView(
                         }
 
                         MotionEvent.ACTION_UP -> {
+                            Timber.d("onTouch ACTION_UP")
+                            _isHolding.tryEmit(false)
                             animateScale(v, 0.8f, 1.0f)
                             moveToEdge()
                             return true
                         }
 
                         MotionEvent.ACTION_CANCEL -> {
+                            Timber.d("onTouch ACTION_CANCEL")
+                            _isHolding.tryEmit(false)
                             animateScale(v, 0.8f, 1.0f)
+                            moveToEdge()
                             return true
                         }
 

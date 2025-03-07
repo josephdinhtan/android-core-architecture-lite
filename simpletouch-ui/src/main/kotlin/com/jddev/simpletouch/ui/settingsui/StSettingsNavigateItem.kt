@@ -2,7 +2,8 @@ package com.jddev.simpletouch.ui.settingsui
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
+import androidx.compose.material.icons.automirrored.filled.NavigateNext
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Settings
@@ -79,6 +80,7 @@ private fun StSettingsNavigateItem(
     onClick: (() -> Unit)? = null,
 ) {
     val disableAlpha = SETTINGS_UI_DISABLE_ALPHA
+    val uiStyle: StSettingsUiStyle = LocalStUiStyle.current
     StSettingsItem(
         modifier = modifier,
         title = title,
@@ -88,7 +90,8 @@ private fun StSettingsNavigateItem(
         trailingContent = {
             onClick?.let {
                 Icon(
-                    Icons.Filled.ArrowForwardIos,
+                    if (uiStyle == StSettingsUiStyle.Cupertino) Icons.AutoMirrored.Filled.ArrowForwardIos
+                    else Icons.AutoMirrored.Filled.NavigateNext,
                     "navigate",
                     modifier = Modifier
                         .alpha(if (enabled) 1f else disableAlpha)

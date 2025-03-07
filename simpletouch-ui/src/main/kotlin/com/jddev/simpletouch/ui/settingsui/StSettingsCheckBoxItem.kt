@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.foundation.StUiCircleCheckbox
 import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItem
 
 @Composable
@@ -23,6 +24,7 @@ fun StSettingsCheckBoxItem(
     subTitle: String? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
+    circleShape: Boolean = false,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) = StSettingsCheckBoxItem(
     modifier = modifier,
@@ -32,6 +34,7 @@ fun StSettingsCheckBoxItem(
     subTitle = subTitle,
     checked = checked,
     enabled = enabled,
+    circleShape = circleShape,
     onCheckedChange = onCheckedChange,
 )
 
@@ -43,6 +46,7 @@ fun StSettingsCheckBoxItem(
     subTitle: String? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
+    circleShape: Boolean = false,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) = StSettingsCheckBoxItem(
     modifier = modifier,
@@ -51,6 +55,7 @@ fun StSettingsCheckBoxItem(
     subTitle = subTitle,
     checked = checked,
     enabled = enabled,
+    circleShape = circleShape,
     onCheckedChange = onCheckedChange,
 )
 
@@ -62,6 +67,7 @@ fun StSettingsCheckBoxItem(
     subTitle: String? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
+    circleShape: Boolean = false,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) = StSettingsCheckBoxItem(
     modifier = modifier,
@@ -70,6 +76,7 @@ fun StSettingsCheckBoxItem(
     subTitle = subTitle,
     checked = checked,
     enabled = enabled,
+    circleShape = circleShape,
     onCheckedChange = onCheckedChange,
 )
 
@@ -82,6 +89,7 @@ private fun StSettingsCheckBoxItem(
     subTitle: String? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
+    circleShape: Boolean = false,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) {
     StSettingsItem(
@@ -91,11 +99,19 @@ private fun StSettingsCheckBoxItem(
         leadingIconImageVector = leadingIconImageVector,
         leadingIconPainter = leadingIconPainter,
         trailingContent = {
-            Checkbox(
-                checked = checked,
-                onCheckedChange = { checked -> onCheckedChange?.invoke(checked) },
-                enabled = enabled,
-            )
+            if(circleShape) {
+                StUiCircleCheckbox(
+                    checked = checked,
+                    onCheckedChange = { checked -> onCheckedChange?.invoke(checked) },
+                    enabled = enabled,
+                )
+            } else {
+                Checkbox(
+                    checked = checked,
+                    onCheckedChange = { checked -> onCheckedChange?.invoke(checked) },
+                    enabled = enabled,
+                )
+            }
         },
         onClick = if (enabled && onCheckedChange != null) {
             { onCheckedChange(!checked) }
@@ -114,8 +130,8 @@ private fun Preview() {
             leadingIcon = Icons.Default.LooksOne,
             title = "Enable One",
             subTitle = "Enable One will help something",
-            checked = isChecked,
-            onCheckedChange = { isChecked = !isChecked },
+            checked = !isChecked,
+            onCheckedChange = { isChecked = !it },
         )
         StSettingsCheckBoxItem(
             leadingIcon = Icons.Default.CellTower,
@@ -123,13 +139,37 @@ private fun Preview() {
             subTitle = "Enable two will help something",
             checked = isChecked,
             enabled = false,
-            onCheckedChange = { isChecked = !isChecked },
+            onCheckedChange = { isChecked = it },
         )
         StSettingsCheckBoxItem(
             title = "Enable mode three",
             subTitle = "Enable three will help something",
             checked = isChecked,
-            onCheckedChange = { isChecked = !isChecked },
+            onCheckedChange = { isChecked = it },
+        )
+        StSettingsCheckBoxItem(
+            leadingIcon = Icons.Default.LooksOne,
+            title = "Enable One",
+            subTitle = "Enable One will help something",
+            checked = !isChecked,
+            circleShape = true,
+            onCheckedChange = { isChecked = !it },
+        )
+        StSettingsCheckBoxItem(
+            leadingIcon = Icons.Default.CellTower,
+            title = "Enable mode two",
+            subTitle = "Enable two will help something",
+            checked = isChecked,
+            enabled = false,
+            circleShape = true,
+            onCheckedChange = { isChecked = it },
+        )
+        StSettingsCheckBoxItem(
+            title = "Enable mode three",
+            subTitle = "Enable three will help something",
+            checked = isChecked,
+            circleShape = true,
+            onCheckedChange = { isChecked = it },
         )
     }
 }
