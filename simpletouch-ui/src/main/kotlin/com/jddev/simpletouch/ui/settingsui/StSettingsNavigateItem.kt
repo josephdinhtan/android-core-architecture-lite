@@ -1,5 +1,6 @@
 package com.jddev.simpletouch.ui.settingsui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
@@ -9,6 +10,11 @@ import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
@@ -16,7 +22,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItem
 
 @Composable
 fun StSettingsNavigateItem(
@@ -69,6 +74,7 @@ fun StSettingsNavigateItem(
     onClick = onClick,
 )
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 private fun StSettingsNavigateItem(
     modifier: Modifier = Modifier,
@@ -81,7 +87,11 @@ private fun StSettingsNavigateItem(
 ) {
     val disableAlpha = SETTINGS_UI_DISABLE_ALPHA
     val uiStyle: StSettingsUiStyle = LocalStUiStyle.current
-    StSettingsItem(
+
+    // This isAllowClick prevents rapid double-clicking.
+    var isAllowClick by remember { mutableStateOf(true) }
+    val coroutineScope = rememberCoroutineScope()
+    StSettingsBaseItem(
         modifier = modifier,
         title = title,
         subTitle = subTitle,

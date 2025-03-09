@@ -32,6 +32,7 @@
             android:name=".ui.samepleui.floatingwindow.FloatingWindowService"
             android:enabled="true"
             android:exported="false"
+            android:foregroundServiceType="shortService"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
 
         <activity

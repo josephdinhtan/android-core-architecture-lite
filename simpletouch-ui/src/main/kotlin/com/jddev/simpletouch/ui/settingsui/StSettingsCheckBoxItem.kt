@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiCircleCheckbox
-import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItem
 
 @Composable
 fun StSettingsCheckBoxItem(
@@ -92,7 +91,7 @@ private fun StSettingsCheckBoxItem(
     circleShape: Boolean = false,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) {
-    StSettingsItem(
+    StSettingsBaseItem(
         modifier = modifier,
         title = title,
         subTitle = subTitle,

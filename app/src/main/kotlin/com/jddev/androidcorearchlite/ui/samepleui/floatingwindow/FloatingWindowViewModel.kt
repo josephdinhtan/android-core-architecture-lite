@@ -12,7 +12,7 @@ import javax.inject.Inject
 class FloatingWindowViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
-    private val _isFloatingViewEnabled = MutableStateFlow(false)
+    private val _isFloatingViewEnabled = MutableStateFlow(FloatingWindowService.isShowing)
     val isFloatingViewEnabled = _isFloatingViewEnabled.asStateFlow()
 
     fun floatingViewEnabledStateChanged(enabled: Boolean) {

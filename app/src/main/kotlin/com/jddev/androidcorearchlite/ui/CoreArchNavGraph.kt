@@ -9,20 +9,21 @@ import androidx.navigation.compose.rememberNavController
 import com.jddev.androidcorearchlite.AppContainer
 import com.jddev.androidcorearchlite.ui.archcatalog.statemachinedemo.StateMachineRoute
 import com.jddev.androidcorearchlite.ui.archcatalog.statemachinedemo.StateMachineViewModel
-import com.jddev.androidcorearchlite.ui.home.HomeRoute
-import com.jddev.androidcorearchlite.ui.samepleui.SampleUiNavGraph
+import com.jddev.androidcorearchlite.ui.basic.notification.notificationUiNavGraph
+import com.jddev.androidcorearchlite.ui.basic.shareviewmodel.shareViewModelNavGraph
+import com.jddev.androidcorearchlite.ui.samepleui.sampleUiNavGraph
 import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
-import com.jddev.androidcorearchlite.ui.uicatalog.CatalogNavGraph
+import com.jddev.androidcorearchlite.ui.uicatalog.uiCatalogNavGraph
 import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
-import com.jddev.simpletouch.ui.foundation.StUiNavHost
+import com.jddev.simpletouch.ui.navigation.StUiNavHost
+import com.jddev.simpletouch.ui.navigation.navigateSingleTop
 
 @Composable
 fun CoreArchNavGraph(
     modifier: Modifier = Modifier,
     appContainer: AppContainer,
     navController: NavHostController = rememberNavController(),
-    navigationActions: CoreArchNavigationActions,
-    startDestination: String = ScreenNavigation.Home.route,
+    startDestination: String = "nav_home",
 ) {
     StUiDoubleBackHandler(
         toastMessage = "Press again to exit the app",
@@ -33,38 +34,39 @@ fun CoreArchNavGraph(
         modifier = modifier,
     ) {
         composable(
-            route = ScreenNavigation.Home.route,
+            route = "nav_home",
         ) {
-            HomeRoute(
-                navigateToSettings = navigationActions.navigateToSettings,
-                navigateToStateMachineDemo = navigationActions.navigateToStateMachineDemo,
-                navigateToUiCatalog = navigationActions.navigateToUiCatalog,
-                navigateToSampleUi = navigationActions.navigateToSampleUi,
+            HomeScreen(
+                navigateToSettings = {
+                    navController.navigateSingleTop("nav_settings")
+                },
+                navigateToStateMachineDemo = {
+                    navController.navigateSingleTop("nav_state_machine")
+                },
+                navigateToUiCatalog = {
+                    navController.navigateSingleTop("nav_ui_catalog")
+                },
+                navigateToSampleUi = {
+                    navController.navigateSingleTop("nav_ui_sampleui")
+                },
+                navigateToNotification = {
+                    navController.navigateSingleTop("notificationUi")
+                },
+                navigateToShareViewModel = {
+                    navController.navigateSingleTop("shareViewModelNavGraph")
+                },
             )
         }
+        uiCatalogNavGraph("nav_ui_catalog", navController)
         composable(
-            route = ScreenNavigation.UiCatalog.route,
-        ) {
-            CatalogNavGraph(
-                onBack = { navController.popBackStack() },
-            )
-        }
-        composable(
-            route = ScreenNavigation.SampleUi.route,
-        ) {
-            SampleUiNavGraph(
-                onBack = { navController.popBackStack() },
-            )
-        }
-        composable(
-            route = ScreenNavigation.Settings.route,
+            route = "nav_settings",
         ) {
             SettingsRoute(
                 onBack = { navController.popBackStack() },
             )
         }
         composable(
-            route = ScreenNavigation.StateMachine.route,
+            route = "nav_state_machine",
         ) { backStackEntry ->
             val stateMachineViewModel = hiltViewModel<StateMachineViewModel>(backStackEntry)
             StateMachineRoute(
@@ -72,5 +74,8 @@ fun CoreArchNavGraph(
                 onBack = { navController.popBackStack() },
             )
         }
+        sampleUiNavGraph("nav_ui_sampleui", navController)
+        notificationUiNavGraph("notificationUi", navController)
+        shareViewModelNavGraph("shareViewModelNavGraph", navController)
     }
 }

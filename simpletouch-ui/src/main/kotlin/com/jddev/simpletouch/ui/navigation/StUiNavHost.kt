@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.foundation
+package com.jddev.simpletouch.ui.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition

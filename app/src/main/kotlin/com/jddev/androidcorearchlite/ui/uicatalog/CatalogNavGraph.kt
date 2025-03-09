@@ -1,59 +1,44 @@
 package com.jddev.androidcorearchlite.ui.uicatalog
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.navigation
 import com.jddev.androidcorearchlite.ui.uicatalog.bottomnavigation.BottomNavScreen
-import com.jddev.androidcorearchlite.ui.uicatalog.intelligentcharging.IntelligentChargingRoute
 import com.jddev.androidcorearchlite.ui.uicatalog.pager.HorizontalPagerDemo
-import com.jddev.simpletouch.ui.foundation.StUiNavHost
 
-sealed class CatalogNavigation(val route: String) {
-    data object CatalogHome : CatalogNavigation("catalog_home_route")
-    data object BottomNav : CatalogNavigation("bottom_route")
-    data object HorizontalPagerNav : CatalogNavigation("horizontal_pager_route")
-    data object IntelligentCharging : CatalogNavigation("intelligent_charging_route")
-}
-
-@Composable
-fun CatalogNavGraph(
-    modifier: Modifier = Modifier,
-    startDestination: CatalogNavigation = CatalogNavigation.CatalogHome,
-    onBack: () -> Unit,
+fun NavGraphBuilder.uiCatalogNavGraph(
+    route: String,
+    navController: NavHostController,
 ) {
-    val navController = rememberNavController()
-    StUiNavHost(
-        navController = navController,
-        startDestination = startDestination.route,
-        modifier = modifier,
+    navigation(
+        route = route,
+        startDestination = "catalog_nav_home_route",
     ) {
         composable(
-            route = CatalogNavigation.CatalogHome.route,
+            route = "catalog_nav_home_route",
         ) {
             CatalogScreen(
-                navController = navController,
-                onBack = onBack,
+                onBack = { navController.popBackStack() },
+                navigateToPager = {
+                    navController.navigate("catalog_nav_horizontal_pager_route")
+                },
+                navigateToBottomNav = {
+                    navController.navigate("catalog_nav_bottom_nav_route")
+                }
             )
         }
         composable(
-            route = CatalogNavigation.BottomNav.route,
+            route = "catalog_nav_bottom_nav_route",
         ) {
             BottomNavScreen(
                 onBack = { navController.popBackStack() },
             )
         }
         composable(
-            route = CatalogNavigation.HorizontalPagerNav.route,
+            route = "catalog_nav_horizontal_pager_route",
         ) {
             HorizontalPagerDemo(
-                onBack = { navController.popBackStack() },
-            )
-        }
-        composable(
-            route = CatalogNavigation.IntelligentCharging.route,
-        ) {
-            IntelligentChargingRoute(
                 onBack = { navController.popBackStack() },
             )
         }

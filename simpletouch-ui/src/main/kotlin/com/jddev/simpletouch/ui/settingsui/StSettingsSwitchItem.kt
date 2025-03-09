@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItem
 
 @Composable
 fun StSettingsSwitchItem(
@@ -83,7 +82,7 @@ private fun StSettingsSwitchItem(
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) {
-    StSettingsItem(
+    StSettingsBaseItem(
         modifier = modifier,
         title = title,
         subTitle = subTitle,

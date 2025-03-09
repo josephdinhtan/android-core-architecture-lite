@@ -1,42 +1,68 @@
 package com.jddev.androidcorearchlite.ui.samepleui
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import com.jddev.androidcorearchlite.ui.samepleui.floatingwindow.FloatingWindowRoute
-import com.jddev.simpletouch.ui.foundation.StUiNavHost
+import com.jddev.androidcorearchlite.ui.samepleui.intelligentcharging.IntelligentChargingRoute
+import com.jddev.androidcorearchlite.ui.samepleui.snakegame.SnakeGameRoute
 
-sealed class SampleUiNavigation(val route: String) {
-    data object SampleUiHome : SampleUiNavigation("sampleui_home_route")
-    data object BubbleMessenger : SampleUiNavigation("bubble_messenger_route")
-}
-
-@Composable
-fun SampleUiNavGraph(
-    modifier: Modifier = Modifier,
-    startDestination: SampleUiNavigation = SampleUiNavigation.SampleUiHome,
-    onBack: () -> Unit,
+fun NavGraphBuilder.sampleUiNavGraph(
+    route: String,
+    navController: NavHostController,
 ) {
-    val navController = rememberNavController()
-    StUiNavHost(
-        navController = navController,
-        startDestination = startDestination.route,
-        modifier = modifier,
+    navigation(
+        route = route,
+        startDestination = "sampleui_nav_home_route",
     ) {
         composable(
-            route = SampleUiNavigation.SampleUiHome.route,
+            route = "sampleui_nav_home_route",
         ) {
             SampleUiScreen(
-                navController = navController,
-                onBack = onBack,
+                navigateToBubbleMessenger = {
+                    navController.navigate("sampleui_nav_bubble_messenger_route")
+                },
+                navigateToIntelligentCharging = {
+                    navController.navigate("sampleui_nav_intelligent_charging_route")
+                },
+                navigateToSnakeGame = {
+                    navController.navigate("sampleui_nav_snake_game_route")
+                },
+                onBack = {
+                    navController.popBackStack()
+                },
             )
         }
         composable(
-            route = SampleUiNavigation.BubbleMessenger.route,
+            route = "sampleui_nav_bubble_messenger_route",
+            deepLinks = listOf(navDeepLink {
+                uriPattern = "https://jddev.com/floating_window/"
+            })
         ) {
-            FloatingWindowRoute (
-                onBack = onBack,
+            FloatingWindowRoute(
+                onBack = {
+                    navController.popBackStack()
+                },
+            )
+        }
+        composable(
+            route = "sampleui_nav_intelligent_charging_route",
+            deepLinks = listOf(navDeepLink {
+                uriPattern =
+                    "https://jddev.com/intelligent_charging/"
+            })
+        ) {
+            IntelligentChargingRoute(
+                onBack = { navController.popBackStack() },
+            )
+        }
+        composable(
+            route = "sampleui_nav_snake_game_route",
+        ) {
+            SnakeGameRoute(
+                onBack = { navController.popBackStack() },
             )
         }
     }

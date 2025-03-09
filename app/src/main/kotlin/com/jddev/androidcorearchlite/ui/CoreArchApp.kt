@@ -9,11 +9,9 @@ import com.jddev.simpletouch.ui.theme.StUiTheme
 fun CoreArchApp(appContainer: com.jddev.androidcorearchlite.AppContainer) {
     StUiTheme {
         val navController = rememberNavController()
-        val navigationActions = remember(navController) { CoreArchNavigationActions(navController) }
         CoreArchNavGraph(
             appContainer = appContainer,
             navController = navController,
-            navigationActions = navigationActions,
         )
     }
 }
