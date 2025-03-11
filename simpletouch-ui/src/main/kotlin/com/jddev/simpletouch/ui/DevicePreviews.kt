@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.jddev.simpletouch.ui.theme.StUiTheme
@@ -32,22 +34,35 @@ annotation class StUiPreview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StUiPreviewWrapper(fullScreen: Boolean = false, content: @Composable () -> Unit) {
+fun StUiPreviewWrapper(
+    fullScreen: Boolean = false,
+    showBackground: Boolean = true,
+    content: @Composable () -> Unit
+) {
     StUiTheme {
         if (fullScreen) {
             Scaffold(
                 topBar = {
                     TopAppBar(title = { Text("St Preview") })
                 },
+                containerColor = if (showBackground)
+                    MaterialTheme.colorScheme.background
+                else
+                    Color.Transparent
             ) {
-                Column (
-                    modifier = Modifier.padding(it)
+                Column(
+                    modifier = Modifier.padding(it),
                 ) {
                     content()
                 }
             }
         } else {
-            Surface {
+            Surface(
+                color = if (showBackground)
+                    MaterialTheme.colorScheme.background
+                else
+                    Color.Transparent
+            ) {
                 Column(modifier = Modifier.wrapContentHeight()) {
                     content()
                 }

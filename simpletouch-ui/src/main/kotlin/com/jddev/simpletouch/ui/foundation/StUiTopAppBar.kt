@@ -21,6 +21,7 @@ fun StUiTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior? = null,
     colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(
         containerColor = MaterialTheme.colorScheme.background,
+        scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
     ),
     title: String,
     actions: @Composable RowScope.() -> Unit = {},

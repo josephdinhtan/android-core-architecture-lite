@@ -2,7 +2,6 @@ package com.jddev.simpletouch.ui.settingsui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +12,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.foundation.StUiSwitch
 
 @Composable
 fun StSettingsSwitchItem(
@@ -89,7 +89,7 @@ private fun StSettingsSwitchItem(
         leadingIconImageVector = leadingIconImageVector,
         leadingIconPainter = leadingIconPainter,
         trailingContent = {
-            Switch(
+            StUiSwitch(
                 checked = checked,
                 onCheckedChange = { switchChecked -> onCheckedChange?.invoke(switchChecked) },
                 enabled = enabled,

@@ -17,6 +17,8 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 fun CatalogScreen(
     navigateToPager: () -> Unit,
     navigateToBottomNav: () -> Unit,
+    navigateToBasicButton: () -> Unit,
+    navigateToBasicDialog: () -> Unit,
     onBack: () -> Unit
 ) {
     Scaffold(
@@ -33,6 +35,16 @@ fun CatalogScreen(
                 .padding(it),
             uiStyle = StSettingsUiStyle.Material
         ) {
+            StSettingsGroup(title = "Basic components") {
+                StSettingsNavigateItem(
+                    title = "Button",
+                    onClick = navigateToBasicButton
+                )
+                StSettingsNavigateItem(
+                    title = "Popup dialog",
+                    onClick = navigateToBasicDialog
+                )
+            }
             StSettingsGroup(title = "Navigation") {
                 StSettingsNavigateItem(
                     title = "Bottom Navigation",

@@ -30,6 +30,7 @@ fun StUiLargeTopAppBar(
         scrollBehavior = scrollBehavior,
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
+            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
         ),
         title = { Text(text = title) },
         navigationIcon = {
