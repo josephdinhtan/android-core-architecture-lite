@@ -19,6 +19,7 @@ fun CatalogScreen(
     navigateToBottomNav: () -> Unit,
     navigateToBasicButton: () -> Unit,
     navigateToBasicDialog: () -> Unit,
+    navigateToSettingsUi: (uiStyle: StSettingsUiStyle) -> Unit,
     onBack: () -> Unit
 ) {
     Scaffold(
@@ -53,6 +54,16 @@ fun CatalogScreen(
                 StSettingsNavigateItem(
                     title = "Horizontal Pager",
                     onClick = navigateToPager
+                )
+            }
+            StSettingsGroup(title = "Settings UI") {
+                StSettingsNavigateItem(
+                    title = "Material Settings",
+                    onClick = { navigateToSettingsUi(StSettingsUiStyle.Material) }
+                )
+                StSettingsNavigateItem(
+                    title = "Cupertino Settings",
+                    onClick = { navigateToSettingsUi(StSettingsUiStyle.Cupertino) }
                 )
             }
         }

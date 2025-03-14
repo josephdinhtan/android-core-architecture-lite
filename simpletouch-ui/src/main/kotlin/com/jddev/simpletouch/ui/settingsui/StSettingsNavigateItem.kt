@@ -8,18 +8,17 @@ import androidx.compose.material.icons.automirrored.filled.NavigateNext
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.jddev.simpletouch.ui.R
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 
@@ -88,9 +87,15 @@ private fun StSettingsNavigateItem(
     val disableAlpha = SETTINGS_UI_DISABLE_ALPHA
     val uiStyle: StSettingsUiStyle = LocalStUiStyle.current
 
-    // This isAllowClick prevents rapid double-clicking.
-    var isAllowClick by remember { mutableStateOf(true) }
-    val coroutineScope = rememberCoroutineScope()
+    val iconShape = when (uiStyle) {
+        StSettingsUiStyle.Cupertino -> Icons.AutoMirrored.Filled.ArrowForwardIos
+        else -> Icons.AutoMirrored.Filled.NavigateNext
+    }
+    val iconTrailingColor = when (uiStyle) {
+        StSettingsUiStyle.Cupertino -> MaterialTheme.colorScheme.tertiary
+        else -> MaterialTheme.colorScheme.onSurface
+    }
+
     StSettingsBaseItem(
         modifier = modifier,
         title = title,
@@ -100,12 +105,12 @@ private fun StSettingsNavigateItem(
         trailingContent = {
             onClick?.let {
                 Icon(
-                    if (uiStyle == StSettingsUiStyle.Cupertino) Icons.AutoMirrored.Filled.ArrowForwardIos
-                    else Icons.AutoMirrored.Filled.NavigateNext,
+                    painter = painterResource(R.drawable.ic_arrow_ios_forward),
                     "navigate",
                     modifier = Modifier
                         .alpha(if (enabled) 1f else disableAlpha)
                         .height(18.dp),
+                    tint = iconTrailingColor,
                 )
             }
         },
@@ -113,39 +118,56 @@ private fun StSettingsNavigateItem(
     )
 }
 
+private fun StSettingsUiStyle.isIos() = this == StSettingsUiStyle.Cupertino
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @StUiPreview
 private fun Preview() {
     StUiPreviewWrapper {
-        StSettingsNavigateItem(
-            leadingIcon = Icons.Default.Settings,
-            title = "Enable",
-            subTitle = "Can navigate",
-            enabled = true,
-            onClick = { },
-        )
+        StSettingsUi {
+            StSettingsNavigateItem(
+                leadingIcon = Icons.Default.Settings,
+                title = "Enable",
+                subTitle = "Can navigate",
+                enabled = true,
+                onClick = { },
+            )
 
-        StSettingsNavigateItem(
-            leadingIcon = Icons.Default.Language,
-            title = "Enable",
-            subTitle = "Can not navigate",
-            enabled = true,
-            onClick = null,
-        )
+            StSettingsNavigateItem(
+                leadingIcon = Icons.Default.Language,
+                title = "Enable",
+                subTitle = "Can not navigate",
+                enabled = true,
+                onClick = null,
+            )
 
-        StSettingsNavigateItem(
-            leadingIcon = Icons.Default.DateRange,
-            title = "Disable",
-            subTitle = "Can not navigate",
-            enabled = false,
-            onClick = { },
-        )
+            StSettingsNavigateItem(
+                leadingIcon = Icons.Default.DateRange,
+                title = "Disable",
+                subTitle = "Can not navigate",
+                enabled = false,
+                onClick = { },
+            )
 
-        StSettingsNavigateItem(
-            title = "Disable",
-            subTitle = "Can not navigate",
-            enabled = false,
-            onClick = { },
-        )
+            StSettingsNavigateItem(
+                title = "Disable",
+                subTitle = "Can not navigate",
+                enabled = false,
+                onClick = { },
+            )
+        }
+        StSettingsUi(
+            uiStyle = StSettingsUiStyle.Cupertino,
+        ) {
+            StSettingsGroup {
+                StSettingsNavigateItem(
+                    title = "Cupertino",
+                    subTitle = "Can navigate",
+                    enabled = true,
+                    onClick = { },
+                )
+            }
+        }
     }
 }

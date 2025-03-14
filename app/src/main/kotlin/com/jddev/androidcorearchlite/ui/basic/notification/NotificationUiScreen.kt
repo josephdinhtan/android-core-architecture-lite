@@ -38,6 +38,7 @@ fun NotificationUiScreen(
                 StSettingsGroup {
                     StSettingsBaseItem (
                         title = "Simple notification",
+                        subTitle = "Show an notification",
                         onClick = showSimpleNotification
                     )
                 }

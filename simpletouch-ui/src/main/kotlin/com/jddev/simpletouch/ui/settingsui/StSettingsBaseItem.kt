@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiBaseListItem
@@ -109,6 +110,11 @@ internal fun StSettingsBaseItem(
     onClick: (() -> Unit)? = null,
 ) {
     val disableAlpha = SETTINGS_UI_DISABLE_ALPHA
+    val uiStyle = LocalStUiStyle.current
+    val additionalLeadingIconPadding = when (uiStyle) {
+        StSettingsUiStyle.Cupertino -> 0.dp
+        else -> ADDITIONAL_LEADING_ICON_PADDING
+    }
     StBaseSettingsItem(
         modifier = modifier,
         headlineContent = {
@@ -134,7 +140,7 @@ internal fun StSettingsBaseItem(
                     it,
                     "leading",
                     modifier = Modifier
-                        .padding(start = ADDITIONAL_LEADING_ICON_PADDING)
+                        .padding(start = additionalLeadingIconPadding)
                         .alpha(if (enabled) 1f else disableAlpha),
                 )
             }
@@ -144,7 +150,7 @@ internal fun StSettingsBaseItem(
                     it,
                     "leading",
                     modifier = Modifier
-                        .padding(start = ADDITIONAL_LEADING_ICON_PADDING)
+                        .padding(start = additionalLeadingIconPadding)
                         .alpha(if (enabled) 1f else disableAlpha),
                 )
             }

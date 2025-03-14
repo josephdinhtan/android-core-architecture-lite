@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Hub
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.settingsui.internal.groupTableTextStyle
+import java.util.Locale
 
 @Composable
 fun StSettingsGroup(
@@ -29,28 +32,43 @@ fun StSettingsGroup(
     titleColor: Color = MaterialTheme.colorScheme.primary,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val localUiStyle = LocalStUiStyle.current
+    val uiStyle = LocalStUiStyle.current
     Column(
         modifier = modifier.padding(vertical = 4.dp),
     ) {
-        if (title != null) Text(
-            text = title,
-            style = MaterialTheme.typography.titleMedium.copy(color = titleColor),
-            modifier = Modifier.padding(
-                start = 16.dp,
-                top = 16.dp,
-                bottom = 8.dp,
-            ),
-        )
-        val cardColor = when (localUiStyle) {
+        val headerTextStyle = when (uiStyle) {
+            StSettingsUiStyle.Cupertino -> groupTableTextStyle
+            else -> MaterialTheme.typography.titleMedium.copy(color = titleColor)
+        }
+        val headerText: String? = when (uiStyle) {
+            StSettingsUiStyle.Cupertino -> title?.uppercase(Locale.getDefault())
+            else -> title
+        }
+        val headerPaddingStart = when (uiStyle) {
+            StSettingsUiStyle.Cupertino -> 32.dp
+            else -> 16.dp
+        }
+
+        headerText?.let {
+            Text(
+                text = it,
+                style = headerTextStyle,
+                modifier = Modifier.padding(
+                    start = headerPaddingStart,
+                    top = 16.dp,
+                    bottom = 8.dp,
+                ),
+            )
+        }
+        val cardColor = when (uiStyle) {
             StSettingsUiStyle.Cupertino, StSettingsUiStyle.OneUi -> MaterialTheme.colorScheme.surface
             StSettingsUiStyle.Material -> Color.Transparent
         }
-        val cardPadding = when (localUiStyle) {
+        val cardPadding = when (uiStyle) {
             StSettingsUiStyle.Cupertino -> 16.dp
             StSettingsUiStyle.Material, StSettingsUiStyle.OneUi -> 0.dp
         }
-        val cardShape = when (localUiStyle) {
+        val cardShape = when (uiStyle) {
             StSettingsUiStyle.Cupertino -> MaterialTheme.shapes.large
             StSettingsUiStyle.Material -> CardDefaults.shape
             StSettingsUiStyle.OneUi -> MaterialTheme.shapes.extraLarge
@@ -66,6 +84,7 @@ fun StSettingsGroup(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @StUiPreview
 private fun Preview() {
@@ -73,31 +92,33 @@ private fun Preview() {
     var toggleSwitchState by remember { mutableStateOf(true) }
     val subTitle = "Turn this feature on to do something"
     StUiPreviewWrapper {
-        StSettingsGroup(
-            title = "Group Title",
-            content = {
-                StSettingsCheckBoxItem(
-                    leadingIcon = Icons.Default.Home,
-                    title = "Check Box",
-                    subTitle = subTitle,
-                    checked = checkBoxState,
-                    onCheckedChange = { checkBoxState = it },
-                )
-                StSettingsSwitchItem(
-                    leadingIcon = Icons.Default.Hub,
-                    title = "Toggle Switch",
-                    subTitle = subTitle,
-                    checked = toggleSwitchState,
-                    onCheckedChange = { toggleSwitchState = it },
-                )
-                StSettingsNavigateItem(
-                    leadingIcon = Icons.Default.Headphones,
-                    title = "Navigate Item",
-                    subTitle = subTitle,
-                    onClick = {},
-                )
-            },
-        )
+        StSettingsUi(uiStyle = StSettingsUiStyle.Cupertino) {
+            StSettingsGroup(
+                title = "Group Title",
+                content = {
+                    StSettingsCheckBoxItem(
+                        leadingIcon = Icons.Default.Home,
+                        title = "Check Box",
+                        subTitle = subTitle,
+                        checked = checkBoxState,
+                        onCheckedChange = { checkBoxState = it },
+                    )
+                    StSettingsSwitchItem(
+                        leadingIcon = Icons.Default.Hub,
+                        title = "Toggle Switch",
+                        subTitle = subTitle,
+                        checked = toggleSwitchState,
+                        onCheckedChange = { toggleSwitchState = it },
+                    )
+                    StSettingsNavigateItem(
+                        leadingIcon = Icons.Default.Headphones,
+                        title = "Navigate Item",
+                        subTitle = subTitle,
+                        onClick = {},
+                    )
+                },
+            )
+        }
         StSettingsGroup(
             title = "Group Title - No Icon",
             content = {

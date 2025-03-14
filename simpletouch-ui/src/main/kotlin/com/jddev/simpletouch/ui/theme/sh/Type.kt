@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.theme
+package com.jddev.simpletouch.ui.theme.sh
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.PlatformTextStyle
@@ -16,7 +16,7 @@ private val Montserrat = FontFamily(
     Font(R.font.sf_pro_display_regular, FontWeight.W500)
 )
 
-val defaultTextStyle = TextStyle(
+private val defaultTextStyle = TextStyle(
     fontFamily = Montserrat,
     platformStyle = PlatformTextStyle(
         includeFontPadding = false
@@ -27,7 +27,7 @@ val defaultTextStyle = TextStyle(
     )
 )
 
-val StUiTypography = Typography(
+val ShTypography = Typography(
     displayLarge = defaultTextStyle.copy(
         fontSize = 57.sp, lineHeight = 64.sp, letterSpacing = (-0.25).sp
     ),

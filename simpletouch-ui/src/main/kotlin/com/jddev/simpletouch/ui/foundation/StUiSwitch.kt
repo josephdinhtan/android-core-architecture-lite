@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,6 +20,7 @@ import com.jddev.simpletouch.ui.StUiPreviewWrapper
 fun StUiSwitch(
     checked: Boolean,
     enabled: Boolean = true,
+    colors: SwitchColors = StUiSwitchDefaults.colors(),
     onCheckedChange: ((Boolean) -> Unit)?,
 ) {
     Switch(
@@ -26,13 +28,24 @@ fun StUiSwitch(
         enabled = enabled,
         onCheckedChange = onCheckedChange,
         thumbContent = { Box(Modifier.size(SwitchDefaults.IconSize)) },
-        colors = SwitchDefaults.colors(
-            checkedThumbColor = Color.White,
-            checkedTrackColor = MaterialTheme.colorScheme.primary,
-            uncheckedThumbColor = Color.White,
-            uncheckedTrackColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-            uncheckedBorderColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-        )
+        colors = colors
+    )
+}
+
+internal object StUiSwitchDefaults {
+    @Composable
+    fun colors(
+        checkedThumbColor: Color = Color.White,
+        checkedTrackColor: Color = MaterialTheme.colorScheme.primary,
+        uncheckedThumbColor: Color = Color.White,
+        uncheckedTrackColor: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
+        uncheckedBorderColor: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
+    ): SwitchColors = SwitchDefaults.colors(
+        checkedTrackColor = checkedTrackColor,
+        checkedThumbColor = checkedThumbColor,
+        uncheckedTrackColor = uncheckedTrackColor,
+        uncheckedThumbColor = uncheckedThumbColor,
+        uncheckedBorderColor = uncheckedBorderColor,
     )
 }
 

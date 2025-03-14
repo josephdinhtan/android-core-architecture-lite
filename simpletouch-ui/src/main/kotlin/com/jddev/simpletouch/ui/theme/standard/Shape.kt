@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.theme
+package com.jddev.simpletouch.ui.theme.standard
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

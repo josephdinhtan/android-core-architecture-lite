@@ -2,6 +2,7 @@ package com.jddev.simpletouch.ui.settingsui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiSwitch
+import com.jddev.simpletouch.ui.foundation.StUiSwitchDefaults
 
 @Composable
 fun StSettingsSwitchItem(
@@ -82,6 +84,11 @@ private fun StSettingsSwitchItem(
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) {
+    val uiStyle = LocalStUiStyle.current
+    val switchCheckedTrackColor = when (uiStyle) {
+        StSettingsUiStyle.Cupertino -> MaterialTheme.colorScheme.secondary
+        else -> MaterialTheme.colorScheme.primary
+    }
     StSettingsBaseItem(
         modifier = modifier,
         title = title,
@@ -93,6 +100,9 @@ private fun StSettingsSwitchItem(
                 checked = checked,
                 onCheckedChange = { switchChecked -> onCheckedChange?.invoke(switchChecked) },
                 enabled = enabled,
+                colors = StUiSwitchDefaults.colors(
+                    checkedTrackColor = switchCheckedTrackColor,
+                )
             )
         },
         onClick = if (enabled && onCheckedChange != null) {
