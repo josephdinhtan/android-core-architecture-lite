@@ -15,6 +15,7 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SampleUiScreen(
+    settingsUiStyle: StSettingsUiStyle,
     navigateToBubbleMessenger: () -> Unit,
     navigateToIntelligentCharging: () -> Unit,
     navigateToSnakeGame: () -> Unit,
@@ -29,25 +30,23 @@ fun SampleUiScreen(
         },
     ) {
         StSettingsUi(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it),
-            uiStyle = StSettingsUiStyle.Material
+            modifier = Modifier.fillMaxSize().padding(it), uiStyle = settingsUiStyle
         ) {
             StSettingsGroup(title = "Bubble UI") {
                 StSettingsNavigateItem(
-                    title = "Messenger chat heads",
-                    onClick = navigateToBubbleMessenger
+                    title = "Messenger chat heads", onClick = navigateToBubbleMessenger
                 )
             }
-            StSettingsNavigateItem(
-                title = "Intelligent Charging",
-                onClick = navigateToIntelligentCharging
-            )
-            StSettingsNavigateItem(
-                title = "Snake Game",
-                onClick = navigateToSnakeGame
-            )
+            StSettingsGroup {
+                StSettingsNavigateItem(
+                    title = "Intelligent Charging", onClick = navigateToIntelligentCharging
+                )
+            }
+            StSettingsGroup {
+                StSettingsNavigateItem(
+                    title = "Snake Game", onClick = navigateToSnakeGame
+                )
+            }
         }
     }
 }

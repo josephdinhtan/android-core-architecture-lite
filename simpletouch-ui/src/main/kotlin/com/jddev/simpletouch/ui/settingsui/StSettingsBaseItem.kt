@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiBaseListItem
+import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItemColors
 import com.jddev.simpletouch.ui.settingsui.internal.headlineTextStyle
 import com.jddev.simpletouch.ui.settingsui.internal.supportingTextStyle
 
@@ -26,6 +27,7 @@ fun StSettingsBaseItem(
     title: String,
     subTitle: String? = null,
     trailingContent: @Composable (() -> Unit)? = null,
+    settingsItemColors: StSettingsItemColors = StSettingsItemColors.Default(),
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
 ) = StSettingsBaseItem(
@@ -36,6 +38,7 @@ fun StSettingsBaseItem(
     leadingIconImageVector = null,
     leadingContent = null,
     trailingContent = trailingContent,
+    settingsItemColors = settingsItemColors,
     enabled = enabled,
     onClick = onClick,
 )
@@ -47,6 +50,7 @@ fun StSettingsBaseItem(
     subTitle: String? = null,
     leading: Painter? = null,
     trailingContent: @Composable (() -> Unit)? = null,
+    settingsItemColors: StSettingsItemColors = StSettingsItemColors.Default(),
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
 ) = StSettingsBaseItem(
@@ -55,6 +59,7 @@ fun StSettingsBaseItem(
     subTitle = subTitle,
     leadingIconPainter = leading,
     trailingContent = trailingContent,
+    settingsItemColors = settingsItemColors,
     enabled = enabled,
     onClick = onClick,
 )
@@ -66,6 +71,7 @@ fun StSettingsBaseItem(
     subTitle: String? = null,
     leading: ImageVector? = null,
     trailingContent: @Composable (() -> Unit)? = null,
+    settingsItemColors: StSettingsItemColors,
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
 ) = StSettingsBaseItem(
@@ -74,6 +80,7 @@ fun StSettingsBaseItem(
     subTitle = subTitle,
     leadingIconImageVector = leading,
     trailingContent = trailingContent,
+    settingsItemColors = settingsItemColors,
     enabled = enabled,
     onClick = onClick,
 )
@@ -85,6 +92,7 @@ fun StSettingsBaseItem(
     subTitle: String? = null,
     leading: @Composable (() -> Unit)? = null,
     trailingContent: @Composable (() -> Unit)? = null,
+    settingsItemColors: StSettingsItemColors = StSettingsItemColors.Default(),
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
 ) = StSettingsBaseItem(
@@ -93,6 +101,7 @@ fun StSettingsBaseItem(
     subTitle = subTitle,
     leadingContent = leading,
     trailingContent = trailingContent,
+    settingsItemColors = settingsItemColors,
     enabled = enabled,
     onClick = onClick,
 )
@@ -106,6 +115,7 @@ internal fun StSettingsBaseItem(
     leadingIconImageVector: ImageVector? = null,
     leadingContent: @Composable (() -> Unit)? = null,
     trailingContent: @Composable (() -> Unit)? = null,
+    settingsItemColors: StSettingsItemColors = StSettingsItemColors.Default(),
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
 ) {
@@ -115,12 +125,12 @@ internal fun StSettingsBaseItem(
         StSettingsUiStyle.Cupertino -> 0.dp
         else -> ADDITIONAL_LEADING_ICON_PADDING
     }
-    StBaseSettingsItem(
+    StUiBaseListItemClickable(
         modifier = modifier,
         headlineContent = {
             Text(
                 title,
-                style = headlineTextStyle,
+                style = headlineTextStyle.copy(color = settingsItemColors.titleColor),
                 modifier = Modifier.alpha(if (enabled) 1f else disableAlpha),
             )
         },
@@ -128,7 +138,7 @@ internal fun StSettingsBaseItem(
             subTitle?.let {
                 Text(
                     it,
-                    style = supportingTextStyle,
+                    style = supportingTextStyle.copy(color = settingsItemColors.subTitleColor),
                     modifier = Modifier.alpha(if (enabled) 1f else disableAlpha),
                 )
             }
@@ -164,7 +174,7 @@ internal fun StSettingsBaseItem(
 }
 
 @Composable
-private fun StBaseSettingsItem(
+private fun StUiBaseListItemClickable(
     modifier: Modifier = Modifier,
     headlineContent: @Composable () -> Unit,
     leadingContent: @Composable (() -> Unit)? = null,
@@ -199,11 +209,12 @@ private fun Preview() {
             subTitle = "This is the Subtitle",
             leadingIconPainter = null,
             leadingIconImageVector = Icons.Default.Settings,
+            settingsItemColors = StSettingsItemColors.Default(),
             trailingContent = { Icon(Icons.AutoMirrored.Filled.NavigateNext, "trailing") },
             onClick = {},
         )
 
-        StBaseSettingsItem(
+        StUiBaseListItemClickable(
             headlineContent = { Text("Headline Content") },
             leadingContent = { Text("Leading") },
             supportingContent = { Text("Supporting content") },

@@ -40,6 +40,8 @@ fun StUiAlertDialog(
     dismissButtonText: String? = null,
     title: String?,
     text: String?,
+    onConfirm: (() -> Unit)? = null,
+    onDismiss: (() -> Unit),
 ) {
     StUiBaseDialog(
         showDialog = showDialog,
@@ -52,6 +54,8 @@ fun StUiAlertDialog(
             dismissButtonText = dismissButtonText,
             title = title,
             text = text,
+            onConfirm = onConfirm,
+            onDismiss = onDismiss,
         )
     }
 }
@@ -64,6 +68,8 @@ private fun StUiAlertDialogContent(
     dismissButtonText: String? = null,
     title: String?,
     text: String?,
+    onConfirm: (() -> Unit)? = null,
+    onDismiss: (() -> Unit)? = null,
 ) {
     Box(modifier
         .pointerInput(Unit) { detectTapGestures { } }
@@ -110,7 +116,7 @@ private fun StUiAlertDialogContent(
                     Modifier
                         .fillMaxWidth()
                         .clickable {
-
+                            onConfirm?.invoke()
                         }, contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -130,13 +136,14 @@ private fun StUiAlertDialogContent(
                     Modifier
                         .fillMaxWidth()
                         .clickable {
-
+                            onDismiss?.invoke()
                         }, contentAlignment = Alignment.Center
                 ) {
                     Text(
                         modifier = Modifier.padding(vertical = 16.dp, horizontal = 32.dp),
                         text = it,
                         style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center),
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }

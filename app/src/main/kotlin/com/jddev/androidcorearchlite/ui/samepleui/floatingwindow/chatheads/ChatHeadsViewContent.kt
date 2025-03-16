@@ -34,7 +34,6 @@ fun ChatHeadsViewContent(
     }
 }
 
-
 @Composable
 fun ClickShapeAnimation(
     isPressed2: Boolean,

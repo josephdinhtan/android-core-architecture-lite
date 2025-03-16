@@ -6,8 +6,8 @@ import com.jddev.simpletouch.ui.theme.ios.IosTheme
 
 @Composable
 fun StUiTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) = IosTheme (
-    darkTheme = darkTheme, content = content
+    isDarkTheme = isDarkTheme, content = content
 )

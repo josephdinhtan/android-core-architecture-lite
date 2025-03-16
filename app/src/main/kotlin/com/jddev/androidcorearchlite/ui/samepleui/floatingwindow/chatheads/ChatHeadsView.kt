@@ -48,7 +48,7 @@ class ChatHeadsView(
             setContent {
                 val darkTheme = isThemeModeDark.collectAsState()
                 StUiTheme(
-                    darkTheme = darkTheme.value
+                    isDarkTheme = darkTheme.value
                 ) {
                     val isPressed = isHolding.collectAsState()
                     ChatHeadsViewContent(

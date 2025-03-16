@@ -1,6 +1,7 @@
 package com.jddev.androidcorearchlite.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -12,7 +13,7 @@ import com.jddev.androidcorearchlite.ui.archcatalog.statemachinedemo.StateMachin
 import com.jddev.androidcorearchlite.ui.basic.notification.notificationUiNavGraph
 import com.jddev.androidcorearchlite.ui.basic.shareviewmodel.shareViewModelNavGraph
 import com.jddev.androidcorearchlite.ui.samepleui.sampleUiNavGraph
-import com.jddev.androidcorearchlite.ui.settings.SettingsRoute
+import com.jddev.androidcorearchlite.ui.settings.settingsNavGraph
 import com.jddev.androidcorearchlite.ui.uicatalog.uiCatalogNavGraph
 import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
 import com.jddev.simpletouch.ui.navigation.StUiNavHost
@@ -37,6 +38,7 @@ fun CoreArchNavGraph(
             route = "nav_home",
         ) {
             HomeScreen(
+                settingsUiStyle = appContainer.appSettings.uiStyle.collectAsState().value,
                 navigateToSettings = {
                     navController.navigateSingleTop("nav_settings")
                 },
@@ -57,14 +59,8 @@ fun CoreArchNavGraph(
                 },
             )
         }
-        uiCatalogNavGraph("nav_ui_catalog", navController)
-        composable(
-            route = "nav_settings",
-        ) {
-            SettingsRoute(
-                onBack = { navController.popBackStack() },
-            )
-        }
+        uiCatalogNavGraph("nav_ui_catalog", navController, appContainer.appSettings)
+        settingsNavGraph("nav_settings", navController, appContainer.appSettings)
         composable(
             route = "nav_state_machine",
         ) { backStackEntry ->
@@ -74,8 +70,8 @@ fun CoreArchNavGraph(
                 onBack = { navController.popBackStack() },
             )
         }
-        sampleUiNavGraph("nav_ui_sampleui", navController)
-        notificationUiNavGraph("notificationUi", navController)
-        shareViewModelNavGraph("shareViewModelNavGraph", navController)
+        sampleUiNavGraph("nav_ui_sampleui", navController, appContainer.appSettings)
+        notificationUiNavGraph("notificationUi", navController, appContainer.appSettings)
+        shareViewModelNavGraph("shareViewModelNavGraph", navController, appContainer.appSettings)
     }
 }

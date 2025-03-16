@@ -13,6 +13,8 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.icon.StUiIcons
+import com.jddev.simpletouch.ui.settingsui.LocalStUiStyle
+import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,10 +29,17 @@ fun StUiTopAppBar(
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,
 ) {
+    val topAppBarColors = when (LocalStUiStyle.current) {
+        StSettingsUiStyle.Cupertino -> TopAppBarDefaults.largeTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
+        )
+        else -> colors
+    }
     TopAppBar(
         modifier = modifier,
         scrollBehavior = scrollBehavior,
-        colors = colors,
+        colors = topAppBarColors,
         title = { Text(text = title) },
         navigationIcon = {
             onBack?.let {

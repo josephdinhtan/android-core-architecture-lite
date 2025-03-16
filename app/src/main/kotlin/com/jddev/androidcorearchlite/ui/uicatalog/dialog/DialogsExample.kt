@@ -58,5 +58,7 @@ fun StUiAlertDialogExample(
         dismissButtonText = "Cancel",
         title = "Follow me on Instagram",
         text = "@jddev_official",
+        onConfirm = onConfirmation,
+        onDismiss = onDismissRequest
     )
 }

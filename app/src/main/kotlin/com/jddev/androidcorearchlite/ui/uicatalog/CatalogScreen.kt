@@ -15,6 +15,8 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatalogScreen(
+    modifier: Modifier = Modifier,
+    settingsUiStyle: StSettingsUiStyle,
     navigateToPager: () -> Unit,
     navigateToBottomNav: () -> Unit,
     navigateToBasicButton: () -> Unit,
@@ -34,7 +36,7 @@ fun CatalogScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
-            uiStyle = StSettingsUiStyle.Material
+            uiStyle = settingsUiStyle
         ) {
             StSettingsGroup(title = "Basic components") {
                 StSettingsNavigateItem(

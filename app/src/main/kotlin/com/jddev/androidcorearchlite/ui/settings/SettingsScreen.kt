@@ -1,20 +1,29 @@
 package com.jddev.androidcorearchlite.ui.settings
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Chat
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.Flag
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.outlined.ChatBubbleOutline
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.Flag
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Style
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.jddev.androidcorearchlite.ui.settings.theme.AppThemeMode
+import com.jddev.androidcorearchlite.ui.settings.uistyle.SettingsUiStyleContent
+import com.jddev.simpletouch.ui.dialog.StUiEmptyDialog
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
-import com.jddev.simpletouch.ui.settingsui.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
@@ -24,10 +33,17 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
-    onThemeChange: () -> Unit,
+    appSettings: AppSettings,
     onBack: () -> Unit,
+    navigateToThemeMode: () -> Unit,
+    navigateToUiStyleMode: () -> Unit,
 ) {
     val scrollBehavior = StUiScrollBehavior()
+    val settingsUiStyle = appSettings.uiStyle.collectAsState()
+    val themeMode = appSettings.appThemeMode.collectAsState()
+
+    var showUiStyleDialog by remember { mutableStateOf(false) }
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -44,70 +60,71 @@ fun SettingsScreen(
                 .fillMaxSize()
                 .padding(innerPadding),
             scrollBehavior = scrollBehavior,
-            uiStyle = StSettingsUiStyle.Material,
+            uiStyle = settingsUiStyle.value,
         ) {
             StSettingsGroup(title = "General") {
                 StSettingsNavigateItem(
                     title = "Theme",
-                    subTitle = "Dark mode",
-                    leadingIcon = Icons.Default.DarkMode,
-                    onClick = onThemeChange,
+                    value = when (themeMode.value) {
+                        AppThemeMode.DARK -> "Dark"
+                        AppThemeMode.LIGHT -> "Light"
+                        AppThemeMode.SYSTEM -> "System"
+                    },
+                    leadingIcon = Icons.Outlined.DarkMode,
+                    onClick = navigateToThemeMode,
                 )
                 StSettingsNavigateItem(
-                    title = "Language",
-                    subTitle = "English",
-                    leadingIcon = Icons.Default.Language,
-                    onClick = onThemeChange,
-                )
-                StSettingsSwitchItem(
-                    title = "Switch test",
-                    subTitle = "Switch test sub title",
-                    leadingIcon = Icons.Default.Language,
-                    onCheckedChange = {},
-                )
-            }
-            StSettingsGroup(title = "Other") {
-                StSettingsNavigateItem(
-                    title = "Theme",
-                    subTitle = "Dark mode",
-                    leadingIcon = Icons.Default.DarkMode,
-                    onClick = onThemeChange,
+                    title = "Ui style",
+                    value = when (settingsUiStyle.value) {
+                        StSettingsUiStyle.Cupertino -> "Cupertino"
+                        StSettingsUiStyle.Material -> "Material"
+                        else -> "Unknown"
+                    },
+                    leadingIcon = Icons.Outlined.Style,
+                    onClick = navigateToUiStyleMode,
                 )
                 StSettingsNavigateItem(
-                    title = "Language",
-                    subTitle = "English",
-                    leadingIcon = Icons.Default.Language,
-                    onClick = onThemeChange,
-                )
-                StSettingsSwitchItem(
-                    title = "Switch test",
-                    subTitle = "Switch test sub title",
-                    leadingIcon = Icons.Default.Language,
-                    onCheckedChange = {},
+                    title = "Ui style - popup",
+                    subTitle = "Popup",
+                    value = when (settingsUiStyle.value) {
+                        StSettingsUiStyle.Cupertino -> "Cupertino"
+                        StSettingsUiStyle.Material -> "Material"
+                        else -> "Unknown"
+                    },
+                    leadingIcon = Icons.Outlined.Style,
+                    onClick = { showUiStyleDialog = true },
                 )
             }
             StSettingsGroup(title = "Support & Feedback") {
                 StSettingsNavigateItem(
                     title = "Report an issue",
-                    leadingIcon = Icons.Default.Flag,
-                    onClick = onThemeChange,
+                    leadingIcon = Icons.Outlined.Flag,
+                    onClick = {},
                 )
                 StSettingsNavigateItem(
                     title = "Chat with us",
-                    leadingIcon = Icons.AutoMirrored.Filled.Chat,
-                    onClick = onThemeChange,
+                    leadingIcon = Icons.Outlined.ChatBubbleOutline,
+                    onClick = {},
                 )
                 StSettingsNavigateItem(
                     title = "About us",
-                    leadingIcon = Icons.Default.Info,
-                    onClick = onThemeChange,
+                    leadingIcon = Icons.Outlined.Info,
+                    onClick = {},
                 )
-                StSettingsSwitchItem(
-                    title = "Switch test",
-                    subTitle = "Switch test sub title",
-                    leadingIcon = Icons.Default.Language,
-                    onCheckedChange = {},
-                )
+            }
+        }
+    }
+
+    StUiEmptyDialog(
+        showDialog = showUiStyleDialog,
+        onDismissRequest = { showUiStyleDialog = false }
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            SettingsUiStyleContent(
+                settingsUiStyle = settingsUiStyle.value,
+            ) {
+                appSettings.uiStyle.value = it
+                showUiStyleDialog = false
             }
         }
     }

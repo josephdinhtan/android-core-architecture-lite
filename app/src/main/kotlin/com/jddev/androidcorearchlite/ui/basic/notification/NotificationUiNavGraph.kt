@@ -1,5 +1,6 @@
 package com.jddev.androidcorearchlite.ui.basic.notification
 
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -7,15 +8,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.jddev.androidcorearchlite.ui.settings.AppSettings
 import com.jddev.simpletouch.ui.navigation.navigateSingleTop
 
-fun NavGraphBuilder.notificationUiNavGraph(route: String, navController: NavHostController) {
+fun NavGraphBuilder.notificationUiNavGraph(
+    route: String,
+    navController: NavHostController,
+    appSettings: AppSettings,
+) {
     navigation(
         route = route,
         startDestination = "nested_notificationUi",
     ) {
         composable("nested_notificationUi") {
             NotificationUiRoute(
+                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 navigateToDetailNotification = {
                     navController.navigateSingleTop("notificationUiDetail/from main navigation")
                 },

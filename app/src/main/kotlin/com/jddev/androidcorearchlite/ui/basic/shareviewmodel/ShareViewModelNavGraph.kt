@@ -4,10 +4,15 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.jddev.androidcorearchlite.ui.settings.AppSettings
 import com.jddev.simpletouch.ui.navigation.navigateSingleTop
 import com.jddev.simpletouch.ui.viewmodel.sharedViewModel
 
-fun NavGraphBuilder.shareViewModelNavGraph(route: String, navController: NavHostController) {
+fun NavGraphBuilder.shareViewModelNavGraph(
+    route: String,
+    navController: NavHostController,
+    appSettings: AppSettings,
+) {
     navigation(
         route = route,
         startDestination = "mainScreen",

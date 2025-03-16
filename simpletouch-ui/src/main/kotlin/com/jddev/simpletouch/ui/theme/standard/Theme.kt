@@ -78,10 +78,10 @@ private val DarkColors = darkColorScheme(
 
 @Composable
 fun StUiStandardTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) DarkColors else LightColors
+    val colorScheme = if (isDarkTheme) DarkColors else LightColors
     MaterialTheme(
         colorScheme = colorScheme,
         shapes = StUiShapes,

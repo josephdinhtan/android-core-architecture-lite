@@ -2,6 +2,8 @@ package com.jddev.simpletouch.ui.settingsui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.Home
@@ -36,7 +38,7 @@ fun StSettingsUi(
                     content()
                 }
             }
-        } ?: Column(modifier = modifier) { content() }
+        } ?: Column(modifier = modifier.verticalScroll(rememberScrollState())) { content() }
     }
 }
 

@@ -27,6 +27,15 @@ val supportingTextStyle: TextStyle
     @Composable get() = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 15.sp,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
         lineHeight = 20.sp,
+    )
+
+val cupertinoValueTextStyle: TextStyle
+    @Composable get() = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 17.sp,
+        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+        lineHeight = 22.sp,
+        letterSpacing = (-0.43).sp
     )

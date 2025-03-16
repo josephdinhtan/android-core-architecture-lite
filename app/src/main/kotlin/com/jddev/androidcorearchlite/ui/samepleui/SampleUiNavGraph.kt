@@ -1,5 +1,6 @@
 package com.jddev.androidcorearchlite.ui.samepleui
 
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -8,10 +9,12 @@ import androidx.navigation.navDeepLink
 import com.jddev.androidcorearchlite.ui.samepleui.floatingwindow.FloatingWindowRoute
 import com.jddev.androidcorearchlite.ui.samepleui.intelligentcharging.IntelligentChargingRoute
 import com.jddev.androidcorearchlite.ui.samepleui.snakegame.SnakeGameRoute
+import com.jddev.androidcorearchlite.ui.settings.AppSettings
 
 fun NavGraphBuilder.sampleUiNavGraph(
     route: String,
     navController: NavHostController,
+    appSettings: AppSettings,
 ) {
     navigation(
         route = route,
@@ -21,6 +24,7 @@ fun NavGraphBuilder.sampleUiNavGraph(
             route = "sampleui_nav_home_route",
         ) {
             SampleUiScreen(
+                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 navigateToBubbleMessenger = {
                     navController.navigate("sampleui_nav_bubble_messenger_route")
                 },

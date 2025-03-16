@@ -1,9 +1,11 @@
 package com.jddev.androidcorearchlite.ui.uicatalog
 
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.jddev.androidcorearchlite.ui.settings.AppSettings
 import com.jddev.androidcorearchlite.ui.uicatalog.bottomnavigation.BottomNavScreen
 import com.jddev.androidcorearchlite.ui.uicatalog.button.BasicButtonsScreen
 import com.jddev.androidcorearchlite.ui.uicatalog.dialog.BasicDialogScreen
@@ -13,6 +15,7 @@ import com.jddev.androidcorearchlite.ui.uicatalog.settingsscreen.SettingsUiExamp
 fun NavGraphBuilder.uiCatalogNavGraph(
     route: String,
     navController: NavHostController,
+    appSettings: AppSettings,
 ) {
     navigation(
         route = route,
@@ -22,6 +25,7 @@ fun NavGraphBuilder.uiCatalogNavGraph(
             route = "catalog_nav_home_route",
         ) {
             CatalogScreen(
+                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 onBack = { navController.popBackStack() },
                 navigateToPager = {
                     navController.navigate("catalog_nav_horizontal_pager_route")

@@ -1,5 +1,6 @@
 package com.jddev.androidcorearchlite.ui.uicatalog.settingsscreen
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.DarkMode
@@ -8,10 +9,17 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
+import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
+import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsSwitchItem
@@ -20,15 +28,28 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsUiExampleScreen (
+fun SettingsUiExampleScreen(
     uiStyle: StSettingsUiStyle,
     onBack: () -> Unit
 ) {
-    StUiSimpleScaffold(
-        title = "Material Settings",
-        onBack = onBack
+    val scrollBehavior = StUiScrollBehavior()
+    var toggleChecked by remember { mutableStateOf(true) }
+    val title = when (uiStyle) {
+        StSettingsUiStyle.Cupertino -> "Cupertino Settings"
+        else -> "Material Settings"
+    }
+    Scaffold(
+        topBar = {
+            StUiLargeTopAppBar(
+                scrollBehavior = scrollBehavior,
+                title = title,
+                onBack = onBack
+            )
+        },
     ) {
         StSettingsUi(
+            modifier = Modifier.padding(it),
+            scrollBehavior = scrollBehavior,
             uiStyle = uiStyle,
         ) {
             StSettingsGroup(
@@ -37,8 +58,8 @@ fun SettingsUiExampleScreen (
                 StSettingsSwitchItem(
                     leadingIcon = Icons.Outlined.DarkMode,
                     title = "Dark mode",
-                    checked = true,
-                    onCheckedChange = {}
+                    checked = toggleChecked,
+                    onCheckedChange = { toggleChecked = !toggleChecked }
                 )
                 StSettingsNavigateItem(
                     leadingIcon = Icons.Outlined.ColorLens,
@@ -71,6 +92,26 @@ fun SettingsUiExampleScreen (
                 )
                 StSettingsNavigateItem(
                     leadingIcon = Icons.Outlined.Lock,
+                    title = "Privacy & Security",
+                    onClick = {}
+                )
+            }
+            StSettingsGroup(
+                title = "No Leading icon"
+            ) {
+                StSettingsNavigateItem(
+                    title = "Profile & Accounts",
+                    onClick = {}
+                )
+                StSettingsNavigateItem(
+                    title = "Security",
+                    onClick = {}
+                )
+                StSettingsNavigateItem(
+                    title = "Privacy & Security",
+                    onClick = {}
+                )
+                StSettingsNavigateItem(
                     title = "Privacy & Security",
                     onClick = {}
                 )

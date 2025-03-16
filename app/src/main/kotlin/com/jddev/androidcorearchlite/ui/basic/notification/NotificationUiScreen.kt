@@ -17,6 +17,7 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotificationUiScreen(
+    settingsUiStyle: StSettingsUiStyle,
     showSimpleNotification: () -> Unit,
     updateNotification: () -> Unit,
     cancelNotification: () -> Unit,
@@ -83,6 +84,7 @@ fun NotificationUiScreen(
 private fun Preview() {
     StUiPreviewWrapper {
         NotificationUiScreen(
+            settingsUiStyle = StSettingsUiStyle.Cupertino,
             {}, {}, {}, {}, {}
         )
     }

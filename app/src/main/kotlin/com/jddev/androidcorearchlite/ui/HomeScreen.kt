@@ -28,6 +28,7 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    settingsUiStyle: StSettingsUiStyle,
     navigateToSettings: () -> Unit,
     navigateToUiCatalog: () -> Unit,
     navigateToSampleUi: () -> Unit,
@@ -56,7 +57,7 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(innerPadding),
             scrollBehavior = scrollBehavior,
-            uiStyle = StSettingsUiStyle.Material,
+            uiStyle = settingsUiStyle,
         ) {
             StSettingsGroup(
                 title = "Architecture"
@@ -106,6 +107,7 @@ fun HomeScreen(
 @Composable
 private fun Preview() {
     StUiPreviewWrapper {
-        HomeScreen(modifier = Modifier, {}, {}, {}, {}, {}, {})
+        HomeScreen(modifier = Modifier, settingsUiStyle = StSettingsUiStyle.Material,
+            {}, {}, {}, {}, {}, {})
     }
 }
