@@ -46,6 +46,7 @@ fun NavGraphBuilder.sampleUiNavGraph(
             })
         ) {
             FloatingWindowRoute(
+                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 onBack = {
                     navController.popBackStack()
                 },

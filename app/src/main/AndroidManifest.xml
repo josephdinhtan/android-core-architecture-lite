@@ -30,9 +30,10 @@
             android:exported="false" />
         <service
             android:name=".ui.samepleui.floatingwindow.FloatingWindowService"
+            android:theme="@style/Theme.Androidcorearchitecturelite"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="shortService"
+            android:foregroundServiceType="mediaPlayback"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
 
         <activity

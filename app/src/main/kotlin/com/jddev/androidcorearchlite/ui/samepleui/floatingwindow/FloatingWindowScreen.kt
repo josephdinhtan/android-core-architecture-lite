@@ -22,14 +22,15 @@ import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FloatingWindowScreen(
-    onBack: () -> Unit,
+    settingsUiStyle: StSettingsUiStyle,
     hasOverlayPermission: Boolean,
     isShowBubble: Boolean,
     showBubbleEnableChange: (Boolean) -> Unit,
+    onBack: () -> Unit,
 ) {
     Scaffold(topBar = {
         StUiTopAppBar(
-            title = "Messenger Bubble", onBack = onBack
+            title = "Floating windows", onBack = onBack
         )
     }) { innerPadding ->
 
@@ -38,11 +39,12 @@ fun FloatingWindowScreen(
                 Text("Overlay permission is not granted")
             } else {
                 StSettingsUi(
-                    uiStyle = StSettingsUiStyle.Material,
+                    uiStyle = settingsUiStyle,
                 ) {
                     StSettingsGroup {
                         StSettingsSwitchItem(
                             title = "Chat heads",
+                            subTitle = "Show chat heads like messenger",
                             checked = isShowBubble,
                             onCheckedChange = showBubbleEnableChange,
                         )
@@ -64,6 +66,7 @@ private fun Preview() {
     var isChecked by remember { mutableStateOf(false) }
     StUiPreviewWrapper {
         FloatingWindowScreen(
+            settingsUiStyle = StSettingsUiStyle.Cupertino,
             onBack = {},
             isShowBubble = isChecked,
             hasOverlayPermission = true,

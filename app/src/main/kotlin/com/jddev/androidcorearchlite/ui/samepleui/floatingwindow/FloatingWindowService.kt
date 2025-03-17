@@ -9,11 +9,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.IBinder
+import android.util.Size
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 import com.jddev.androidcorearchlite.R
@@ -26,11 +28,10 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
 
     private val _lifecycleRegistry = LifecycleRegistry(this)
     private val _savedStateRegistryController = SavedStateRegistryController.create(this)
-    override val savedStateRegistry = _savedStateRegistryController.savedStateRegistry
+    override val savedStateRegistry: SavedStateRegistry = _savedStateRegistryController.savedStateRegistry
     override val lifecycle: Lifecycle = _lifecycleRegistry
-
     private val isThemeModeDark = MutableStateFlow<Boolean>(false)
-    private val screenWidth = MutableStateFlow<Int>(0)
+    private val screenSize = MutableStateFlow<Size>(Size(0, 0))
 
     private lateinit var chatHeadsView: ChatHeadsView
 
@@ -42,10 +43,13 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
         _savedStateRegistryController.performAttach()
         _savedStateRegistryController.performRestore(null)
         _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        screenWidth.value = resources.displayMetrics.widthPixels
+        _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
+        screenSize.value = Size(
+            resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels
+        )
 
         chatHeadsView = ChatHeadsView(
-            this, screenWidth.asStateFlow(), isThemeModeDark, this, this
+            this, screenSize.asStateFlow(), isThemeModeDark, this, this
         )
     }
 
@@ -55,9 +59,7 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
 
     private fun createNotificationChannel() {
         val serviceChannel = NotificationChannel(
-            CHANNEL_ID,
-            "Core Arch Floating Service Channel",
-            NotificationManager.IMPORTANCE_DEFAULT
+            CHANNEL_ID, "Core Arch Floating Service Channel", NotificationManager.IMPORTANCE_DEFAULT
         )
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(serviceChannel)
@@ -72,9 +74,9 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
         }
         if (intent.hasExtra(INTENT_EXTRA_COMMAND_HIDE_OVERLAY)) {
             isShowing = false
+            chatHeadsView.hideAllViews()
             _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
             _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
-            chatHeadsView.hide()
             stopSelf()
         }
         return START_NOT_STICKY
@@ -84,12 +86,14 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
         super.onConfigurationChanged(newConfig)
         isThemeModeDark.value =
             newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-        screenWidth.value = resources.displayMetrics.widthPixels
+        screenSize.value = Size(
+            resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels
+        )
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        chatHeadsView.hide()
+        chatHeadsView.hideAllViews()
         _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     }
 
@@ -101,16 +105,12 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
             MainActivity::class.java
         )
         val pendingIntent = PendingIntent.getActivity(
-            this, 0, notificationIntent,
-            PendingIntent.FLAG_IMMUTABLE
+            this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE
         )
 
-        return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("CoreArch")
+        return NotificationCompat.Builder(this, CHANNEL_ID).setContentTitle("CoreArch")
             .setContentText("Floating window is showing")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentIntent(pendingIntent)
-            .build()
+            .setSmallIcon(R.drawable.ic_launcher_foreground).setContentIntent(pendingIntent).build()
     }
 
     companion object {
