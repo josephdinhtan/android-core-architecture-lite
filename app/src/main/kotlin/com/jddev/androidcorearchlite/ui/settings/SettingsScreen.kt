@@ -23,9 +23,9 @@ import com.jddev.androidcorearchlite.ui.settings.theme.AppThemeMode
 import com.jddev.androidcorearchlite.ui.settings.uistyle.SettingsUiStyleContent
 import com.jddev.simpletouch.ui.dialog.StUiEmptyDialog
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
+import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 
@@ -38,7 +38,7 @@ fun SettingsScreen(
     navigateToThemeMode: () -> Unit,
     navigateToUiStyleMode: () -> Unit,
 ) {
-    val scrollBehavior = StUiScrollBehavior()
+    val scrollBehavior = stUiScrollBehavior()
     val settingsUiStyle = appSettings.uiStyle.collectAsState()
     val themeMode = appSettings.appThemeMode.collectAsState()
 

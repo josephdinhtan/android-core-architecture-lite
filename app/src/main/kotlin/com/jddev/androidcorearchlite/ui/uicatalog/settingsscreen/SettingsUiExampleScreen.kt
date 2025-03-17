@@ -2,6 +2,7 @@ package com.jddev.androidcorearchlite.ui.uicatalog.settingsscreen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LooksOne
 import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Language
@@ -19,20 +20,20 @@ import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
+import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
-import com.jddev.simpletouch.ui.settingsui.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.settingsui.checkbox.StSettingsCheckBoxItem
+import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.settingsui.switch.StSettingsSwitchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsUiExampleScreen(
-    uiStyle: StSettingsUiStyle,
-    onBack: () -> Unit
+    uiStyle: StSettingsUiStyle, onBack: () -> Unit
 ) {
-    val scrollBehavior = StUiScrollBehavior()
+    val scrollBehavior = stUiScrollBehavior()
     var toggleChecked by remember { mutableStateOf(true) }
     val title = when (uiStyle) {
         StSettingsUiStyle.Cupertino -> "Cupertino Settings"
@@ -41,9 +42,7 @@ fun SettingsUiExampleScreen(
     Scaffold(
         topBar = {
             StUiLargeTopAppBar(
-                scrollBehavior = scrollBehavior,
-                title = title,
-                onBack = onBack
+                scrollBehavior = scrollBehavior, title = title, onBack = onBack
             )
         },
     ) {
@@ -55,66 +54,55 @@ fun SettingsUiExampleScreen(
             StSettingsGroup(
                 title = "Personalization"
             ) {
-                StSettingsSwitchItem(
-                    leadingIcon = Icons.Outlined.DarkMode,
+                StSettingsSwitchItem(leadingIcon = Icons.Outlined.DarkMode,
                     title = "Dark mode",
                     checked = toggleChecked,
-                    onCheckedChange = { toggleChecked = !toggleChecked }
-                )
-                StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.ColorLens,
+                    onCheckedChange = { toggleChecked = !toggleChecked })
+                StSettingsNavigateItem(leadingIcon = Icons.Outlined.ColorLens,
                     title = "Security",
-                    onClick = {}
-                )
-                StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.Language,
+                    onClick = {})
+                StSettingsNavigateItem(leadingIcon = Icons.Outlined.Language,
                     title = "Language",
-                    onClick = {}
+                    onClick = {})
+                StSettingsCheckBoxItem(
+                    leadingIcon = Icons.Default.LooksOne,
+                    title = "Enable One",
+                    subTitle = "Enable One will help something",
+                    checked = !toggleChecked,
+                    onCheckedChange = { checked -> toggleChecked = !checked },
+                )
+                StSettingsCheckBoxItem(
+                    leadingIcon = Icons.Default.LooksOne,
+                    title = "Enable One",
+                    subTitle = "Enable One will help something",
+                    checked = !toggleChecked,
+                    circleShape = true,
+                    onCheckedChange = { checked -> toggleChecked = !checked },
                 )
             }
             StSettingsGroup(
                 title = "Account"
             ) {
-                StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.PersonOutline,
+                StSettingsNavigateItem(leadingIcon = Icons.Outlined.PersonOutline,
                     title = "Profile & Accounts",
-                    onClick = {}
-                )
-                StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.Shield,
+                    onClick = {})
+                StSettingsNavigateItem(leadingIcon = Icons.Outlined.Shield,
                     title = "Security",
-                    onClick = {}
-                )
-                StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.Lock,
+                    onClick = {})
+                StSettingsNavigateItem(leadingIcon = Icons.Outlined.Lock,
                     title = "Privacy & Security",
-                    onClick = {}
-                )
-                StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.Lock,
+                    onClick = {})
+                StSettingsNavigateItem(leadingIcon = Icons.Outlined.Lock,
                     title = "Privacy & Security",
-                    onClick = {}
-                )
+                    onClick = {})
             }
             StSettingsGroup(
                 title = "No Leading icon"
             ) {
-                StSettingsNavigateItem(
-                    title = "Profile & Accounts",
-                    onClick = {}
-                )
-                StSettingsNavigateItem(
-                    title = "Security",
-                    onClick = {}
-                )
-                StSettingsNavigateItem(
-                    title = "Privacy & Security",
-                    onClick = {}
-                )
-                StSettingsNavigateItem(
-                    title = "Privacy & Security",
-                    onClick = {}
-                )
+                StSettingsNavigateItem(title = "Profile & Accounts", onClick = {})
+                StSettingsNavigateItem(title = "Security", onClick = {})
+                StSettingsNavigateItem(title = "Privacy & Security", onClick = {})
+                StSettingsNavigateItem(title = "Privacy & Security", onClick = {})
             }
         }
     }
@@ -124,9 +112,6 @@ fun SettingsUiExampleScreen(
 @StUiPreview
 private fun Preview() {
     StUiPreviewWrapper {
-        SettingsUiExampleScreen(
-            uiStyle = StSettingsUiStyle.Cupertino,
-            onBack = {}
-        )
+        SettingsUiExampleScreen(uiStyle = StSettingsUiStyle.Cupertino, onBack = {})
     }
 }

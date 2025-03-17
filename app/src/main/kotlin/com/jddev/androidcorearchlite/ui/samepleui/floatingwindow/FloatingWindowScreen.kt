@@ -15,7 +15,7 @@ import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsSwitchItem
+import com.jddev.simpletouch.ui.settingsui.switch.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 

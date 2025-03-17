@@ -13,13 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiBaseListItem
-import com.jddev.simpletouch.ui.settingsui.internal.StSettingsItemColors
-import com.jddev.simpletouch.ui.settingsui.internal.headlineTextStyle
-import com.jddev.simpletouch.ui.settingsui.internal.supportingTextStyle
 
 @Composable
 fun StSettingsBaseItem(
@@ -117,14 +115,10 @@ internal fun StSettingsBaseItem(
     trailingContent: @Composable (() -> Unit)? = null,
     settingsItemColors: StSettingsItemColors = StSettingsItemColors.Default(),
     enabled: Boolean = true,
+    additionalLeadingIconPadding: Dp = 0.dp,
     onClick: (() -> Unit)? = null,
 ) {
     val disableAlpha = SETTINGS_UI_DISABLE_ALPHA
-    val uiStyle = LocalStUiStyle.current
-    val additionalLeadingIconPadding = when (uiStyle) {
-        StSettingsUiStyle.Cupertino -> 0.dp
-        else -> ADDITIONAL_LEADING_ICON_PADDING
-    }
     StUiBaseListItemClickable(
         modifier = modifier,
         headlineContent = {

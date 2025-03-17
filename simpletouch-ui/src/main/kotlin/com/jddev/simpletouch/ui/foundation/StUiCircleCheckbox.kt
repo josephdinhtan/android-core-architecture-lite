@@ -85,7 +85,7 @@ private fun TriStateCheckboxCustom(
 ) {
     val toggleableModifier =
         if (onClick != null) {
-                Modifier.size(CheckboxSize * 2).clip(CircleShape).triStateToggleable(
+                Modifier.size(CheckboxSize).clip(CircleShape).triStateToggleable(
                     state = state,
                     onClick = onClick,
                     enabled = enabled,
@@ -324,7 +324,7 @@ private const val BoxInDuration = 50
 private const val BoxOutDuration = 100
 private const val CheckAnimationDuration = 100
 
-private val CheckboxDefaultPadding = 2.dp
+private val CheckboxDefaultPadding = 0.dp
 private val CheckboxSize = 20.dp
 private val StrokeWidth = 2.5.dp
 private val RadiusSize = 200.dp

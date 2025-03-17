@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.settingsui.internal
+package com.jddev.simpletouch.ui.settingsui
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

@@ -2,137 +2,121 @@ package com.jddev.simpletouch.ui.theme.ios
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import com.jddev.simpletouch.ui.theme.standard.StUiShapes
 import com.jddev.simpletouch.ui.theme.standard.StUiTypography
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_error
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_errorContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_inverseOnSurface
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_inversePrimary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_inverseSurface
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onError
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onErrorContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onPrimary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onPrimaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onSecondary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onSecondaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onTertiary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_onTertiaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_outline
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_outlineVariant
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_primaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_scrim
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_secondaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_surfaceTint
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_surfaceVariant
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_surface_container
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_surface_container_highest
-import com.jddev.simpletouch.ui.theme.standard.md_theme_dark_tertiaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_error
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_errorContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_inverseOnSurface
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_inversePrimary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_inverseSurface
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onError
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onErrorContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onPrimary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onPrimaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onSecondary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onSecondaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onTertiary
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_onTertiaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_outline
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_outlineVariant
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_primaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_scrim
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_secondaryContainer
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_surfaceTint
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_surfaceVariant
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_surface_container
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_surface_container_highest
-import com.jddev.simpletouch.ui.theme.standard.md_theme_light_tertiaryContainer
+import com.jddev.simpletouch.ui.theme.standard.StandardDarkColors
+import com.jddev.simpletouch.ui.theme.standard.StandardLightColors
 
-private val LightColors = lightColorScheme(
-    primary = ios_theme_light_blue,
-    onPrimary = md_theme_light_onPrimary,
-    primaryContainer = md_theme_light_primaryContainer,
-    onPrimaryContainer = md_theme_light_onPrimaryContainer,
-    secondary = ios_theme_light_green,
-    onSecondary = md_theme_light_onSecondary,
-    secondaryContainer = md_theme_light_secondaryContainer,
-    onSecondaryContainer = md_theme_light_onSecondaryContainer,
-    tertiary = ios_theme_light_tertiary_label,
-    onTertiary = md_theme_light_onTertiary,
-    tertiaryContainer = md_theme_light_tertiaryContainer,
-    onTertiaryContainer = md_theme_light_onTertiaryContainer,
-    error = md_theme_light_error,
-    errorContainer = md_theme_light_errorContainer,
-    onError = md_theme_light_onError,
-    onErrorContainer = md_theme_light_onErrorContainer,
-    background = ios_theme_light_tertiary_grouped_background,
-    onBackground = ios_theme_light_primary_label,
-    surface = ios_theme_light_secondary_grouped_background,
-    surfaceContainer = md_theme_light_surface_container,
-    surfaceContainerHighest = md_theme_light_surface_container_highest,
-    onSurface = ios_theme_light_primary_label,
-    surfaceVariant = md_theme_light_surfaceVariant,
-    onSurfaceVariant = ios_theme_light_secondary_label,
-    outline = md_theme_light_outline,
-    inverseOnSurface = md_theme_light_inverseOnSurface,
-    inverseSurface = md_theme_light_inverseSurface,
-    inversePrimary = md_theme_light_inversePrimary,
-    surfaceTint = md_theme_light_surfaceTint,
-    outlineVariant = md_theme_light_outlineVariant,
-    scrim = md_theme_light_scrim,
+internal val CupertinoLightColors = CupertinoColorScheme(
+    blue = ios_theme_light_blue,
+    brown = ios_theme_light_brown,
+    cyan = ios_theme_light_cyan,
+    green = ios_theme_light_green,
+    indigo = ios_theme_light_indigo,
+    mint = ios_theme_light_mint,
+    orange = ios_theme_light_orange,
+    pink = ios_theme_light_pink,
+    purple = ios_theme_light_purple,
+    red = ios_theme_light_red,
+    teal = ios_theme_light_teal,
+    yellow = ios_theme_light_yellow,
+    gray = ios_theme_light_gray,
+    gray2 = ios_theme_light_gray_2,
+    gray3 = ios_theme_light_gray_3,
+    gray4 = ios_theme_light_gray_4,
+    gray5 = ios_theme_light_gray_5,
+    gray6 = ios_theme_light_gray_6,
+    primaryLabel = ios_theme_light_primary_label,
+    secondaryLabel = ios_theme_light_secondary_label,
+    tertiaryLabel = ios_theme_light_tertiary_label,
+    quaternaryLabel = ios_theme_light_quaternary_label,
+    placeholderText = ios_theme_light_placeholder_text,
+    link = ios_theme_light_link,
+    primaryBackground = ios_theme_light_primary_background,
+    secondaryBackground = ios_theme_light_secondary_background,
+    tertiaryBackground = ios_theme_light_tertiary_background,
+    groupedBackground = ios_theme_light_grouped_background,
+    secondaryGroupedBackground = ios_theme_light_secondary_grouped_background,
+    tertiaryGroupedBackground = ios_theme_light_tertiary_grouped_background,
+    fill = ios_theme_light_fill,
+    secondaryFill = ios_theme_light_secondary_fill,
+    tertiaryFill = ios_theme_light_tertiary_fill,
+    quaternaryFill = ios_theme_light_quaternary_fill,
+    separator = ios_theme_light_separator,
+    opaqueSeparator = ios_theme_light_opaque_separator,
+    nonadaptable = ios_theme_light_nonadaptable,
 )
 
-
-private val DarkColors = darkColorScheme(
-    primary = ios_theme_dark_blue,
-    onPrimary = md_theme_dark_onPrimary,
-    primaryContainer = md_theme_dark_primaryContainer,
-    onPrimaryContainer = md_theme_dark_onPrimaryContainer,
-    secondary = ios_theme_dark_green,
-    onSecondary = md_theme_dark_onSecondary,
-    secondaryContainer = md_theme_dark_secondaryContainer,
-    onSecondaryContainer = md_theme_dark_onSecondaryContainer,
-    tertiary = ios_theme_dark_tertiary_label,
-    onTertiary = md_theme_dark_onTertiary,
-    tertiaryContainer = md_theme_dark_tertiaryContainer,
-    onTertiaryContainer = md_theme_dark_onTertiaryContainer,
-    error = md_theme_dark_error,
-    errorContainer = md_theme_dark_errorContainer,
-    onError = md_theme_dark_onError,
-    onErrorContainer = md_theme_dark_onErrorContainer,
-    background = ios_theme_dark_grouped_background,
-    onBackground = ios_theme_dark_primary_label,
-    surface = ios_theme_dark_secondary_grouped_background,
-    onSurface = ios_theme_dark_primary_label,
-    surfaceContainer = md_theme_dark_surface_container,
-    surfaceContainerHighest = md_theme_dark_surface_container_highest,
-    surfaceVariant = md_theme_dark_surfaceVariant,
-    onSurfaceVariant = ios_theme_dark_secondary_label,
-    outline = md_theme_dark_outline,
-    inverseOnSurface = md_theme_dark_inverseOnSurface,
-    inverseSurface = md_theme_dark_inverseSurface,
-    inversePrimary = md_theme_dark_inversePrimary,
-    surfaceTint = md_theme_dark_surfaceTint,
-    outlineVariant = md_theme_dark_outlineVariant,
-    scrim = md_theme_dark_scrim,
+internal val CupertinoDarkColors = CupertinoColorScheme(
+    blue = ios_theme_dark_blue,
+    brown = ios_theme_dark_brown,
+    cyan = ios_theme_dark_cyan,
+    green = ios_theme_dark_green,
+    indigo = ios_theme_dark_indigo,
+    mint = ios_theme_dark_mint,
+    orange = ios_theme_dark_orange,
+    pink = ios_theme_dark_pink,
+    purple = ios_theme_dark_purple,
+    red = ios_theme_dark_red,
+    teal = ios_theme_dark_teal,
+    yellow = ios_theme_dark_yellow,
+    gray = ios_theme_dark_gray,
+    gray2 = ios_theme_dark_gray_2,
+    gray3 = ios_theme_dark_gray_3,
+    gray4 = ios_theme_dark_gray_4,
+    gray5 = ios_theme_dark_gray_5,
+    gray6 = ios_theme_dark_gray_6,
+    primaryLabel = ios_theme_dark_primary_label,
+    secondaryLabel = ios_theme_dark_secondary_label,
+    tertiaryLabel = ios_theme_dark_tertiary_label,
+    quaternaryLabel = ios_theme_dark_quaternary_label,
+    placeholderText = ios_theme_dark_placeholder_text,
+    link = ios_theme_dark_link,
+    primaryBackground = ios_theme_dark_primary_background,
+    secondaryBackground = ios_theme_dark_secondary_background,
+    tertiaryBackground = ios_theme_dark_tertiary_background,
+    groupedBackground = ios_theme_dark_grouped_background,
+    secondaryGroupedBackground = ios_theme_dark_secondary_grouped_background,
+    tertiaryGroupedBackground = ios_theme_dark_tertiary_grouped_background,
+    fill = ios_theme_dark_fill,
+    secondaryFill = ios_theme_dark_secondary_fill,
+    tertiaryFill = ios_theme_dark_tertiary_fill,
+    quaternaryFill = ios_theme_dark_quaternary_fill,
+    separator = ios_theme_dark_separator,
+    opaqueSeparator = ios_theme_dark_opaque_separator,
+    nonadaptable = ios_theme_dark_nonadaptable,
 )
+private val LocalCupertinoColors: ProvidableCompositionLocal<CupertinoColorScheme> =
+    compositionLocalOf { CupertinoLightColors }
+
+object CupertinoTheme {
+    val colorScheme: CupertinoColorScheme
+        @Composable @ReadOnlyComposable get() = LocalCupertinoColors.current
+
+//    val typography: Typography
+//        @Composable @ReadOnlyComposable get() = LocalCupertinoTypography.current
+//
+//    val shapes: Shapes
+//        @Composable @ReadOnlyComposable get() = LocalCupertinoShapes.current
+}
 
 @Composable
-fun IosTheme(
-    isDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+fun StUiCupertinoTheme(
+    isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
 ) {
-    val colorScheme = if (isDarkTheme) DarkColors else LightColors
-    MaterialTheme(
-        colorScheme = colorScheme,
-        shapes = StUiShapes,
-        typography = StUiTypography,
-        content = content
-    )
+    val cupertinoColorScheme = if (isDarkTheme) CupertinoDarkColors else CupertinoLightColors
+    val materialColorScheme = if (isDarkTheme) StandardDarkColors else StandardLightColors
+    CompositionLocalProvider(LocalCupertinoColors provides cupertinoColorScheme) {
+        MaterialTheme(
+            colorScheme = materialColorScheme,
+            shapes = StUiShapes,
+            typography = StUiTypography,
+            content = content
+        )
+    }
 }

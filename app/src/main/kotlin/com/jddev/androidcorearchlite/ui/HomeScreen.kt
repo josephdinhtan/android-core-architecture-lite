@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
+import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
 
@@ -36,7 +36,7 @@ fun HomeScreen(
     navigateToNotification: () -> Unit,
     navigateToShareViewModel: () -> Unit,
 ) {
-    val scrollBehavior = StUiScrollBehavior()
+    val scrollBehavior = stUiScrollBehavior()
     Scaffold(
         modifier = modifier,
         topBar = {

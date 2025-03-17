@@ -20,9 +20,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.jddev.simpletouch.ui.StUi
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.settingsui.internal.groupTableTextStyle
+import com.jddev.simpletouch.ui.settingsui.checkbox.StSettingsCheckBoxItem
+import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.settingsui.switch.StSettingsSwitchItem
 import java.util.Locale
 
 @Composable
@@ -32,7 +35,7 @@ fun StSettingsGroup(
     titleColor: Color = MaterialTheme.colorScheme.primary,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val uiStyle = LocalStUiStyle.current
+    val uiStyle = StUi.settingsUiStyle
     Column(
         modifier = modifier.padding(vertical = 4.dp),
     ) {

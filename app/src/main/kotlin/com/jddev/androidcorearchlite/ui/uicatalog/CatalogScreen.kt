@@ -7,10 +7,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
+import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
 import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +37,8 @@ fun CatalogScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
-            uiStyle = settingsUiStyle
+            uiStyle = settingsUiStyle,
+            scrollBehavior = stUiScrollBehavior()
         ) {
             StSettingsGroup(title = "Basic components") {
                 StSettingsNavigateItem(

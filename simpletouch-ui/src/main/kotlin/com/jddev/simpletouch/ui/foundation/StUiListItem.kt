@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.settingsui.internal.headlineTextStyle
-import com.jddev.simpletouch.ui.settingsui.internal.supportingTextStyle
+import com.jddev.simpletouch.ui.settingsui.headlineTextStyle
+import com.jddev.simpletouch.ui.settingsui.supportingTextStyle
 
 private val ADDITIONAL_LEADING_ICON_PADDING_LIST_ITEM = 8.dp
 

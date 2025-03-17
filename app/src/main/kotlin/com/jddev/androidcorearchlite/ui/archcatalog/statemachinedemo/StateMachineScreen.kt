@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.foundation.StUiScrollBehavior
+import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
 import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
 import com.jddev.simpletouch.ui.theme.StUiTheme
 
@@ -33,7 +33,7 @@ fun StateMachineScreen(
     makeCool: () -> Unit,
     onBack: () -> Unit,
 ) {
-    val scrollBehavior = StUiScrollBehavior()
+    val scrollBehavior = stUiScrollBehavior()
     Scaffold(
         modifier = modifier,
         topBar = {

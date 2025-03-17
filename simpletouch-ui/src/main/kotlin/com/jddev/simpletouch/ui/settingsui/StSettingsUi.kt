@@ -2,8 +2,6 @@ package com.jddev.simpletouch.ui.settingsui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.Home
@@ -20,6 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.jddev.simpletouch.ui.StUiPreview
 import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.settingsui.checkbox.StSettingsCheckBoxItem
+import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.settingsui.switch.StSettingsSwitchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,7 +30,7 @@ fun StSettingsUi(
     uiStyle: StSettingsUiStyle = StSettingsUiStyle.Material,
     content: @Composable () -> Unit,
 ) {
-    CompositionLocalProvider(LocalStUiStyle provides uiStyle) {
+    CompositionLocalProvider(LocalStSettingsUiStyle provides uiStyle) {
         scrollBehavior?.let {
             LazyColumn(
                 modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -38,7 +39,7 @@ fun StSettingsUi(
                     content()
                 }
             }
-        } ?: Column(modifier = modifier.verticalScroll(rememberScrollState())) { content() }
+        } ?: Column(modifier = modifier) { content() }
     }
 }
 
