@@ -21,9 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
-import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

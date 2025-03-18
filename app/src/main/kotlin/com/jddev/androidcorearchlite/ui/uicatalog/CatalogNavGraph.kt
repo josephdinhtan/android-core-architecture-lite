@@ -11,6 +11,7 @@ import com.jddev.androidcorearchlite.ui.uicatalog.button.BasicButtonsScreen
 import com.jddev.androidcorearchlite.ui.uicatalog.dialog.BasicDialogScreen
 import com.jddev.androidcorearchlite.ui.uicatalog.pager.HorizontalPagerDemo
 import com.jddev.androidcorearchlite.ui.uicatalog.settingsscreen.SettingsUiExampleScreen
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 fun NavGraphBuilder.uiCatalogNavGraph(
     route: String,
@@ -41,7 +42,7 @@ fun NavGraphBuilder.uiCatalogNavGraph(
                 },
                 navigateToSettingsUi = { uiStyle ->
                     val styleId = when (uiStyle) {
-                        com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle.Cupertino -> 0
+                        StSettingsUiStyle.Cupertino -> 0
                         else -> 1
                     }
                     navController.navigate("catalog_nav_settings_ui_route/$styleId")
@@ -80,8 +81,8 @@ fun NavGraphBuilder.uiCatalogNavGraph(
             route = "catalog_nav_settings_ui_route/{uiStyle}",
         ) {
             val uiStyle = when (it.arguments?.getString("uiStyle")) {
-                "0" -> com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle.Cupertino
-                else -> com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle.Material
+                "0" -> StSettingsUiStyle.Cupertino
+                else -> StSettingsUiStyle.Material
             }
             SettingsUiExampleScreen(
                 uiStyle = uiStyle,

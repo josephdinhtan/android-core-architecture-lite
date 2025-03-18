@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.jddev.androidcorearchlite.ui.settings.theme.SettingsThemeModeScreen
 import com.jddev.androidcorearchlite.ui.settings.uistyle.SettingsUiStyleScreen
-import com.jddev.simpletouch.ui.viewmodel.sharedViewModel
+import com.jddev.simpletouch.ui.utils.sharedViewModel
 
 fun NavGraphBuilder.settingsNavGraph(
     route: String,

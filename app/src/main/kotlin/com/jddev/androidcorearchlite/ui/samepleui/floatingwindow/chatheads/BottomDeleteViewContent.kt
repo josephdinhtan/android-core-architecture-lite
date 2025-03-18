@@ -37,8 +37,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.StUiPreview
-import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
 private const val TIME_TO_DISMISS = 400
 private const val SIZE_OF_DELETE_BUTTON = 60

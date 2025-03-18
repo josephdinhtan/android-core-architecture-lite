@@ -6,13 +6,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jddev.simpletouch.ui.StUiPreview
-import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
-import com.jddev.simpletouch.ui.settingsui.StSettingsBaseItem
-import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsBaseItem
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

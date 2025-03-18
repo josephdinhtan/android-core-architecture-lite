@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.StUi
 import com.jddev.simpletouch.ui.icon.StUiIcons
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 import com.jddev.simpletouch.ui.theme.ios.CupertinoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

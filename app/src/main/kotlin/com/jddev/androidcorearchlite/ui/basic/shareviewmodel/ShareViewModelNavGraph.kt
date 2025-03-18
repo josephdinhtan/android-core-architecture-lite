@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.jddev.androidcorearchlite.ui.settings.AppSettings
 import com.jddev.simpletouch.ui.navigation.navigateSingleTop
-import com.jddev.simpletouch.ui.viewmodel.sharedViewModel
+import com.jddev.simpletouch.ui.utils.sharedViewModel
 
 fun NavGraphBuilder.shareViewModelNavGraph(
     route: String,

@@ -24,13 +24,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.jddev.androidcorearchlite.R
-import com.jddev.simpletouch.ui.StUiPreview
-import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
-import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
-import com.jddev.simpletouch.ui.settingsui.switch.StSettingsSwitchItem
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

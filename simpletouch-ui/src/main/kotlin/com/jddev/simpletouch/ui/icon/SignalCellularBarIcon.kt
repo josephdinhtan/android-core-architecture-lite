@@ -8,8 +8,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.jddev.simpletouch.ui.R
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
 @Composable
 fun SignalCellularBarIcon(
@@ -36,7 +37,9 @@ fun SignalCellularBarIcon(
 }
 
 @Composable
-@Preview
+@StUiPreview
 private fun Preview() {
-    SignalCellularBarIcon(level = 3)
+    StUiPreviewWrapper {
+        SignalCellularBarIcon(level = 3)
+    }
 }

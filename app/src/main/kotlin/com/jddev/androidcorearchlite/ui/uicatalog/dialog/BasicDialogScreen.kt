@@ -18,10 +18,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.dialog.StUiBaseDialog
 import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
-import com.jddev.simpletouch.ui.settingsui.StSettingsBaseItem
-import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsBaseItem
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

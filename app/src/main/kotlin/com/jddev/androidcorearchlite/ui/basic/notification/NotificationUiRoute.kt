@@ -2,7 +2,7 @@ package com.jddev.androidcorearchlite.ui.basic.notification
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 @Composable
 fun NotificationUiRoute(

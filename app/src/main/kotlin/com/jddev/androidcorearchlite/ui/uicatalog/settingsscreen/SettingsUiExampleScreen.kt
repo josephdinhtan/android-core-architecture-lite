@@ -17,16 +17,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.jddev.simpletouch.ui.StUiPreview
-import com.jddev.simpletouch.ui.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
-import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
-import com.jddev.simpletouch.ui.settingsui.checkbox.StSettingsCheckBoxItem
-import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
-import com.jddev.simpletouch.ui.settingsui.switch.StSettingsSwitchItem
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.checkbox.StSettingsCheckBoxItem
+import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

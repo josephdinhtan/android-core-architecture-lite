@@ -1,7 +1,7 @@
 package com.jddev.androidcorearchlite.ui.settings
 
 import com.jddev.androidcorearchlite.ui.settings.theme.AppThemeMode
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 import kotlinx.coroutines.flow.MutableStateFlow
 
 data class AppSettings (

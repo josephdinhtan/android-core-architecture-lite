@@ -24,10 +24,10 @@ import com.jddev.androidcorearchlite.ui.settings.uistyle.SettingsUiStyleContent
 import com.jddev.simpletouch.ui.dialog.StUiEmptyDialog
 import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
-import com.jddev.simpletouch.ui.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.settingsui.navigation.StSettingsNavigateItem
-import com.jddev.simpletouch.ui.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
