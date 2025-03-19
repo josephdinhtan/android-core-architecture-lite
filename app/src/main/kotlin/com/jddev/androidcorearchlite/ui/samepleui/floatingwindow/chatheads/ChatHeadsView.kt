@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalDensity
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
@@ -52,8 +53,8 @@ class ChatHeadsView(
     private val _isDragging = MutableStateFlow(false)
     private val isDragging = _isDragging.asStateFlow()
 
-    private val _isClick = MutableStateFlow(false)
-    private val isClick = _isClick.asStateFlow()
+    private val _clicked = MutableStateFlow(false)
+    private val clicked = _clicked.asStateFlow()
 
     private val _showBottomDeleteView = MutableStateFlow(false)
     private val showBottomDeleteView = _showBottomDeleteView.asStateFlow()
@@ -73,13 +74,29 @@ class ChatHeadsView(
             setViewTreeSavedStateRegistryOwner(savedStateRegistryOwner)
             setContent {
                 val darkTheme = isThemeModeDark.collectAsState()
+                val screenSize by screenSize.collectAsState()
                 StUiTheme(
                     isDarkTheme = darkTheme.value
                 ) {
-                    val isPressed = isDragging.collectAsState()
+                    val isPressed = clicked.collectAsState()
                     ChatHeadsViewContent(
-                        showContent = isClick
+                        showContent = isPressed.value,
+                        exitFullScreen = {
+                            chatHeadsLayoutParams?.gravity = Gravity.START or Gravity.TOP
+                            windowManager.updateViewLayout(chatHeadsView, chatHeadsLayoutParams)
+                        }
                     )
+//                    Box(
+//                        Modifier
+//                            .width(with(LocalDensity.current) { (screenSize.width * 2).toDp() })
+//                            .height(with(LocalDensity.current) { (screenSize.height).toDp() })
+//                            .background(color = Color.Green.copy(alpha = 0.6f)),
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        ChatHeadsViewContent(
+//                            showContent = isPressed.value
+//                        )
+//                    }
                 }
             }
         }
@@ -133,12 +150,11 @@ class ChatHeadsView(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                    or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             PixelFormat.TRANSLUCENT
         )
-        chatHeadsLayoutParams?.gravity = Gravity.TOP or Gravity.START
-        chatHeadsLayoutParams?.x = screenSize.value.width / 2
-        chatHeadsLayoutParams?.y = screenSize.value.height / 2
+        chatHeadsLayoutParams?.gravity = Gravity.START or Gravity.TOP
 
         // Background Filter
         bottomDeleteLayoutParams = WindowManager.LayoutParams(
@@ -148,7 +164,7 @@ class ChatHeadsView(
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             PixelFormat.TRANSLUCENT
         )
-        bottomDeleteLayoutParams?.gravity = Gravity.BOTTOM or Gravity.END
+        bottomDeleteLayoutParams?.gravity = Gravity.BOTTOM or Gravity.START
     }
 
 
@@ -158,6 +174,9 @@ class ChatHeadsView(
             chatHeadsView?.setOnTouchListener(object : OnTouchListener {
                 var initialX = 0
                 var initialY = 0
+                var initialTouchX = 0f
+                var initialTouchY = 0f
+
                 var lastX = 0f
                 var lastY = 0f
                 var lastTouchTime = 0L
@@ -172,21 +191,31 @@ class ChatHeadsView(
                     when (motionEvent.action) {
                         MotionEvent.ACTION_DOWN -> {
                             Timber.d("onTouch ACTION_DOWN")
+                            if (clicked.value) {
+                                return true
+                            }
                             _isDragging.tryEmit(true)
                             isClickDetector = true
 
                             initialX = chatHeadsLayoutParams!!.x
                             initialY = chatHeadsLayoutParams!!.y
+                            initialTouchX = motionEvent.rawX
+                            initialTouchY = motionEvent.rawY
+
                             lastX = motionEvent.rawX
                             lastY = motionEvent.rawY
                             lastTouchTime = System.currentTimeMillis()
                             firstTouchTime = System.currentTimeMillis()
                             chatHeadsAnimateScale(v, 1.0f, 0.8f)
                             showBottomDeleteView()
+
                             return true
                         }
 
                         MotionEvent.ACTION_MOVE -> {
+                            if (clicked.value) {
+                                return true
+                            }
                             val dx = motionEvent.rawX - lastX
                             val dy = motionEvent.rawY - lastY
                             val currentTime = System.currentTimeMillis()
@@ -202,8 +231,10 @@ class ChatHeadsView(
                                 isClickDetector = false
                             }
 
-                            chatHeadsLayoutParams!!.x = (motionEvent.rawX - v.width / 2).toInt()
-                            chatHeadsLayoutParams!!.y = (motionEvent.rawY - v.height / 2).toInt()
+                            chatHeadsLayoutParams!!.x =
+                                (initialX + motionEvent.rawX - initialTouchX).toInt()
+                            chatHeadsLayoutParams!!.y =
+                                (initialY + motionEvent.rawY - initialTouchY).toInt()
 
                             windowManager.updateViewLayout(v, chatHeadsLayoutParams)
 
@@ -215,6 +246,10 @@ class ChatHeadsView(
                             // show red color when object delete detected
                             chatHeadsLayoutParams?.let {
                                 val deleteButtonPosition = getDeleteButtonPosition()
+
+                                Timber.e("Joseph screenX ${screenSize.value.width}")
+                                Timber.e("Joseph DeleteX ${deleteButtonPosition.x}")
+                                Timber.e("Joseph ----- ${(it.x)}")
                                 if (abs((it.x - deleteButtonPosition.x + v.width / 2).toDouble()) <= screenSize.value.width / 10 &&
                                     abs((it.y - deleteButtonPosition.y + v.height / 2).toDouble()) <= screenSize.value.width / 10
                                 ) {
@@ -228,6 +263,10 @@ class ChatHeadsView(
 
                         MotionEvent.ACTION_UP -> {
                             Timber.d("onTouch ACTION_UP")
+                            if (clicked.value) {
+                                _clicked.tryEmit(false)
+                                return true
+                            }
                             _isDragging.tryEmit(false)
                             chatHeadsAnimateScale(v, 0.8f, 1.0f)
                             //moveToEdge()
@@ -237,7 +276,14 @@ class ChatHeadsView(
                             val touchDuration = System.currentTimeMillis() - firstTouchTime
                             if (isClickDetector && touchDuration < timeThreshold) {
                                 Timber.d("onClick detected")
-                                _isClick.tryEmit(!_isClick.value)
+                                if (!clicked.value) {
+                                    lifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
+                                        chatHeadsLayoutParams?.gravity = Gravity.FILL
+                                        windowManager.updateViewLayout(v, chatHeadsLayoutParams)
+                                        delay(100)
+                                        _clicked.tryEmit(true)
+                                    }
+                                }
                             }
                             hideBottomDeleteView()
 
@@ -258,6 +304,10 @@ class ChatHeadsView(
 
                         MotionEvent.ACTION_CANCEL -> {
                             Timber.d("onTouch ACTION_CANCEL")
+                            if (clicked.value) {
+                                _clicked.tryEmit(false)
+                                return true
+                            }
                             _isDragging.tryEmit(false)
                             chatHeadsAnimateScale(v, 0.8f, 1.0f)
                             //moveToEdge()

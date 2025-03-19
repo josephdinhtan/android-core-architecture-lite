@@ -43,7 +43,6 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
         _savedStateRegistryController.performAttach()
         _savedStateRegistryController.performRestore(null)
         _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
         screenSize.value = Size(
             resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels
         )
@@ -66,6 +65,7 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
         if (intent.hasExtra(INTENT_EXTRA_COMMAND_SHOW_OVERLAY)) {
             if (!isShowing) {
                 isShowing = true
@@ -95,6 +95,7 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
         super.onDestroy()
         chatHeadsView.hideAllViews()
         _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        isShowing = false
     }
 
     private fun getNotification(): Notification {

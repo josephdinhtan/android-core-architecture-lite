@@ -7,12 +7,20 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,29 +30,58 @@ import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.Morph
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.star
+import com.jddev.simpletouch.ui.animation.ExpandAnimatedContent
+import com.jddev.simpletouch.ui.animation.MorphPolygonShape
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.animation.MorphPolygonShape
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import timber.log.Timber
 
 @Composable
 fun ChatHeadsViewContent(
-    showContent: StateFlow<Boolean>,
+    showContent: Boolean,
+    exitFullScreen: (() -> Unit)? = null
 ) {
-    val clicked = showContent.collectAsState()
-    Timber.e("Joseph showContent: ${clicked.value}")
-    Box(
-        contentAlignment = Alignment.Center
-    ) {
-        ClickShapeAnimation(clicked.value)
+    var modifier by remember { mutableStateOf(Modifier.padding(0.dp)) }
+    LaunchedEffect(showContent) {
+        if (showContent)
+            modifier = Modifier.fillMaxSize()
+    }
+    var textDebug by remember { mutableStateOf("") }
+    Box(modifier = modifier) {
+        ExpandAnimatedContent(
+            showContent,
+//            transitionDuration = 700,
+            firstContent = {
+                ClickShapeAnimation2(false, textDebug)
+            },
+            secondContent = {
+                Column {
+                    ClickShapeAnimation2(false, textDebug)
+                    Box(
+                        Modifier
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(color = MaterialTheme.colorScheme.primary)
+                    ) {
+                        Text("$textDebug Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
+                    }
+                }
+            },
+            firstViewDisplayed = {
+                textDebug = "1 Showed"
+                modifier = Modifier.padding(0.dp)
+                exitFullScreen?.invoke()
+            },
+            secondViewDisplayed = {
+                textDebug = "2 Showed"
+//                modifier = Modifier.fillMaxSize()
+            },
+        )
     }
 }
 
 @Composable
-fun ClickShapeAnimation(
+private fun ClickShapeAnimation2(
     isPressed: Boolean,
+    text: String = "Hello"
 ) {
     val shapeA = remember {
         RoundedPolygon(
@@ -74,10 +111,9 @@ fun ClickShapeAnimation(
             .padding(8.dp)
             .clip(MorphPolygonShape(morph, animatedProgress.value))
             .background(Color(0xFF80DEEA))
-//            .clickable(interactionSource = interactionSource, indication = null) {}
     ) {
         Text(
-            if (isPressed) "Clicked" else "Hello", modifier = Modifier.align(Alignment.Center)
+            if (isPressed) "$text 2" else text, modifier = Modifier.align(Alignment.Center)
         )
     }
 }
@@ -85,10 +121,10 @@ fun ClickShapeAnimation(
 @Composable
 @StUiPreview
 private fun Preview() {
-    val click1 = MutableStateFlow<Boolean>(false)
-    val click2 = MutableStateFlow<Boolean>(true)
-    StUiPreviewWrapper {
+    var click1 by remember { mutableStateOf(false) }
+    StUiPreviewWrapper(fullScreen = true) {
+        Button(onClick = { click1 = !click1 }) { Text("Click1") }
         ChatHeadsViewContent(click1)
-        ChatHeadsViewContent(click2)
+        Button(onClick = { click1 = !click1 }) { Text("Click1") }
     }
 }
