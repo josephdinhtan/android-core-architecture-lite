@@ -20,7 +20,7 @@ import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 import com.jddev.androidcorearchlite.R
 import com.jddev.androidcorearchlite.ui.MainActivity
-import com.jddev.androidcorearchlite.ui.samepleui.floatingwindow.chatheads.ChatHeadsView
+import com.jddev.androidcorearchlite.ui.samepleui.floatingwindow.chatheads.ChatHeadsController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -28,12 +28,13 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
 
     private val _lifecycleRegistry = LifecycleRegistry(this)
     private val _savedStateRegistryController = SavedStateRegistryController.create(this)
-    override val savedStateRegistry: SavedStateRegistry = _savedStateRegistryController.savedStateRegistry
+    override val savedStateRegistry: SavedStateRegistry =
+        _savedStateRegistryController.savedStateRegistry
     override val lifecycle: Lifecycle = _lifecycleRegistry
     private val isThemeModeDark = MutableStateFlow<Boolean>(false)
     private val screenSize = MutableStateFlow<Size>(Size(0, 0))
 
-    private lateinit var chatHeadsView: ChatHeadsView
+    private var chatHeadsController: ChatHeadsController? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -47,9 +48,10 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
             resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels
         )
 
-        chatHeadsView = ChatHeadsView(
+        chatHeadsController = ChatHeadsController(
             this, screenSize.asStateFlow(), isThemeModeDark, this, this
         )
+        chatHeadsController?.initialize()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -69,12 +71,12 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
         if (intent.hasExtra(INTENT_EXTRA_COMMAND_SHOW_OVERLAY)) {
             if (!isShowing) {
                 isShowing = true
-                chatHeadsView.show()
+                chatHeadsController?.show()
             }
         }
         if (intent.hasExtra(INTENT_EXTRA_COMMAND_HIDE_OVERLAY)) {
             isShowing = false
-            chatHeadsView.hideAllViews()
+            chatHeadsController?.hide()
             _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
             _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
             stopSelf()
@@ -93,7 +95,8 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
 
     override fun onDestroy() {
         super.onDestroy()
-        chatHeadsView.hideAllViews()
+        chatHeadsController?.destroyViews()
+        chatHeadsController = null
         _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         isShowing = false
     }

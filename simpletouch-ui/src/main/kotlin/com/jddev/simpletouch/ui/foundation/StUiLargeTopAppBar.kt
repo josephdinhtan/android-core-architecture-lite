@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.icon.StUiIcons
@@ -18,9 +17,7 @@ import com.jddev.simpletouch.ui.icon.StUiIcons
 @Composable
 fun StUiLargeTopAppBar(
     modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = TopAppBarDefaults.pinnedScrollBehavior(
-        rememberTopAppBarState(),
-    ),
+    scrollBehavior: TopAppBarScrollBehavior? = stUiScrollBehavior(),
     title: String,
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,

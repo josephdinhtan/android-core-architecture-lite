@@ -44,7 +44,7 @@ private const val TIME_TO_DISMISS = 400
 private const val SIZE_OF_DELETE_BUTTON = 60
 
 @Composable
-fun BottomDeleteViewContent(
+fun ChatHeadsDeleteViewContent(
     modifier: Modifier = Modifier,
     showButton: Boolean,
     objectDetected: Boolean = false,
@@ -150,7 +150,7 @@ private fun Preview() {
         Button(onClick = { show = !show }) { Text("Show") }
         Button(onClick = { deleteDetected = !deleteDetected }) { Text("Delete detected") }
 
-        BottomDeleteViewContent(
+        ChatHeadsDeleteViewContent(
             Modifier
                 .fillMaxWidth()
                 .height(200.dp), show, deleteDetected
