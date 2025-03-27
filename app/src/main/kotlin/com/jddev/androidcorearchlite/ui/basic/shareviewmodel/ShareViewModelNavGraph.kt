@@ -22,22 +22,25 @@ fun NavGraphBuilder.shareViewModelNavGraph(
             ShareViewModelMainScreen(
                 viewModel = viewModel,
                 onBack = { navController.popBackStack() },
-                navigateToLevel1 = { navController.navigateSingleTop("Screen1") },
+                navigateToNextLevel = { navController.navigateSingleTop("Screen1") },
             )
         }
         composable("Screen1") {
             val viewModel = it.sharedViewModel<ShareViewModelViewModel>(navController)
-            ShareViewModelScreenLevel1(
+            ShareViewModelMainScreen(
                 viewModel = viewModel,
+                level = 1,
                 onBack = { navController.popBackStack() },
-                navigateToLevel2 = { navController.navigateSingleTop("Screen2") },
+                navigateToNextLevel = { navController.navigateSingleTop("Screen2") },
             )
         }
         composable("Screen2") {
             val viewModel = it.sharedViewModel<ShareViewModelViewModel>(navController)
-            ShareViewModelScreenLevel2(
+            ShareViewModelMainScreen(
                 viewModel = viewModel,
+                level = 2,
                 onBack = { navController.popBackStack() },
+                navigateToNextLevel = { },
             )
         }
     }

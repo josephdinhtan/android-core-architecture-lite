@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,7 +43,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun FloatingChatViewContent(
     showContent: Boolean,
-    durationMillis: Int = 300,
+    durationMillis: Int = 100,
+    paddingTop: Dp = 80.dp,
     onDismissAnimationFinished: () -> Unit
 ) {
     val density = LocalDensity.current
@@ -72,15 +74,18 @@ fun FloatingChatViewContent(
                     .fillMaxSize()
                     .scale(1.5f)
                     .clickable {
-                        if(animating) return@clickable
+                        if (animating) return@clickable
                         showContentAnimate = false
                         coroutineScope.launch {
                             delay(durationMillis.toLong())
                             onDismissAnimationFinished()
                         }
                     }
-                    .indication(interactionSource = remember { MutableInteractionSource() }, indication = null)
-                    .background(color = Color.Black.copy(alpha = 0.4f))
+                    .indication(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    )
+                    .background(color = Color.Black.copy(alpha = 0.1f))
             )
 
             LaunchedEffect(showContentAnimate) {
@@ -93,25 +98,25 @@ fun FloatingChatViewContent(
             enter = slideInVertically(
                 animationSpec = tween(durationMillis),
                 initialOffsetY = {
-                    -it / 3
+                    -it / 10
                 }
             ) + fadeIn(
-                //            initialAlpha = 0.3f,
-                animationSpec = tween(durationMillis / 2)
+//                initialAlpha = 0.8f,
+                animationSpec = tween(durationMillis)
             ) + scaleIn(
                 animationSpec = tween(durationMillis),
-                initialScale = 0.1f
+                initialScale = 0.9f
             ),
             exit = slideOutVertically(
                 animationSpec = tween(durationMillis),
                 targetOffsetY = {
-                    -it / 3
+                    -it / 10
                 }
             ) + fadeOut(
-                animationSpec = tween(durationMillis / 2, delayMillis = durationMillis / 3)
+                animationSpec = tween(durationMillis)
             ) + scaleOut(
                 animationSpec = tween(durationMillis),
-                targetScale = 0.1f
+                targetScale = 0.9f
             )
         ) {
             Column(
@@ -121,7 +126,7 @@ fun FloatingChatViewContent(
                 Spacer(
                     Modifier
                         .fillMaxWidth()
-                        .height(100.dp)
+                        .height(paddingTop)
                 )
                 Surface(
                     modifier = Modifier

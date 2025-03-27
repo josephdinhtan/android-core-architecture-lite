@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.StUi
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
 import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
 import com.jddev.simpletouch.ui.foundation.StUiSwitch
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
@@ -36,7 +36,7 @@ fun BasicButtonsScreen(
         title = "Buttons",
         onBack = onBack
     ) {
-        StSettingsUi(uiStyle = StUi.settingsUiStyle, scrollBehavior = stUiScrollBehavior()) {
+        StSettingsUi(uiStyle = StUi.settingsUiStyle, scrollBehavior = stUiEnterAlwaysScrollBehavior()) {
             StSettingsGroup {
                 ButtonListItem(
                     title = "Fill button",

@@ -1,17 +1,15 @@
 package com.jddev.androidcorearchlite.ui.uicatalog
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
-import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,20 +23,15 @@ fun CatalogScreen(
     navigateToSettingsUi: (uiStyle: StSettingsUiStyle) -> Unit,
     onBack: () -> Unit
 ) {
-    Scaffold(
-        topBar = {
-            StUiTopAppBar(
-                title = "UI catalog",
-                onBack = onBack,
-            )
-        },
+    StUiSimpleScaffold (
+        title = "UI catalog",
+        onBack = onBack,
     ) {
         StSettingsUi(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(it),
+                .fillMaxSize(),
             uiStyle = settingsUiStyle,
-            scrollBehavior = stUiScrollBehavior()
+            scrollBehavior = stUiEnterAlwaysScrollBehavior()
         ) {
             StSettingsGroup(title = "Basic components") {
                 StSettingsNavigateItem(

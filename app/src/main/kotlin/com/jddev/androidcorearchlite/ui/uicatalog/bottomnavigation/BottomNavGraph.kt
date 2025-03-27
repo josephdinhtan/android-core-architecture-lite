@@ -15,7 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
-import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
+import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

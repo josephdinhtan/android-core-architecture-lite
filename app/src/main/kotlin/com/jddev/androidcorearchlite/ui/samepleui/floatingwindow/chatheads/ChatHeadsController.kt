@@ -12,10 +12,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 enum class ChatHeadsCommands {
+    NONE,
     SHOW_CHAT_HEADS,
     HIDE_ALL,
-    SHOW_FLOATING_CHAT,
-    HIDE_FLOATING_CHAT
+    SHOW_CHAT_CONTENT,
+    HIDE_CHAT_CONTENT,
+    DESTROY_VIEWS,
 }
 
 class ChatHeadsController(
@@ -25,7 +27,10 @@ class ChatHeadsController(
     private val lifecycleOwner: LifecycleOwner,
     private val savedStateRegistryOwner: SavedStateRegistryOwner?
 ) {
-    private val _command = MutableStateFlow<ChatHeadsCommands>(ChatHeadsCommands.HIDE_ALL)
+    private val _isShowing = MutableStateFlow(false)
+    val isShowing = _isShowing.asStateFlow()
+
+    private val _command = MutableStateFlow<ChatHeadsCommands>(ChatHeadsCommands.NONE)
     private val command = _command.asStateFlow()
 
     private val chatHeadsView = ChatHeadsView(
@@ -51,25 +56,26 @@ class ChatHeadsController(
         floatingChatView.initialize()
 
         chatHeadsView.requestShowChatContent.onEach {
-            floatingChatView.show()
+            _command.tryEmit(ChatHeadsCommands.SHOW_CHAT_CONTENT)
         }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
 
         floatingChatView.requestDismissContent.onEach {
-            floatingChatView.hide()
-            chatHeadsView.moveToPreviousPosition()
+            _command.tryEmit(ChatHeadsCommands.HIDE_CHAT_CONTENT)
         }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
     }
 
     fun destroyViews() {
-        chatHeadsView.destroyViews()
-        floatingChatView.destroyViews()
+        _command.tryEmit(ChatHeadsCommands.DESTROY_VIEWS)
+        _isShowing.tryEmit(false)
     }
 
     fun show() {
-        chatHeadsView.show()
+        _command.tryEmit(ChatHeadsCommands.SHOW_CHAT_HEADS)
+        _isShowing.tryEmit(true)
     }
 
     fun hide() {
-        chatHeadsView.hide()
+        _command.tryEmit(ChatHeadsCommands.HIDE_ALL)
+        _isShowing.tryEmit(false)
     }
 }

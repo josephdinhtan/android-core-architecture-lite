@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.jddev.simpletouch.ui.theme.ios.CupertinoTheme
 
-val groupTableTextStyle: TextStyle
+val cupertinoGroupTableTextStyle: TextStyle
     @Composable get() = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 13.sp,
@@ -17,9 +17,9 @@ val groupTableTextStyle: TextStyle
 val headlineTextStyle: TextStyle
     @Composable get() = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 17.sp,
+        fontSize = 20.sp,
         color = CupertinoTheme.colorScheme.primaryLabel,
-        lineHeight = 22.sp,
+        lineHeight = 23.sp,
     )
     //@Composable get() = MaterialTheme.typography.titleLarge
 

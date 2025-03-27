@@ -19,8 +19,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
+import com.jddev.simpletouch.ui.foundation.topappbar.StUiLargeTopAppBar
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
@@ -33,7 +33,7 @@ import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitch
 fun SettingsUiExampleScreen(
     uiStyle: StSettingsUiStyle, onBack: () -> Unit
 ) {
-    val scrollBehavior = stUiScrollBehavior()
+    val scrollBehavior = stUiEnterAlwaysScrollBehavior()
     var toggleChecked by remember { mutableStateOf(true) }
     val title = when (uiStyle) {
         StSettingsUiStyle.Cupertino -> "Cupertino Settings"

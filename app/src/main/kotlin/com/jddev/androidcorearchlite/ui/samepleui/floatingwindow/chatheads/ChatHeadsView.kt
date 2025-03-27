@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalDensity
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
@@ -33,6 +34,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.math.abs
@@ -75,6 +78,18 @@ class ChatHeadsView(
     private var lastPositionBeforeAnimate: Point = Point(0, 0)
     private var blockPressDuringAnimating = false
 
+    init {
+        command.onEach {
+            when (it) {
+                ChatHeadsCommands.SHOW_CHAT_HEADS -> show()
+                ChatHeadsCommands.HIDE_ALL -> hide()
+                ChatHeadsCommands.DESTROY_VIEWS -> destroyViews()
+                ChatHeadsCommands.HIDE_CHAT_CONTENT -> moveToPreviousPosition()
+                else -> {}
+            }
+        }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }
+
     fun initialize() {
         initializeLayoutParams()
         initializeViews()
@@ -82,17 +97,18 @@ class ChatHeadsView(
         isViewsInitialized = true
     }
 
-    fun show() {
+    private fun show() {
         if (!isViewsInitialized) throw IllegalAccessException("Views is not initialized")
         _showContent.tryEmit(true)
     }
 
-    fun hide() {
+    private fun hide() {
+        Timber.e("Joseph hide chatHeads")
         if (!isViewsInitialized) throw IllegalAccessException("Views is not initialized")
         _showContent.tryEmit(false)
     }
 
-    fun destroyViews() {
+    private fun destroyViews() {
         if (!isViewsInitialized) throw IllegalAccessException("Views is not initialized")
         chatHeadsView?.let { windowManager.removeView(it) }
         bottomDeleteView?.let { windowManager.removeView(it) }
@@ -102,7 +118,7 @@ class ChatHeadsView(
         bottomDeleteLayoutParams = null
     }
 
-    fun moveToPreviousPosition() {
+    private fun moveToPreviousPosition() {
         if(chatHeadsView != null && chatHeadsLayoutParams != null) {
             animateToPosition(
                 chatHeadsView!!,
@@ -132,7 +148,6 @@ class ChatHeadsView(
                 }
             }
         }
-        windowManager.addView(chatHeadsView, chatHeadsLayoutParams)
 
         bottomDeleteView = ComposeView(context).apply {
             setViewTreeLifecycleOwner(lifecycleOwner)
@@ -156,7 +171,9 @@ class ChatHeadsView(
             }
         }
 
+        // Add views, which one is added later will be on top
         windowManager.addView(bottomDeleteView, bottomDeleteLayoutParams)
+        windowManager.addView(chatHeadsView, chatHeadsLayoutParams)
     }
 
     private fun showBottomDeleteView() {
@@ -224,7 +241,7 @@ class ChatHeadsView(
                             lastY = motionEvent.rawY
                             lastTouchTime = System.currentTimeMillis()
                             firstTouchTime = System.currentTimeMillis()
-                            chatHeadsAnimateScale(v, 1.0f, 0.8f)
+                            // chatHeadsAnimateScale(v, 1.0f, 0.8f)
                             showBottomDeleteView()
 
                             return true
@@ -276,8 +293,8 @@ class ChatHeadsView(
                         MotionEvent.ACTION_UP -> {
                             Timber.d("onTouch ACTION_UP")
                             _isDragging.tryEmit(false)
-                            chatHeadsAnimateScale(v, 0.8f, 1.0f)
-                            //moveToEdge()
+                            // chatHeadsAnimateScale(v, 0.8f, 1.0f)
+                            // moveToEdge()
                             startDeceleration(v)
 
                             // Check if the user's touch was a click
@@ -286,7 +303,7 @@ class ChatHeadsView(
                                 Timber.d("onClick detected")
                                 chatHeadsLayoutParams?.let { params ->
                                     lastPositionBeforeAnimate = Point(params.x, params.y)
-                                    blockPressDuringAnimating = true
+//                                    blockPressDuringAnimating = true
                                     animateToPosition(
                                         v,
                                         params.x,
@@ -319,7 +336,7 @@ class ChatHeadsView(
                         MotionEvent.ACTION_CANCEL -> {
                             Timber.d("onTouch ACTION_CANCEL")
                             _isDragging.tryEmit(false)
-                            chatHeadsAnimateScale(v, 0.8f, 1.0f)
+                            // chatHeadsAnimateScale(v, 0.8f, 1.0f)
                             //moveToEdge()
                             hideBottomDeleteView()
                             return true
@@ -386,7 +403,7 @@ class ChatHeadsView(
      */
     private fun startDeceleration(
         v: View,
-        friction: Float = 0.01f,
+        friction: Float = 0.015f,
         decayFactor: Float = 0.95f,
     ) {
         velocityX *= friction

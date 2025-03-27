@@ -40,7 +40,7 @@ fun StSettingsGroup(
         modifier = modifier.padding(vertical = 4.dp),
     ) {
         val headerTextStyle = when (uiStyle) {
-            StSettingsUiStyle.Cupertino -> groupTableTextStyle
+            StSettingsUiStyle.Cupertino -> cupertinoGroupTableTextStyle
             else -> MaterialTheme.typography.titleMedium.copy(color = titleColor)
         }
         val headerText: String? = when (uiStyle) {

@@ -9,6 +9,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,9 +37,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
+import kotlinx.coroutines.delay
 
 private const val TIME_TO_DISMISS = 400
 private const val SIZE_OF_DELETE_BUTTON = 60
@@ -55,18 +58,24 @@ fun ChatHeadsDeleteViewContent(
     val density = LocalDensity.current
     LaunchedEffect(showButton) {
         if (showButton) showAnimated = true
+        else {
+            delay(TIME_TO_DISMISS.toLong())
+            showAnimated = false
+        }
     }
 
     if (showAnimated) {
         var animateIn by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) { animateIn = true }
         Box(modifier = modifier
-            .background(Color.Transparent)
             .onGloballyPositioned { layoutCoordinates ->
                 parentHeight = layoutCoordinates.size.height
-            }) {
+            }
+            .clearAndSetSemantics { }
+        ) {
             AnimatedVisibility(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize().clearAndSetSemantics { },
                 visible = animateIn && showButton,
                 enter = fadeIn(animationSpec = tween(durationMillis = 150)),
                 exit = fadeOut(animationSpec = tween(durationMillis = 150))
@@ -83,9 +92,11 @@ fun ChatHeadsDeleteViewContent(
                                 )
                             )
                         )
+                        .clearAndSetSemantics { }
                 )
             }
             AnimatedVisibility(
+                modifier = Modifier.clearAndSetSemantics { },
                 visible = animateIn && showButton,
                 enter = slideInVertically(
                     animationSpec = tween(TIME_TO_DISMISS),
@@ -101,7 +112,10 @@ fun ChatHeadsDeleteViewContent(
                 ),
             ) {
                 Box(
-                    Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                    Modifier
+                        .fillMaxSize()
+                        .clearAndSetSemantics { },
+                    contentAlignment = Alignment.Center
                 ) {
                     Surface(
                         modifier = Modifier
@@ -146,14 +160,21 @@ fun ChatHeadsDeleteViewContent(
 private fun Preview() {
     StUiPreviewWrapper(fullScreen = true) {
         var show by remember { mutableStateOf(true) }
+        var count by remember { mutableStateOf(0) }
         var deleteDetected by remember { mutableStateOf(false) }
         Button(onClick = { show = !show }) { Text("Show") }
         Button(onClick = { deleteDetected = !deleteDetected }) { Text("Delete detected") }
 
-        ChatHeadsDeleteViewContent(
-            Modifier
-                .fillMaxWidth()
-                .height(200.dp), show, deleteDetected
-        )
+        Box {
+            Column {
+                Button(onClick = { count++ }) { Text("Increment under other Views") }
+                Text("Test count: $count")
+            }
+            ChatHeadsDeleteViewContent(
+                Modifier
+                    .fillMaxWidth()
+                    .height(200.dp), show, deleteDetected
+            )
+        }
     }
 }

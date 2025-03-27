@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.dialog
+package com.jddev.simpletouch.ui.foundation.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,9 +26,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.jddev.simpletouch.ui.foundation.StUiHorizontalDivider
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.StUiHorizontalDivider
 
 @Composable
 fun StUiAlertDialog(

@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.dialog
+package com.jddev.simpletouch.ui.foundation.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures

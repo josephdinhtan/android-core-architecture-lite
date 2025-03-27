@@ -11,7 +11,7 @@ data class AppSettings (
     companion object {
         val Default = AppSettings(
             appThemeMode = MutableStateFlow(AppThemeMode.SYSTEM),
-            uiStyle = MutableStateFlow(StSettingsUiStyle.Cupertino),
+            uiStyle = MutableStateFlow(StSettingsUiStyle.Material),
         )
     }
 }

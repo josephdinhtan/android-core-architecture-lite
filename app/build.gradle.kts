@@ -120,6 +120,10 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
 
+    // Glance
+    implementation(libs.glance.appwidget)
+    implementation(libs.glance.material)
+
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.timber)
     implementation(libs.androidx.core.ktx)

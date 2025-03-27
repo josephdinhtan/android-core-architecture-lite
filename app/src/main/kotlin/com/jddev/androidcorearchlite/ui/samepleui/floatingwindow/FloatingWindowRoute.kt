@@ -24,6 +24,8 @@ fun FloatingWindowRoute(
     onBack: () -> Unit,
 ) {
     val isFloatingViewEnabled = bubbleMessengerViewModel.isFloatingViewEnabled.collectAsState()
+    val isServiceRunning = bubbleMessengerViewModel.isServiceRunning.collectAsState()
+
     val localContext = LocalContext.current.applicationContext
     var hasOverlayPermission by remember { mutableStateOf(Settings.canDrawOverlays(localContext)) }
     val overlayPermissionLauncher = rememberLauncherForActivityResult(
@@ -52,8 +54,12 @@ fun FloatingWindowRoute(
         settingsUiStyle = settingsUiStyle,
         hasOverlayPermission = hasOverlayPermission,
         isShowBubble = isFloatingViewEnabled.value,
-        showBubbleEnableChange = {
-            bubbleMessengerViewModel.floatingViewEnabledStateChanged(it)
+        isServiceRunning = isServiceRunning.value,
+        onServiceStateChange = { isEnable ->
+            bubbleMessengerViewModel.requestStartStopService(isEnable)
+        },
+        showBubbleEnableChange = { isEnable ->
+            bubbleMessengerViewModel.floatingViewEnabledStateChanged(isEnable)
         },
     )
 }

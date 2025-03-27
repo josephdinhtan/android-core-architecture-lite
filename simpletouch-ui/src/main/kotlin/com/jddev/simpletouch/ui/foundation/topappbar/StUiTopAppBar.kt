@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.foundation
+package com.jddev.simpletouch.ui.foundation.topappbar
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,8 +13,8 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.StUi
-import com.jddev.simpletouch.ui.icon.StUiIcons
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.icon.StUiIcons
 import com.jddev.simpletouch.ui.theme.ios.CupertinoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,7 +22,7 @@ import com.jddev.simpletouch.ui.theme.ios.CupertinoTheme
 fun StUiTopAppBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
-    colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(
         containerColor = MaterialTheme.colorScheme.background,
         scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
     ),
@@ -31,7 +31,7 @@ fun StUiTopAppBar(
     onBack: (() -> Unit)? = null,
 ) {
     val topAppBarColors = when (StUi.settingsUiStyle) {
-        StSettingsUiStyle.Cupertino -> TopAppBarDefaults.largeTopAppBarColors(
+        StSettingsUiStyle.Cupertino -> TopAppBarDefaults.topAppBarColors(
             containerColor = CupertinoTheme.colorScheme.secondaryGroupedBackground,
             scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
         )

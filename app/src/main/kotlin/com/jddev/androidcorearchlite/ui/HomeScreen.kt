@@ -3,11 +3,11 @@ package com.jddev.androidcorearchlite.ui
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AutoGraph
-import androidx.compose.material.icons.filled.Interests
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.RocketLaunch
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.AutoGraph
+import androidx.compose.material.icons.outlined.Interests
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.RocketLaunch
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -15,14 +15,16 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jddev.simpletouch.ui.utils.StUiPreview
-import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.foundation.stUiScrollBehavior
+import androidx.compose.ui.res.stringResource
+import com.jddev.androidcorearchlite.R
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.foundation.topappbar.StUiLargeTopAppBar
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,17 +38,17 @@ fun HomeScreen(
     navigateToNotification: () -> Unit,
     navigateToShareViewModel: () -> Unit,
 ) {
-    val scrollBehavior = stUiScrollBehavior()
+    val scrollBehavior = stUiEnterAlwaysScrollBehavior()
     Scaffold(
         modifier = modifier,
         topBar = {
             StUiLargeTopAppBar(
                 modifier = modifier,
-                title = "Android Core Architecture",
+                title = stringResource(R.string.app_name),
                 scrollBehavior = scrollBehavior,
                 actions = {
                     IconButton(onClick = navigateToSettings) {
-                        Icon(Icons.Default.Settings, "Settings")
+                        Icon(Icons.Outlined.Settings, "Settings")
                     }
                 },
             )
@@ -63,7 +65,7 @@ fun HomeScreen(
                 title = "Architecture"
             ) {
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Default.RocketLaunch,
+                    leadingIcon = Icons.Outlined.RocketLaunch,
                     title = "State machine",
                     subTitle = "Demo a simple state machine",
                     onClick = navigateToStateMachineDemo,
@@ -73,13 +75,15 @@ fun HomeScreen(
                 title = "Basic functions"
             ) {
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Default.Notifications,
+                    leadingIcon = Icons.Outlined.Notifications,
                     title = "Notification",
+                    subTitle = "Notification and navigate to target screen from notification",
                     onClick = navigateToNotification,
                 )
                 StSettingsNavigateItem(
                     leadingIcon = Icons.Rounded.Share,
                     title = "Share ViewModel",
+                    subTitle = "Using 1 ViewModel instance among screens",
                     onClick = navigateToShareViewModel,
                 )
             }
@@ -87,13 +91,13 @@ fun HomeScreen(
                 title = "Ui Catalog"
             ) {
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Default.Interests,
+                    leadingIcon = Icons.Outlined.Interests,
                     title = "Simple Touch UI",
                     subTitle = "Button, Card, Navigation...",
                     onClick = navigateToUiCatalog,
                 )
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Default.AutoGraph,
+                    leadingIcon = Icons.Outlined.AutoGraph,
                     title = "Sample UI",
                     subTitle = "Bubble Messenger...",
                     onClick = navigateToSampleUi,

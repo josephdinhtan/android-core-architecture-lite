@@ -5,9 +5,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Binder
 import android.os.IBinder
 import android.util.Size
 import androidx.core.app.NotificationCompat
@@ -15,6 +15,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.coroutineScope
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
@@ -22,7 +23,10 @@ import com.jddev.androidcorearchlite.R
 import com.jddev.androidcorearchlite.ui.MainActivity
 import com.jddev.androidcorearchlite.ui.samepleui.floatingwindow.chatheads.ChatHeadsController
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
@@ -35,6 +39,9 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
     private val screenSize = MutableStateFlow<Size>(Size(0, 0))
 
     private var chatHeadsController: ChatHeadsController? = null
+
+    private val _isServiceRunning = MutableStateFlow(false)
+    var isChatHeadsShowing = _isServiceRunning.asStateFlow()
 
     override fun onCreate() {
         super.onCreate()
@@ -52,10 +59,33 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
             this, screenSize.asStateFlow(), isThemeModeDark, this, this
         )
         chatHeadsController?.initialize()
+
+        chatHeadsController!!.isShowing.onEach {
+            _isServiceRunning.tryEmit(it)
+        }.launchIn(lifecycle.coroutineScope)
     }
 
-    override fun onBind(intent: Intent?): IBinder? {
-        throw RuntimeException("bound mode not supported")
+    inner class LocalBinder : Binder() {
+        fun getIsShowingState(): StateFlow<Boolean> = this@FloatingWindowService.isChatHeadsShowing
+        fun showChatHeads() {
+            _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
+            chatHeadsController?.show()
+        }
+
+        fun hideChatHeads() {
+            chatHeadsController?.hide()
+//            _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+//            _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+        }
+
+        fun stopService() {
+            this@FloatingWindowService.stopForeground(STOP_FOREGROUND_REMOVE)
+        }
+    }
+
+    private val localBinder = LocalBinder()
+    override fun onBind(intent: Intent?): IBinder {
+        return localBinder
     }
 
     private fun createNotificationChannel() {
@@ -68,19 +98,6 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
-        if (intent.hasExtra(INTENT_EXTRA_COMMAND_SHOW_OVERLAY)) {
-            if (!isShowing) {
-                isShowing = true
-                chatHeadsController?.show()
-            }
-        }
-        if (intent.hasExtra(INTENT_EXTRA_COMMAND_HIDE_OVERLAY)) {
-            isShowing = false
-            chatHeadsController?.hide()
-            _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-            _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
-            stopSelf()
-        }
         return START_NOT_STICKY
     }
 
@@ -98,7 +115,6 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
         chatHeadsController?.destroyViews()
         chatHeadsController = null
         _lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        isShowing = false
     }
 
     private fun getNotification(): Notification {
@@ -119,21 +135,5 @@ class FloatingWindowService : Service(), LifecycleOwner, SavedStateRegistryOwner
 
     companion object {
         private const val CHANNEL_ID = "CoreArchFloatingServiceChannel"
-        private const val INTENT_EXTRA_COMMAND_SHOW_OVERLAY = "INTENT_EXTRA_COMMAND_SHOW_OVERLAY"
-        private const val INTENT_EXTRA_COMMAND_HIDE_OVERLAY = "INTENT_EXTRA_COMMAND_HIDE_OVERLAY"
-        internal fun showOverlay(context: Context) {
-            val intent = Intent(context, FloatingWindowService::class.java)
-            intent.putExtra(INTENT_EXTRA_COMMAND_SHOW_OVERLAY, true)
-            context.applicationContext.startService(intent)
-        }
-
-        internal fun hideOverlay(context: Context) {
-            val intent = Intent(context, FloatingWindowService::class.java)
-            intent.putExtra(INTENT_EXTRA_COMMAND_HIDE_OVERLAY, true)
-            context.applicationContext.startService(intent)
-        }
-
-        // TODO: just for demo only, this is causing of memory leak problem
-        internal var isShowing = false
     }
 }

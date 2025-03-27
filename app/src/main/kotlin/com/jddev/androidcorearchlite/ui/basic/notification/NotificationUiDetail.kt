@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
+import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

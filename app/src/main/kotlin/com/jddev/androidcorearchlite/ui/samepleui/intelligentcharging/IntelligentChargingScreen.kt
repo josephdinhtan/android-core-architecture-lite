@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.jddev.androidcorearchlite.R
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.StUiTopAppBar
+import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle

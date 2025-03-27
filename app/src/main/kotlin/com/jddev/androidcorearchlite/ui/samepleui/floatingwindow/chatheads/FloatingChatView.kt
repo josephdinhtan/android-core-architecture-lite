@@ -14,6 +14,7 @@ import android.view.WindowManager
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
@@ -23,6 +24,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 class FloatingChatView(
     private val context: Context,
@@ -45,6 +49,17 @@ class FloatingChatView(
     private val _showChatPanel = MutableStateFlow(false)
     private val showChatPanel = _showChatPanel.asStateFlow()
 
+    init {
+        command.onEach {
+            when (it) {
+                ChatHeadsCommands.SHOW_CHAT_CONTENT -> show()
+                ChatHeadsCommands.HIDE_ALL, ChatHeadsCommands.HIDE_CHAT_CONTENT -> hide()
+                ChatHeadsCommands.DESTROY_VIEWS -> destroyViews()
+                else -> {}
+            }
+        }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }
+
     fun initialize() {
         initializeLayoutParams()
         initializeView()
@@ -53,13 +68,13 @@ class FloatingChatView(
         isViewsInitialized = true
     }
 
-    fun show() {
+    private fun show() {
         if (!isViewsInitialized) throw IllegalAccessException("Views is not initialized")
         addViewsToWindowManager()
         _showChatPanel.tryEmit(true)
     }
 
-    fun hide() {
+    private fun hide() {
         if (!isViewsInitialized) throw IllegalAccessException("Views is not initialized")
         chatPanelView?.let {
             if (it.isAttachedToWindow) {
@@ -68,7 +83,7 @@ class FloatingChatView(
         }
     }
 
-    fun destroyViews() {
+    private fun destroyViews() {
         if (!isViewsInitialized) throw IllegalAccessException("Views is not initialized")
         chatPanelView?.let {
             if (it.isAttachedToWindow) {
@@ -135,6 +150,7 @@ class FloatingChatView(
                 override fun onTouch(v: View, motionEvent: MotionEvent): Boolean {
                     when (motionEvent.action) {
                         MotionEvent.ACTION_DOWN -> {
+                            Timber.d("onTouch ACTION_DOWN")
                             return true
                         }
 
@@ -143,10 +159,12 @@ class FloatingChatView(
                         }
 
                         MotionEvent.ACTION_UP -> {
+                            Timber.d("onTouch ACTION_UP")
                             return true
                         }
 
                         MotionEvent.ACTION_CANCEL -> {
+                            Timber.d("onTouch ACTION_CANCEL")
                             return true
                         }
                     }

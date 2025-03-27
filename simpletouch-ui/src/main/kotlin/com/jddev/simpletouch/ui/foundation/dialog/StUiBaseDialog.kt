@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.dialog
+package com.jddev.simpletouch.ui.foundation.dialog
 
 import android.view.Window
 import android.view.WindowManager

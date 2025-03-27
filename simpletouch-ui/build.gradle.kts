@@ -64,6 +64,9 @@ dependencies {
     implementation(libs.androidx.graphics.shapes.android)
     debugImplementation(libs.androidx.ui.tooling)
 
+    implementation(libs.glance.appwidget)
+    implementation(libs.glance.material)
+
     implementation(libs.accompanist.glide)
 
     implementation(libs.androidx.material.icon)

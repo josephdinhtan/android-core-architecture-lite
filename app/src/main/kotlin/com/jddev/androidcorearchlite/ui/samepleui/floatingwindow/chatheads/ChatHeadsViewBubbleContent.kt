@@ -1,9 +1,14 @@
 package com.jddev.androidcorearchlite.ui.samepleui.floatingwindow.chatheads
 
 
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -19,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
@@ -34,14 +40,15 @@ fun ChatHeadsViewBubbleContent(
     showContent: Boolean
 ) {
     if(showContent) {
-        ClickShapeAnimation2(false)
+        ClickShapeAnimation2(true, true)
     }
 }
 
 @Composable
 private fun ClickShapeAnimation2(
     isPressed: Boolean,
-    text: String = "Hello"
+    rotate: Boolean = false,
+    text: String = "Hi"
 ) {
     val shapeA = remember {
         RoundedPolygon(
@@ -65,16 +72,31 @@ private fun ClickShapeAnimation2(
         label = "progress",
         animationSpec = spring(dampingRatio = 0.4f, stiffness = Spring.StiffnessMedium)
     )
-    Box(
-        modifier = Modifier
-            .size(100.dp)
-            .padding(8.dp)
-            .clip(MorphPolygonShape(morph, animatedProgress.value))
-            .background(Color(0xFF80DEEA))
-    ) {
-        Text(
-            if (isPressed) "$text 2" else text, modifier = Modifier.align(Alignment.Center)
+    val infiniteTransition = rememberInfiniteTransition()
+    val rotation by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 359f,
+        animationSpec = infiniteRepeatable(
+            animation = tween<Float>(
+                durationMillis = 3000,
+                easing = LinearEasing,
+            ),
         )
+    )
+    Box(
+        modifier = Modifier.rotate(if (rotate) rotation else 0f)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(100.dp)
+                .padding(8.dp)
+                .clip(MorphPolygonShape(morph, animatedProgress.value))
+                .background(Color(0xFF80DEEA))
+        ) {
+            Text(
+                text, modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 }
 

@@ -7,7 +7,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import com.jddev.simpletouch.ui.dialog.StUiAlertDialog
+import com.jddev.simpletouch.ui.foundation.dialog.StUiAlertDialog
 
 private val dialogTitle = "Alert dialog example"
 private val dialogText = "This is an example of an alert dialog with buttons."
