@@ -1,11 +1,11 @@
 package com.jddev.androidcorearchlite.ui.samepleui
 
-import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navDeepLink
+import com.jddev.androidcorearchlite.ui.samepleui.fitbit.FitbitSettingsScreen
 import com.jddev.androidcorearchlite.ui.samepleui.floatingwindow.FloatingWindowRoute
 import com.jddev.androidcorearchlite.ui.samepleui.intelligentcharging.IntelligentChargingRoute
 import com.jddev.androidcorearchlite.ui.samepleui.snakegame.SnakeGameRoute
@@ -24,7 +24,6 @@ fun NavGraphBuilder.sampleUiNavGraph(
             route = "sampleui_nav_home_route",
         ) {
             SampleUiScreen(
-                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 navigateToBubbleMessenger = {
                     navController.navigate("sampleui_nav_bubble_messenger_route")
                 },
@@ -33,6 +32,9 @@ fun NavGraphBuilder.sampleUiNavGraph(
                 },
                 navigateToSnakeGame = {
                     navController.navigate("sampleui_nav_snake_game_route")
+                },
+                navigateTo = { nextRoute ->
+                    navController.navigate(nextRoute)
                 },
                 onBack = {
                     navController.popBackStack()
@@ -46,7 +48,6 @@ fun NavGraphBuilder.sampleUiNavGraph(
             })
         ) {
             FloatingWindowRoute(
-                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 onBack = {
                     navController.popBackStack()
                 },
@@ -67,6 +68,13 @@ fun NavGraphBuilder.sampleUiNavGraph(
             route = "sampleui_nav_snake_game_route",
         ) {
             SnakeGameRoute(
+                onBack = { navController.popBackStack() },
+            )
+        }
+        composable(
+            route = "fitbit_settings_ui",
+        ) {
+            FitbitSettingsScreen(
                 onBack = { navController.popBackStack() },
             )
         }

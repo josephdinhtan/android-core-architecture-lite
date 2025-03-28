@@ -16,12 +16,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.foundation.dialog.StUiBaseDialog
-import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsBaseItem
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsItemBase
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
+import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
+import com.jddev.simpletouch.ui.foundation.dialog.StUiBaseDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,9 +34,9 @@ fun BasicDialogScreen(
         title = "Dialog",
         onBack = onBack
     ) {
-        StSettingsUi(uiStyle = StSettingsUiStyle.Cupertino) {
+        StSettingsUi {
             StSettingsGroup {
-                StSettingsBaseItem(
+                StSettingsItemBase(
                     title = "Material Alert Dialog",
                     onClick = {
                         showMaterialAlertDialog = !showMaterialAlertDialog
@@ -45,7 +44,7 @@ fun BasicDialogScreen(
                 )
             }
             StSettingsGroup {
-                StSettingsBaseItem(
+                StSettingsItemBase(
                     title = "Show StUi Basic Dialog",
                     onClick = {
                         showStUiBaseDialog = !showStUiBaseDialog
@@ -53,7 +52,7 @@ fun BasicDialogScreen(
                 )
             }
             StSettingsGroup {
-                StSettingsBaseItem(
+                StSettingsItemBase(
                     title = "Show StUi Alert Dialog",
                     onClick = {
                         showStUiAlertDialog = !showStUiAlertDialog

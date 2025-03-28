@@ -4,7 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CellTower
 import androidx.compose.material.icons.filled.LooksOne
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -13,99 +13,53 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.StUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsItemBase
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.foundation.StUiCircleCheckbox
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.StUiCircleCheckbox
-import com.jddev.simpletouch.ui.customization.settingsui.ADDITIONAL_LEADING_ICON_PADDING
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsBaseItem
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 @Composable
 fun StSettingsCheckBoxItem(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String? = null,
-    checked: Boolean = false,
-    enabled: Boolean = true,
-    circleShape: Boolean = false,
-    onCheckedChange: ((Boolean) -> Unit)? = null,
-) = StSettingsCheckBoxItem(
-    modifier = modifier,
-    leadingIconImageVector = null,
-    leadingIconPainter = null,
-    title = title,
-    subTitle = subTitle,
-    checked = checked,
-    enabled = enabled,
-    circleShape = circleShape,
-    onCheckedChange = onCheckedChange,
-)
-
-@Composable
-fun StSettingsCheckBoxItem(
-    modifier: Modifier = Modifier,
-    leadingIcon: Painter? = null,
-    title: String,
-    subTitle: String? = null,
-    checked: Boolean = false,
-    enabled: Boolean = true,
-    circleShape: Boolean = false,
-    onCheckedChange: ((Boolean) -> Unit)? = null,
-) = StSettingsCheckBoxItem(
-    modifier = modifier,
-    leadingIconPainter = leadingIcon,
-    title = title,
-    subTitle = subTitle,
-    checked = checked,
-    enabled = enabled,
-    circleShape = circleShape,
-    onCheckedChange = onCheckedChange,
-)
-
-@Composable
-fun StSettingsCheckBoxItem(
-    modifier: Modifier = Modifier,
-    leadingIcon: ImageVector? = null,
-    title: String,
-    subTitle: String? = null,
-    checked: Boolean = false,
-    enabled: Boolean = true,
-    circleShape: Boolean = false,
-    onCheckedChange: ((Boolean) -> Unit)? = null,
-) = StSettingsCheckBoxItem(
-    modifier = modifier,
-    leadingIconImageVector = leadingIcon,
-    title = title,
-    subTitle = subTitle,
-    checked = checked,
-    enabled = enabled,
-    circleShape = circleShape,
-    onCheckedChange = onCheckedChange,
-)
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun StSettingsCheckBoxItem(
-    modifier: Modifier = Modifier,
-    leadingIconImageVector: ImageVector? = null,
+    leadingImageVector: ImageVector? = null,
     leadingIconPainter: Painter? = null,
-    title: String,
-    subTitle: String? = null,
+    leadingContent: @Composable (() -> Unit)? = null,
     checked: Boolean = false,
     enabled: Boolean = true,
     circleShape: Boolean = false,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) {
-    StSettingsBaseItem(modifier = modifier,
+    StSettingsItemBase(
+        modifier = modifier,
         title = title,
         subTitle = subTitle,
-        leadingIconImageVector = leadingIconImageVector,
-        leadingIconPainter = leadingIconPainter,
+        leadingContent =
+        leadingImageVector?.let {
+            {
+                Icon(
+                    it,
+                    "leading",
+                    modifier = Modifier
+                        .alpha(if (enabled) 1f else StSettingsUi.colors.disableAlpha),
+                )
+            }
+        } ?: leadingIconPainter?.let {
+            {
+                Icon(
+                    it,
+                    "leading",
+                    modifier = Modifier
+                        .alpha(if (enabled) 1f else StSettingsUi.colors.disableAlpha),
+                )
+            }
+        } ?: leadingContent,
         trailingContent = {
             CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides Dp.Unspecified) {
                 if (circleShape) {
@@ -128,8 +82,7 @@ private fun StSettingsCheckBoxItem(
         } else {
             null
         },
-        additionalLeadingIconPadding = if (StUi.settingsUiStyle == StSettingsUiStyle.Cupertino) 0.dp
-        else ADDITIONAL_LEADING_ICON_PADDING)
+    )
 }
 
 @Composable
@@ -138,14 +91,14 @@ private fun Preview() {
     var isChecked by remember { mutableStateOf(false) }
     StUiPreviewWrapper {
         StSettingsCheckBoxItem(
-            leadingIcon = Icons.Default.LooksOne,
+            leadingImageVector = Icons.Default.LooksOne,
             title = "Enable One",
             subTitle = "Enable One will help something",
             checked = !isChecked,
             onCheckedChange = { isChecked = !it },
         )
         StSettingsCheckBoxItem(
-            leadingIcon = Icons.Default.CellTower,
+            leadingImageVector = Icons.Default.CellTower,
             title = "Enable mode two",
             subTitle = "Enable two will help something",
             checked = isChecked,
@@ -159,7 +112,7 @@ private fun Preview() {
             onCheckedChange = { isChecked = it },
         )
         StSettingsCheckBoxItem(
-            leadingIcon = Icons.Default.LooksOne,
+            leadingImageVector = Icons.Default.LooksOne,
             title = "Enable One",
             subTitle = "Enable One will help something",
             checked = !isChecked,
@@ -167,7 +120,7 @@ private fun Preview() {
             onCheckedChange = { isChecked = !it },
         )
         StSettingsCheckBoxItem(
-            leadingIcon = Icons.Default.CellTower,
+            leadingImageVector = Icons.Default.CellTower,
             title = "Enable mode two",
             subTitle = "Enable two will help something",
             checked = isChecked,

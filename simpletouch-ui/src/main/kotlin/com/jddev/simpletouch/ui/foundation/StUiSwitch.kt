@@ -18,12 +18,14 @@ import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
 @Composable
 fun StUiSwitch(
+    modifier: Modifier = Modifier,
     checked: Boolean,
     enabled: Boolean = true,
     colors: SwitchColors = StUiSwitchDefaults.colors(),
     onCheckedChange: ((Boolean) -> Unit)?,
 ) {
     Switch(
+        modifier = modifier,
         checked = checked,
         enabled = enabled,
         onCheckedChange = onCheckedChange,
@@ -54,7 +56,7 @@ internal object StUiSwitchDefaults {
 fun DefaultPreview() {
     StUiPreviewWrapper {
         var checked by remember { mutableStateOf(false) }
-        StUiSwitch(checked, onCheckedChange = { checked = it })
-        StUiSwitch(!checked, onCheckedChange = { checked = !it })
+        StUiSwitch(checked = checked, onCheckedChange = { checked = it })
+        StUiSwitch(checked = !checked, onCheckedChange = { checked = !it })
     }
 }

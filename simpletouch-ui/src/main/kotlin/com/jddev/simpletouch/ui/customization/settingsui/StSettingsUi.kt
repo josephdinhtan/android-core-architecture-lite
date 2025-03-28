@@ -10,27 +10,33 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.jddev.simpletouch.ui.utils.StUiPreview
-import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 import com.jddev.simpletouch.ui.customization.settingsui.checkbox.StSettingsCheckBoxItem
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StSettingsUi(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
-    uiStyle: StSettingsUiStyle = StSettingsUiStyle.Material,
+    stSettingsUiColors: StSettingsUiColors = StSettingsUiColors.Default,
+    stSettingsUiDimension: StSettingsDimension = StSettingsDimension.Default,
     content: @Composable () -> Unit,
 ) {
-    CompositionLocalProvider(LocalStSettingsUiStyle provides uiStyle) {
+    CompositionLocalProvider(
+        LocalStSettingsUiColor provides stSettingsUiColors,
+        LocalStSettingsUiDimension provides stSettingsUiDimension
+    ) {
         scrollBehavior?.let {
             LazyColumn(
                 modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -43,6 +49,14 @@ fun StSettingsUi(
     }
 }
 
+object StSettingsUi {
+    val colors: StSettingsUiColors
+        @Composable @ReadOnlyComposable get() = LocalStSettingsUiColor.current
+
+    val dimension: StSettingsDimension
+        @Composable @ReadOnlyComposable get() = LocalStSettingsUiDimension.current
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @StUiPreview
@@ -51,28 +65,26 @@ private fun Preview() {
     var toggleSwitchState by remember { mutableStateOf(true) }
     val subTitle = "Turn this feature on to do something"
     StUiPreviewWrapper {
-        StSettingsUi(
-            uiStyle = StSettingsUiStyle.Cupertino,
-        ) {
+        StSettingsUi {
             StSettingsGroup(
-                title = "Group Title 1",
+                header = "Group Title 1",
                 content = {
                     StSettingsCheckBoxItem(
-                        leadingIcon = Icons.Default.Home,
+                        leadingImageVector = Icons.Default.Home,
                         title = "Check Box",
                         subTitle = subTitle,
                         checked = checkBoxState,
                         onCheckedChange = { checkBoxState = it },
                     )
                     StSettingsSwitchItem(
-                        leadingIcon = Icons.Default.Hub,
+                        leadingImageVector = Icons.Default.Hub,
                         title = "Toggle Switch",
                         subTitle = subTitle,
                         checked = toggleSwitchState,
                         onCheckedChange = { toggleSwitchState = it },
                     )
                     StSettingsNavigateItem(
-                        leadingIcon = Icons.Default.Headphones,
+                        leadingImageVector = Icons.Default.Headphones,
                         title = "Navigate Item",
                         subTitle = subTitle,
                         onClick = {},
@@ -81,28 +93,26 @@ private fun Preview() {
             )
         }
 
-        StSettingsUi(
-            uiStyle = StSettingsUiStyle.Material,
-        ) {
+        StSettingsUi {
             StSettingsGroup(
-                title = "Group Title 2",
+                header = "Group Title 2",
                 content = {
                     StSettingsCheckBoxItem(
-                        leadingIcon = Icons.Default.Home,
+                        leadingImageVector = Icons.Default.Home,
                         title = "Check Box",
                         subTitle = subTitle,
                         checked = checkBoxState,
                         onCheckedChange = { checkBoxState = it },
                     )
                     StSettingsSwitchItem(
-                        leadingIcon = Icons.Default.Hub,
+                        leadingImageVector = Icons.Default.Hub,
                         title = "Toggle Switch",
                         subTitle = subTitle,
                         checked = toggleSwitchState,
                         onCheckedChange = { toggleSwitchState = it },
                     )
                     StSettingsNavigateItem(
-                        leadingIcon = Icons.Default.Headphones,
+                        leadingImageVector = Icons.Default.Headphones,
                         title = "Navigate Item",
                         subTitle = subTitle,
                         onClick = {},

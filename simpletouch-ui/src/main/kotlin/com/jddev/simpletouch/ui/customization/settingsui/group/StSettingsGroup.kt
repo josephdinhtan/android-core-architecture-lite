@@ -1,12 +1,14 @@
-package com.jddev.simpletouch.ui.customization.settingsui
+package com.jddev.simpletouch.ui.customization.settingsui.group
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Hub
+import androidx.compose.material.icons.outlined.ChatBubbleOutline
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,68 +21,49 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.StUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.checkbox.StSettingsCheckBoxItem
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import java.util.Locale
 
 @Composable
 fun StSettingsGroup(
     modifier: Modifier = Modifier,
-    title: String? = null,
-    titleColor: Color = MaterialTheme.colorScheme.primary,
+    header: String? = null,
+    headerTextStyle: TextStyle = MaterialTheme.typography.titleMedium.copy(
+        color = MaterialTheme.colorScheme.secondary,
+        fontWeight = FontWeight.W600
+    ),
+    containerColor: Color = Color.Transparent,
+    shape: Shape = MaterialTheme.shapes.small,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val uiStyle = StUi.settingsUiStyle
     Column(
-        modifier = modifier.padding(vertical = 4.dp),
+        modifier = modifier.fillMaxWidth().padding(vertical = 4.dp),
     ) {
-        val headerTextStyle = when (uiStyle) {
-            StSettingsUiStyle.Cupertino -> cupertinoGroupTableTextStyle
-            else -> MaterialTheme.typography.titleMedium.copy(color = titleColor)
-        }
-        val headerText: String? = when (uiStyle) {
-            StSettingsUiStyle.Cupertino -> title?.uppercase(Locale.getDefault())
-            else -> title
-        }
-        val headerPaddingStart = when (uiStyle) {
-            StSettingsUiStyle.Cupertino -> 32.dp
-            else -> 16.dp
-        }
-
-        headerText?.let {
+        header?.let {
             Text(
                 text = it,
                 style = headerTextStyle,
                 modifier = Modifier.padding(
-                    start = headerPaddingStart,
+                    start = StSettingsUi.dimension.itemStartPadding,
+                    end = StSettingsUi.dimension.itemEndPadding,
                     top = 16.dp,
                     bottom = 8.dp,
                 ),
             )
         }
-        val cardColor = when (uiStyle) {
-            StSettingsUiStyle.Cupertino, StSettingsUiStyle.OneUi -> MaterialTheme.colorScheme.surface
-            StSettingsUiStyle.Material -> Color.Transparent
-        }
-        val cardPadding = when (uiStyle) {
-            StSettingsUiStyle.Cupertino -> 16.dp
-            StSettingsUiStyle.Material, StSettingsUiStyle.OneUi -> 0.dp
-        }
-        val cardShape = when (uiStyle) {
-            StSettingsUiStyle.Cupertino -> MaterialTheme.shapes.large
-            StSettingsUiStyle.Material -> CardDefaults.shape
-            StSettingsUiStyle.OneUi -> MaterialTheme.shapes.extraLarge
 
-        }
         Card(
-            modifier = Modifier.padding(horizontal = cardPadding),
-            colors = CardDefaults.cardColors(containerColor = cardColor),
-            shape = cardShape,
+            modifier = Modifier.padding(horizontal = 0.dp),
+            colors = CardDefaults.cardColors(containerColor = containerColor),
+            shape = shape,
         ) {
             content()
         }
@@ -95,26 +78,26 @@ private fun Preview() {
     var toggleSwitchState by remember { mutableStateOf(true) }
     val subTitle = "Turn this feature on to do something"
     StUiPreviewWrapper {
-        StSettingsUi(uiStyle = StSettingsUiStyle.Cupertino) {
+        StSettingsUi {
             StSettingsGroup(
-                title = "Group Title",
+                header = "Group Title",
                 content = {
                     StSettingsCheckBoxItem(
-                        leadingIcon = Icons.Default.Home,
+                        leadingImageVector = Icons.Default.Home,
                         title = "Check Box",
                         subTitle = subTitle,
                         checked = checkBoxState,
                         onCheckedChange = { checkBoxState = it },
                     )
                     StSettingsSwitchItem(
-                        leadingIcon = Icons.Default.Hub,
+                        leadingImageVector = Icons.Default.Hub,
                         title = "Toggle Switch",
                         subTitle = subTitle,
                         checked = toggleSwitchState,
                         onCheckedChange = { toggleSwitchState = it },
                     )
                     StSettingsNavigateItem(
-                        leadingIcon = Icons.Default.Headphones,
+                        leadingImageVector = Icons.Default.Headphones,
                         title = "Navigate Item",
                         subTitle = subTitle,
                         onClick = {},
@@ -123,10 +106,11 @@ private fun Preview() {
             )
         }
         StSettingsGroup(
-            title = "Group Title - No Icon",
+            header = "Group Title - No Icon",
             content = {
                 StSettingsCheckBoxItem(
                     title = "Check Box",
+                    leadingImageVector = Icons.Outlined.ChatBubbleOutline,
                     subTitle = subTitle,
                     checked = checkBoxState,
                     onCheckedChange = { checkBoxState = it },

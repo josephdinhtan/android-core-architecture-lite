@@ -29,7 +29,7 @@ import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 @Composable
 fun StUiLargeTopAppBar(
     modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = stUiEnterAlwaysScrollBehavior(),
+    scrollBehavior: TopAppBarScrollBehavior? = stUiLargeTopAppbarScrollBehavior(),
     title: String,
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,
@@ -39,7 +39,7 @@ fun StUiLargeTopAppBar(
         scrollBehavior = scrollBehavior,
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
-            scrolledContainerColor = MaterialTheme.colorScheme.primaryContainer
+            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
         ),
         title = {
             Text(

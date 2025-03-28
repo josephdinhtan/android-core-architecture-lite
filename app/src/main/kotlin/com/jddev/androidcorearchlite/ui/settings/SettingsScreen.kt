@@ -20,14 +20,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jddev.androidcorearchlite.ui.settings.theme.AppThemeMode
-import com.jddev.androidcorearchlite.ui.settings.uistyle.SettingsUiStyleContent
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.foundation.dialog.StUiEmptyDialog
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBehavior
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,10 +34,8 @@ fun SettingsScreen(
     appSettings: AppSettings,
     onBack: () -> Unit,
     navigateToThemeMode: () -> Unit,
-    navigateToUiStyleMode: () -> Unit,
 ) {
-    val scrollBehavior = stUiEnterAlwaysScrollBehavior()
-    val settingsUiStyle = appSettings.uiStyle.collectAsState()
+    val scrollBehavior = stUiLargeTopAppbarScrollBehavior()
     val themeMode = appSettings.appThemeMode.collectAsState()
 
     var showUiStyleDialog by remember { mutableStateOf(false) }
@@ -60,9 +56,8 @@ fun SettingsScreen(
                 .fillMaxSize()
                 .padding(innerPadding),
             scrollBehavior = scrollBehavior,
-            uiStyle = settingsUiStyle.value,
         ) {
-            StSettingsGroup(title = "General") {
+            StSettingsGroup(header = "General") {
                 StSettingsNavigateItem(
                     title = "Theme",
                     value = when (themeMode.value) {
@@ -70,45 +65,30 @@ fun SettingsScreen(
                         AppThemeMode.LIGHT -> "Light"
                         AppThemeMode.SYSTEM -> "System"
                     },
-                    leadingIcon = Icons.Outlined.DarkMode,
+                    leadingImageVector = Icons.Outlined.DarkMode,
                     onClick = navigateToThemeMode,
                 )
                 StSettingsNavigateItem(
                     title = "Ui style",
-                    value = when (settingsUiStyle.value) {
-                        StSettingsUiStyle.Cupertino -> "Cupertino"
-                        StSettingsUiStyle.Material -> "Material"
-                        else -> "Unknown"
-                    },
-                    leadingIcon = Icons.Outlined.Style,
-                    onClick = navigateToUiStyleMode,
-                )
-                StSettingsNavigateItem(
-                    title = "Ui style - popup",
                     subTitle = "Popup",
-                    value = when (settingsUiStyle.value) {
-                        StSettingsUiStyle.Cupertino -> "Cupertino"
-                        StSettingsUiStyle.Material -> "Material"
-                        else -> "Unknown"
-                    },
-                    leadingIcon = Icons.Outlined.Style,
+                    leadingImageVector = Icons.Outlined.Style,
                     onClick = { showUiStyleDialog = true },
                 )
             }
-            StSettingsGroup(title = "Support & Feedback") {
+            StSettingsGroup(header = "Support & Feedback") {
                 StSettingsNavigateItem(
                     title = "Report an issue",
-                    leadingIcon = Icons.Outlined.Flag,
+                    leadingImageVector = Icons.Outlined.Flag,
                     onClick = {},
                 )
                 StSettingsNavigateItem(
                     title = "Chat with us",
-                    leadingIcon = Icons.Outlined.ChatBubbleOutline,
+                    leadingImageVector = Icons.Outlined.ChatBubbleOutline,
                     onClick = {},
                 )
                 StSettingsNavigateItem(
                     title = "About us",
-                    leadingIcon = Icons.Outlined.Info,
+                    leadingImageVector = Icons.Outlined.Info,
                     onClick = {},
                 )
             }
@@ -120,12 +100,7 @@ fun SettingsScreen(
         onDismissRequest = { showUiStyleDialog = false }
     ) {
         Column(Modifier.padding(16.dp)) {
-            SettingsUiStyleContent(
-                settingsUiStyle = settingsUiStyle.value,
-            ) {
-                appSettings.uiStyle.value = it
-                showUiStyleDialog = false
-            }
+
         }
     }
 }

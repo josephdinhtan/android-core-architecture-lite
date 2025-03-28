@@ -10,12 +10,10 @@ fun SettingsRoute(
     appSettings: AppSettings,
     onBack: () -> Unit,
     navigateToThemeMode: () -> Unit,
-    navigateToUiStyleMode: () -> Unit,
 ) {
     SettingsScreen(
         appSettings = appSettings,
         navigateToThemeMode = navigateToThemeMode,
-        navigateToUiStyleMode = navigateToUiStyleMode,
         onBack = onBack,
     )
 }

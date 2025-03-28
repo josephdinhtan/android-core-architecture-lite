@@ -1,6 +1,5 @@
 package com.jddev.androidcorearchlite.ui.basic.notification
 
-import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -22,7 +21,6 @@ fun NavGraphBuilder.notificationUiNavGraph(
     ) {
         composable("nested_notificationUi") {
             NotificationUiRoute(
-                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 navigateToDetailNotification = {
                     navController.navigateSingleTop("notificationUiDetail/from main navigation")
                 },

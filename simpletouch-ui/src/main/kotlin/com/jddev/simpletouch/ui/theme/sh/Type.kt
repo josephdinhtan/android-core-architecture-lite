@@ -13,7 +13,6 @@ import com.jddev.simpletouch.ui.R
 
 private val Montserrat = FontFamily(
     Font(R.font.sf_pro_display_regular),
-    Font(R.font.sf_pro_display_regular, FontWeight.W500)
 )
 
 private val defaultTextStyle = TextStyle(

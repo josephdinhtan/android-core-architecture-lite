@@ -27,7 +27,7 @@ fun StUiSimpleScaffold(
         topBar = {
             topBar ?: StUiTopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
                 ),
                 title = title,
                 onBack = { onBack() },

@@ -12,10 +12,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jddev.simpletouch.ui.StUi
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 import com.jddev.simpletouch.ui.icon.StUiIcons
-import com.jddev.simpletouch.ui.theme.ios.CupertinoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,17 +27,10 @@ fun StUiTopAppBar(
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,
 ) {
-    val topAppBarColors = when (StUi.settingsUiStyle) {
-        StSettingsUiStyle.Cupertino -> TopAppBarDefaults.topAppBarColors(
-            containerColor = CupertinoTheme.colorScheme.secondaryGroupedBackground,
-            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
-        )
-        else -> colors
-    }
     TopAppBar(
         modifier = modifier,
         scrollBehavior = scrollBehavior,
-        colors = topAppBarColors,
+        colors = colors,
         title = { Text(text = title) },
         navigationIcon = {
             onBack?.let {

@@ -1,7 +1,6 @@
 package com.jddev.androidcorearchlite.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -38,7 +37,6 @@ fun CoreArchNavGraph(
             route = "nav_home",
         ) {
             HomeScreen(
-                settingsUiStyle = appContainer.appSettings.uiStyle.collectAsState().value,
                 navigateToSettings = {
                     navController.navigateSingleTop("nav_settings")
                 },

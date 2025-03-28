@@ -15,12 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 @Composable
 fun FloatingWindowRoute(
     bubbleMessengerViewModel: FloatingWindowViewModel = hiltViewModel(),
-    settingsUiStyle: StSettingsUiStyle,
     onBack: () -> Unit,
 ) {
     val isFloatingViewEnabled = bubbleMessengerViewModel.isFloatingViewEnabled.collectAsState()
@@ -51,7 +49,6 @@ fun FloatingWindowRoute(
 
     FloatingWindowScreen(
         onBack = onBack,
-        settingsUiStyle = settingsUiStyle,
         hasOverlayPermission = hasOverlayPermission,
         isShowBubble = isFloatingViewEnabled.value,
         isServiceRunning = isServiceRunning.value,

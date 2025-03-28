@@ -24,13 +24,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.jddev.androidcorearchlite.R
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
+import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
-import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,7 +89,7 @@ fun IntelligentChargingScreen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 StSettingsUi(
-                    modifier = Modifier.wrapContentHeight(), uiStyle = StSettingsUiStyle.Material
+                    modifier = Modifier.wrapContentHeight()
                 ) {
                     StSettingsGroup {
                         StSettingsSwitchItem(

@@ -20,16 +20,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
+import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsThemeModeScreen(
     appThemeMode: AppThemeMode,
-    settingsUiStyle: StSettingsUiStyle,
     onBack: () -> Unit,
     onThemeChange: (AppThemeMode) -> Unit,
 ) {
@@ -51,7 +49,6 @@ fun SettingsThemeModeScreen(
             Modifier
                 .padding(it)
                 .selectableGroup(),
-            uiStyle = settingsUiStyle,
         ) {
             StSettingsGroup {
                 radioOptions.forEach { themeModeOption ->

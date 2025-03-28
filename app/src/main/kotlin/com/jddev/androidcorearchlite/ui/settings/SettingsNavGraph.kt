@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.jddev.androidcorearchlite.ui.settings.theme.SettingsThemeModeScreen
-import com.jddev.androidcorearchlite.ui.settings.uistyle.SettingsUiStyleScreen
 import com.jddev.simpletouch.ui.utils.sharedViewModel
 
 fun NavGraphBuilder.settingsNavGraph(
@@ -30,9 +29,6 @@ fun NavGraphBuilder.settingsNavGraph(
                 navigateToThemeMode = {
                     navController.navigate("settings_nav_theme_mode_route")
                 },
-                navigateToUiStyleMode = {
-                    navController.navigate("settings_nav_ui_style_mode_route")
-                }
             )
         }
 
@@ -40,31 +36,13 @@ fun NavGraphBuilder.settingsNavGraph(
             route = "settings_nav_theme_mode_route",
         ) {
             it.sharedViewModel<SettingsViewModel>(navController)
-            SettingsThemeModeScreen(
-                appThemeMode = appSettings.appThemeMode.collectAsState().value,
-                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
+            SettingsThemeModeScreen(appThemeMode = appSettings.appThemeMode.collectAsState().value,
                 onBack = {
                     navController.popBackStack()
                 },
                 onThemeChange = { isDarkMode ->
                     appSettings.appThemeMode.value = isDarkMode
-                }
-            )
-        }
-
-        composable(
-            route = "settings_nav_ui_style_mode_route",
-        ) { navBackStackEntry ->
-            navBackStackEntry.sharedViewModel<SettingsViewModel>(navController)
-            SettingsUiStyleScreen(
-                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
-                onBack = {
-                    navController.popBackStack()
-                },
-                onUiStyleChange = {
-                    appSettings.uiStyle.value = it
-                }
-            )
+                })
         }
     }
 }

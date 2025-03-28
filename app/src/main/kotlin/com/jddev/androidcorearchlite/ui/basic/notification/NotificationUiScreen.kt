@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
@@ -28,7 +27,6 @@ import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotificationUiScreen(
-    settingsUiStyle: StSettingsUiStyle,
     showSimpleNotification: () -> Unit,
     updateNotification: () -> Unit,
     cancelNotification: () -> Unit,
@@ -109,7 +107,6 @@ private fun ActionButton(
 private fun Preview() {
     StUiPreviewWrapper {
         NotificationUiScreen(
-            settingsUiStyle = StSettingsUiStyle.Cupertino,
             {}, {}, {}, {}, {}
         )
     }

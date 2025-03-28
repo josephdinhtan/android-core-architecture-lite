@@ -1,6 +1,5 @@
 package com.jddev.androidcorearchlite.ui.uicatalog
 
-import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -11,7 +10,6 @@ import com.jddev.androidcorearchlite.ui.uicatalog.button.BasicButtonsScreen
 import com.jddev.androidcorearchlite.ui.uicatalog.dialog.BasicDialogScreen
 import com.jddev.androidcorearchlite.ui.uicatalog.pager.HorizontalPagerDemo
 import com.jddev.androidcorearchlite.ui.uicatalog.settingsscreen.SettingsUiExampleScreen
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
 
 fun NavGraphBuilder.uiCatalogNavGraph(
     route: String,
@@ -26,7 +24,6 @@ fun NavGraphBuilder.uiCatalogNavGraph(
             route = "catalog_nav_home_route",
         ) {
             CatalogScreen(
-                settingsUiStyle = appSettings.uiStyle.collectAsState().value,
                 onBack = { navController.popBackStack() },
                 navigateToPager = {
                     navController.navigate("catalog_nav_horizontal_pager_route")
@@ -40,11 +37,8 @@ fun NavGraphBuilder.uiCatalogNavGraph(
                 navigateToBasicDialog = {
                     navController.navigate("catalog_nav_basic_dialog_route")
                 },
-                navigateToSettingsUi = { uiStyle ->
-                    val styleId = when (uiStyle) {
-                        StSettingsUiStyle.Cupertino -> 0
-                        else -> 1
-                    }
+                navigateToSettingsUi = {
+                    val styleId = 1
                     navController.navigate("catalog_nav_settings_ui_route/$styleId")
                 }
             )
@@ -80,12 +74,11 @@ fun NavGraphBuilder.uiCatalogNavGraph(
         composable(
             route = "catalog_nav_settings_ui_route/{uiStyle}",
         ) {
-            val uiStyle = when (it.arguments?.getString("uiStyle")) {
-                "0" -> StSettingsUiStyle.Cupertino
-                else -> StSettingsUiStyle.Material
+            val stSettingsUiStyle = when (it.arguments?.getString("uiStyle")) {
+                "0" -> ""
+                else -> ""
             }
             SettingsUiExampleScreen(
-                uiStyle = uiStyle,
                 onBack = { navController.popBackStack() },
             )
         }

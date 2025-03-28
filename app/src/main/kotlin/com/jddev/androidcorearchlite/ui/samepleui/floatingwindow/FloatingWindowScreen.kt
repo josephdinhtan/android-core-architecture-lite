@@ -11,9 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
 import com.jddev.simpletouch.ui.utils.StUiPreview
@@ -22,7 +21,6 @@ import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FloatingWindowScreen(
-    settingsUiStyle: StSettingsUiStyle,
     hasOverlayPermission: Boolean,
     isServiceRunning: Boolean,
     isShowBubble: Boolean,
@@ -38,9 +36,7 @@ fun FloatingWindowScreen(
                 Text("Overlay permission is not granted")
             }
         } else {
-            StSettingsUi(
-                uiStyle = settingsUiStyle,
-            ) {
+            StSettingsUi {
                 StSettingsGroup {
                     StSettingsSwitchItem(
                         title = "Start Service",
@@ -74,7 +70,6 @@ private fun Preview() {
     var isChecked by remember { mutableStateOf(false) }
     StUiPreviewWrapper {
         FloatingWindowScreen(
-            settingsUiStyle = StSettingsUiStyle.Cupertino,
             onBack = {},
             isShowBubble = isChecked,
             hasOverlayPermission = true,

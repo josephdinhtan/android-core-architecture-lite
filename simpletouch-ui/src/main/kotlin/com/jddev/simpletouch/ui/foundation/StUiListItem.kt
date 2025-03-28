@@ -2,7 +2,10 @@ package com.jddev.simpletouch.ui.foundation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -13,7 +16,6 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,78 +26,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.utils.StUiPreview
-import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.headlineTextStyle
 import com.jddev.simpletouch.ui.customization.settingsui.supportingTextStyle
-
-private val ADDITIONAL_LEADING_ICON_PADDING_LIST_ITEM = 8.dp
-
-@Composable
-fun StUiListItem(
-    modifier: Modifier = Modifier,
-    title: String,
-    subTitle: String? = null,
-    leading: Painter? = null,
-    trailingContent: @Composable (() -> Unit)? = null,
-    onClick: (() -> Unit)? = null,
-) {
-    StUiListItem(
-        modifier = modifier,
-        title = title,
-        subTitle = subTitle,
-        leadingIconPainter = leading,
-        leadingIconImageVector = null,
-        leadingContent = null,
-        trailingContent = trailingContent,
-        onClick = onClick,
-    )
-}
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
 @Composable
 fun StUiListItem(
-    modifier: Modifier = Modifier,
-    title: String,
-    subTitle: String? = null,
-    leading: ImageVector? = null,
-    trailingContent: @Composable (() -> Unit)? = null,
-    onClick: (() -> Unit)? = null,
-) {
-    StUiListItem(
-        modifier = modifier,
-        title = title,
-        subTitle = subTitle,
-        leadingIconPainter = null,
-        leadingIconImageVector = leading,
-        leadingContent = null,
-        trailingContent = trailingContent,
-        onClick = onClick,
-    )
-}
-
-@Composable
-fun StUiListItem(
-    modifier: Modifier = Modifier,
-    title: String,
-    subTitle: String? = null,
-    leading: @Composable (() -> Unit)? = null,
-    trailingContent: @Composable (() -> Unit)? = null,
-    onClick: (() -> Unit)? = null,
-) {
-    StUiListItem(
-        modifier = modifier,
-        title = title,
-        subTitle = subTitle,
-        leadingIconPainter = null,
-        leadingIconImageVector = null,
-        leadingContent = leading,
-        trailingContent = trailingContent,
-        onClick = onClick
-    )
-}
-
-@Composable
-internal fun StUiListItem(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String? = null,
@@ -105,7 +43,7 @@ internal fun StUiListItem(
     trailingContent: @Composable (() -> Unit)? = null,
     onClick: (() -> Unit)? = null,
 ) {
-    StUiBaseListItem(
+    StUiListItemBase(
         modifier = modifier,
         headlineContent = {
             Text(
@@ -127,17 +65,13 @@ internal fun StUiListItem(
                 Icon(
                     it,
                     "leading",
-                    modifier = Modifier
-                        .padding(start = ADDITIONAL_LEADING_ICON_PADDING_LIST_ITEM)
                 )
             }
         } ?: leadingIconPainter?.let {
             {
                 Icon(
                     it,
-                    "leading",
-                    modifier = Modifier
-                        .padding(start = ADDITIONAL_LEADING_ICON_PADDING_LIST_ITEM)
+                     "leading",
                 )
             }
         } ?: leadingContent,
@@ -146,13 +80,12 @@ internal fun StUiListItem(
 }
 
 @Composable
-internal fun StUiBaseListItem(
+internal fun StUiListItemBase(
     modifier: Modifier = Modifier,
     headlineContent: @Composable () -> Unit,
     leadingContent: @Composable (() -> Unit)? = null,
     supportingContent: @Composable (() -> Unit)? = null,
     trailingContent: @Composable (() -> Unit)? = null,
-    overlineContent: @Composable (() -> Unit)? = null,
     onClick: (() -> Unit)? = null,
 ) {
     val boxModifier = onClick?.let {
@@ -161,14 +94,50 @@ internal fun StUiBaseListItem(
     Box(
         modifier = boxModifier
     ) {
-        ListItem(
-            colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-            headlineContent = headlineContent,
-            leadingContent = leadingContent,
-            supportingContent = supportingContent,
-            trailingContent = trailingContent,
-            overlineContent = overlineContent,
-        )
+        Row(
+            Modifier.padding(
+                top = StSettingsUi.dimension.itemVerticalPadding,
+                bottom = StSettingsUi.dimension.itemVerticalPadding,
+                start = StSettingsUi.dimension.itemStartPadding,
+                end = StSettingsUi.dimension.itemEndPadding
+            ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            leadingContent?.let {
+                Box(
+                    Modifier.padding(
+                        start = 2.dp, // additional padding for icon
+                        end = StSettingsUi.dimension.itemStartPadding
+                    )
+                ) {
+                    it()
+                }
+            }
+            Column(
+                Modifier.weight(1f),
+                verticalArrangement = Arrangement.Center
+            ) {
+                headlineContent()
+                supportingContent?.let {
+                    Box(Modifier.padding(top = 2.dp)) {
+                        it()
+                    }
+                }
+            }
+            trailingContent?.let {
+                Box(Modifier.padding(start = StSettingsUi.dimension.itemEndPadding)) {
+                    it()
+                }
+            }
+        }
+//        ListItem(
+//            colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+//            headlineContent = headlineContent,
+//            leadingContent = leadingContent,
+//            supportingContent = supportingContent,
+//            trailingContent = trailingContent,
+//            overlineContent = overlineContent,
+//        )
     }
 }
 
@@ -176,13 +145,19 @@ internal fun StUiBaseListItem(
 @Composable
 private fun Preview() {
     StUiPreviewWrapper {
-
-        StUiBaseListItem(
+        ListItem(
             headlineContent = { Text("Headline Content") },
             leadingContent = { Text("Leading") },
             supportingContent = { Text("Supporting content") },
             trailingContent = { Text("Trailing Content") },
-            overlineContent = { Text("overline Content") },
+            overlineContent = { Text("Overline Content") },
+        )
+
+        StUiListItemBase(
+            headlineContent = { Text("Headline Content") },
+            leadingContent = { Text("Leading") },
+            supportingContent = { Text("Supporting content") },
+            trailingContent = { Text("Trailing Content") },
             onClick = {},
         )
 

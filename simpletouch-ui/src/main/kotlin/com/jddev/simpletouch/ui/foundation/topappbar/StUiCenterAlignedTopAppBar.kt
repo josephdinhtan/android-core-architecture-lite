@@ -30,7 +30,7 @@ import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 @Composable
 fun StUiCenterAlignedTopAppBar(
     modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = stUiEnterAlwaysScrollBehavior(),
+    scrollBehavior: TopAppBarScrollBehavior? = stUiLargeTopAppbarScrollBehavior(),
     title: String,
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,

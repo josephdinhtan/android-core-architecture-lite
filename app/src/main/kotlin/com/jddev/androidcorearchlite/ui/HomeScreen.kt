@@ -17,12 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.jddev.androidcorearchlite.R
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiStyle
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiLargeTopAppBar
-import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBehavior
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
@@ -30,7 +29,6 @@ import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    settingsUiStyle: StSettingsUiStyle,
     navigateToSettings: () -> Unit,
     navigateToUiCatalog: () -> Unit,
     navigateToSampleUi: () -> Unit,
@@ -38,7 +36,7 @@ fun HomeScreen(
     navigateToNotification: () -> Unit,
     navigateToShareViewModel: () -> Unit,
 ) {
-    val scrollBehavior = stUiEnterAlwaysScrollBehavior()
+    val scrollBehavior = stUiLargeTopAppbarScrollBehavior()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -59,45 +57,44 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(innerPadding),
             scrollBehavior = scrollBehavior,
-            uiStyle = settingsUiStyle,
         ) {
             StSettingsGroup(
-                title = "Architecture"
+                header = "Architecture sample"
             ) {
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.RocketLaunch,
+                    leadingImageVector = Icons.Outlined.RocketLaunch,
                     title = "State machine",
                     subTitle = "Demo a simple state machine",
                     onClick = navigateToStateMachineDemo,
                 )
             }
             StSettingsGroup(
-                title = "Basic functions"
+                header = "Basic functions"
             ) {
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.Notifications,
+                    leadingImageVector = Icons.Outlined.Notifications,
                     title = "Notification",
                     subTitle = "Notification and navigate to target screen from notification",
                     onClick = navigateToNotification,
                 )
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Rounded.Share,
+                    leadingImageVector = Icons.Rounded.Share,
                     title = "Share ViewModel",
                     subTitle = "Using 1 ViewModel instance among screens",
                     onClick = navigateToShareViewModel,
                 )
             }
             StSettingsGroup(
-                title = "Ui Catalog"
+                header = "Ui Catalog"
             ) {
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.Interests,
+                    leadingImageVector = Icons.Outlined.Interests,
                     title = "Simple Touch UI",
                     subTitle = "Button, Card, Navigation...",
                     onClick = navigateToUiCatalog,
                 )
                 StSettingsNavigateItem(
-                    leadingIcon = Icons.Outlined.AutoGraph,
+                    leadingImageVector = Icons.Outlined.AutoGraph,
                     title = "Sample UI",
                     subTitle = "Bubble Messenger...",
                     onClick = navigateToSampleUi,
@@ -111,7 +108,6 @@ fun HomeScreen(
 @Composable
 private fun Preview() {
     StUiPreviewWrapper {
-        HomeScreen(modifier = Modifier, settingsUiStyle = StSettingsUiStyle.Material,
-            {}, {}, {}, {}, {}, {})
+        HomeScreen(modifier = Modifier, {}, {}, {}, {}, {}, {})
     }
 }

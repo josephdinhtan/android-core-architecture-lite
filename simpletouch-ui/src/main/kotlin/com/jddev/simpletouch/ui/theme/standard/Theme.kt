@@ -40,7 +40,6 @@ internal val StandardLightColors = lightColorScheme(
     scrim = md_theme_light_scrim,
 )
 
-
 internal val StandardDarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,

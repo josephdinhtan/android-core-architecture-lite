@@ -17,14 +17,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.StUi
-import com.jddev.simpletouch.ui.utils.StUiPreview
-import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
-import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
 import com.jddev.simpletouch.ui.foundation.StUiSwitch
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsGroup
-import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBehavior
+import com.jddev.simpletouch.ui.utils.StUiPreview
+import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +35,7 @@ fun BasicButtonsScreen(
         title = "Buttons",
         onBack = onBack
     ) {
-        StSettingsUi(uiStyle = StUi.settingsUiStyle, scrollBehavior = stUiEnterAlwaysScrollBehavior()) {
+        StSettingsUi(scrollBehavior = stUiLargeTopAppbarScrollBehavior()) {
             StSettingsGroup {
                 ButtonListItem(
                     title = "Fill button",
