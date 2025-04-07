@@ -79,11 +79,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         buildConfig = true
@@ -100,7 +100,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":simpletouch-ui"))
+    implementation("com.github.josephdinhtan.android-simple-touch:simpletouch-ui:1.0.0")
+    implementation("com.github.josephdinhtan.android-simple-touch:simpletouch-utils:1.0.0")
+
     // ui module
     implementation(libs.androidx.material.icon)
 
@@ -110,7 +112,7 @@ dependencies {
     // hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(project(":simpletouch-utils"))
+
     implementation(libs.androidx.lifecycle.service.android)
     implementation(libs.androidx.dynamicanimation)
     implementation(libs.androidx.graphics.shapes.android)

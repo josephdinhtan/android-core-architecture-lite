@@ -16,10 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "android-core-architecture-lite"
 include(":app")
-include(":simpletouch-ui")
-include(":simpletouch-utils")

@@ -133,7 +133,7 @@ fun FloatingChatViewContent(
                         .fillMaxSize()
                         .padding(16.dp),
                     shape = MaterialTheme.shapes.large,
-                    color = MaterialTheme.colorScheme.surface
+                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
                 ) {
                     Column(
                         Modifier.padding(16.dp),
